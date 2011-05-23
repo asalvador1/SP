@@ -1,6 +1,5 @@
 .DS_Store?
-TestResults
-/TestResults
+TestResults/
 .exe
 ehthumbs.db
 Icon?
