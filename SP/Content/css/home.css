@@ -1,0 +1,108 @@
+html,body {
+	font:normal 11px Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+}
+
+.loading-indicator {
+    font-size:11px;
+    background-image:url(../ext/resources/images/default/grid/loading.gif);
+    background-repeat: no-repeat;
+    background-position:top left;
+    padding-left:20px;
+	height:18px;
+	text-align:left;
+	border: 3px solid #cccccc
+}
+
+#loading-mask{
+	position:absolute;
+	left:0;
+	top:0;
+    width:100%;
+    height:100%;
+    z-index:20000;
+    background-color:#e6e7d6;
+}
+
+#loading{
+	position:absolute;
+	left:45%;
+	top:40%;
+	padding:2px;
+	z-index:20001;
+    height:auto;
+}
+#loading img {
+    margin-bottom:5px;
+}
+#loading .loading-indicator{
+	background:white;
+	color:#555;
+	font:bold 13px tahoma,arial,helvetica;
+	padding:10px;
+	margin:0;
+    text-align:center;
+    height:auto;
+}	
+
+.x-layout-panel-north {
+	border: 0px none;
+}
+
+.icons-container
+{
+	height: 100%;
+	background-color: #ffffff;
+}
+
+.icons-container table {
+	font-size: 7.5pt;
+}
+
+.x-header-layout
+{
+	background-image: url(../images/fondo2.jpg);
+	background-repeat:repeat;
+}
+
+#main-viewport .x-layout-collapsed-west {
+	background-image: url(../images/menu-collapse-bg.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#main-viewport .x-layout-collapsed-east {
+	background-image: url(../images/ayuda-collapse-bg.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.x-layout-collapsed-south 
+{
+	background-image: url(../images/log_collapsed.png);
+	background-repeat: no-repeat;
+	background-position: left;
+}
+
+#msg-div {
+	position: absolute;
+	left: 35%;
+	top: 10px;
+	width: 250px;
+	z-index: 20000;
+}
+
+.x-tool-expand-east, .x-tool-expand-west {
+	float:none;
+	margin: 3px 3px 3px 3px;
+}
+
+.panel-accordion {
+	background-image:url(../images/silk/icons/bullet_yellow.png);
+}
+
+.x-panel-body-menu {
+
+}

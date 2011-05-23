@@ -1,0 +1,7 @@
+C:\Adan.Salvador\ProyectosPrueba\SP\SP\bin\SP.dll
+C:\Adan.Salvador\ProyectosPrueba\SP\SP\bin\SP.pdb
+C:\Adan.Salvador\ProyectosPrueba\SP\SP\bin\SP.DomainModel.dll
+C:\Adan.Salvador\ProyectosPrueba\SP\SP\bin\SP.DomainModel.pdb
+C:\Adan.Salvador\ProyectosPrueba\SP\SP\obj\Debug\ResolveAssemblyReference.cache
+C:\Adan.Salvador\ProyectosPrueba\SP\SP\obj\Debug\SP.dll
+C:\Adan.Salvador\ProyectosPrueba\SP\SP\obj\Debug\SP.pdb

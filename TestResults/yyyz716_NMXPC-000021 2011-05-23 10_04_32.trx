@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="9e020069-a605-432b-b9fa-9e9dee9c2175" name="yyyz716@NMXPC-000021 2011-05-23 10:04:32" runUser="NAVISTAR\yyyz716" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Default Test Settings" id="b152e8e3-99b9-4336-887e-5fb5b8d3c5cd">
+    <Deployment runDeploymentRoot="yyyz716_NMXPC-000021 2011-05-23 10_04_32">
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosPrueba\SP\SP.DomainModel\bin\Debug\SP.DomainModel.dll" />
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosPrueba\SP\SP\bin\SP.dll" />
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosDev\Ventas\VentasMvc\VentasMvc.Tests\bin\Debug\MvcContrib.dll" />
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosDev\Ventas\VentasMvc\VentasMvc.Tests\bin\Debug\MvcContrib.TestHelper.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2011-05-23T10:04:32.4071465-05:00" queuing="2011-05-23T10:04:32.7495634-05:00" start="2011-05-23T10:04:32.7894954-05:00" finish="2011-05-23T10:04:35.3022165-05:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="NMXPC-000021" outcome="Warning" timestamp="2011-05-23T10:04:32.6667045-05:00">
+        <Text>Warning: Test Run deployment issue: The assembly or module 'Microsoft.Web.Mvc' directly or indirectly referenced by the test container 'c:\adan.salvador\proyectosprueba\sp\sp.tests\bin\debug\sp.tests.dll' was not found.</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="Buscar_Activos" storage="c:\adan.salvador\proyectosprueba\sp\sp.tests\bin\debug\sp.tests.dll" id="77cfc15b-886d-d6dc-310c-b2280cf3d55f">
+      <Execution id="80726e5d-84e3-415b-a8d1-5772aa6ed9c6" />
+      <TestMethod codeBase="C:/Adan.Salvador/ProyectosPrueba/SP/SP.Tests/bin/Debug/SP.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SP.Tests.StockingProgramControllerTest, SP.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Buscar_Activos" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="77cfc15b-886d-d6dc-310c-b2280cf3d55f" executionId="80726e5d-84e3-415b-a8d1-5772aa6ed9c6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="80726e5d-84e3-415b-a8d1-5772aa6ed9c6" testId="77cfc15b-886d-d6dc-310c-b2280cf3d55f" testName="Buscar_Activos" computerName="NMXPC-000021" duration="00:00:00.7627632" startTime="2011-05-23T10:04:32.8104597-05:00" endTime="2011-05-23T10:04:33.7698260-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80726e5d-84e3-415b-a8d1-5772aa6ed9c6">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method SP.Tests.StockingProgramControllerTest.Buscar_Activos threw exception: 
+System.ArgumentException: Invalid JSON primitive: System.Collections.Hashtable.</Message>
+          <StackTrace>    at System.Web.Script.Serialization.JavaScriptObjectDeserializer.DeserializePrimitiveObject()
+   at System.Web.Script.Serialization.JavaScriptObjectDeserializer.DeserializeInternal(Int32 depth)
+   at System.Web.Script.Serialization.JavaScriptObjectDeserializer.BasicDeserialize(String input, Int32 depthLimit, JavaScriptSerializer serializer)
+   at System.Web.Script.Serialization.JavaScriptSerializer.Deserialize(JavaScriptSerializer serializer, String input, Type type, Int32 depthLimit)
+   at System.Web.Script.Serialization.JavaScriptSerializer.Deserialize[T](String input)
+   at SP.Tests.StockingProgramControllerTest.Buscar_Activos() in C:\Adan.Salvador\ProyectosPrueba\SP\SP.Tests\Controllers\StockingProgramControllerTest.cs:line 34
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

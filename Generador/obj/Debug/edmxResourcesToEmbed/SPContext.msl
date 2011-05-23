@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SPModelStoreContainer" CdmEntityContainer="SPEntities">
+    <EntitySetMapping Name="Cierre_ProgramaVta_Detalle">
+      <EntityTypeMapping TypeName="SPModel.Cierre_ProgramaVta_Detalle">
+        <MappingFragment StoreEntitySet="Cierre_ProgramaVta_Detalle">
+          <ScalarProperty Name="userModif" ColumnName="userModif" />
+          <ScalarProperty Name="NumPedido_comp" ColumnName="NumPedido_comp" />
+          <ScalarProperty Name="UnidadesPedidas" ColumnName="UnidadesPedidas" />
+          <ScalarProperty Name="Cuota_ProVta" ColumnName="Cuota_ProVta" />
+          <ScalarProperty Name="id_ClasCorp" ColumnName="id_ClasCorp" />
+          <ScalarProperty Name="id_cierreProVta" ColumnName="id_cierreProVta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cierre_ProVta">
+      <EntityTypeMapping TypeName="SPModel.Cierre_ProVta">
+        <MappingFragment StoreEntitySet="Cierre_ProVta">
+          <ScalarProperty Name="fch_Cierre" ColumnName="fch_Cierre" />
+          <ScalarProperty Name="fch_Modif" ColumnName="fch_Modif" />
+          <ScalarProperty Name="id_Status_ProVta" ColumnName="id_Status_ProVta" />
+          <ScalarProperty Name="id_Periodo" ColumnName="id_Periodo" />
+          <ScalarProperty Name="id_tipoperiodo" ColumnName="id_tipoperiodo" />
+          <ScalarProperty Name="id_ProgramaVta" ColumnName="id_ProgramaVta" />
+          <ScalarProperty Name="id_GFX" ColumnName="id_GFX" />
+          <ScalarProperty Name="id_CierrexProVta" ColumnName="id_CierrexProVta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estatus_ProVta">
+      <EntityTypeMapping TypeName="SPModel.Estatus_ProVta">
+        <MappingFragment StoreEntitySet="Estatus_ProVta">
+          <ScalarProperty Name="usermodif" ColumnName="usermodif" />
+          <ScalarProperty Name="fhc_modif" ColumnName="fhc_modif" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Periodos">
+      <EntityTypeMapping TypeName="SPModel.Periodo">
+        <MappingFragment StoreEntitySet="Periodos">
+          <ScalarProperty Name="fch_fin" ColumnName="fch_fin" />
+          <ScalarProperty Name="fch_inicio" ColumnName="fch_inicio" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="id_periodo" ColumnName="id_periodo" />
+          <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlazoComercials">
+      <EntityTypeMapping TypeName="SPModel.PlazoComercial">
+        <MappingFragment StoreEntitySet="PlazoComercial">
+          <ScalarProperty Name="Porcentaje_Sustitucion_NMX" ColumnName="Porcentaje_Sustitucion_NMX" />
+          <ScalarProperty Name="Porcentaje_Sustitucion_USD" ColumnName="Porcentaje_Sustitucion_USD" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id_PlazoComercial" ColumnName="id_PlazoComercial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProgramaVtas">
+      <EntityTypeMapping TypeName="SPModel.ProgramaVta">
+        <MappingFragment StoreEntitySet="ProgramaVta">
+          <ScalarProperty Name="fch_caducidad" ColumnName="fch_caducidad" />
+          <ScalarProperty Name="fch_modif" ColumnName="fch_modif" />
+          <ScalarProperty Name="cd_usuariomodif" ColumnName="cd_usuariomodif" />
+          <ScalarProperty Name="fch_alta" ColumnName="fch_alta" />
+          <ScalarProperty Name="cd_usuarioalta" ColumnName="cd_usuarioalta" />
+          <ScalarProperty Name="fch_publicacion" ColumnName="fch_publicacion" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProgramaVtaDetalleCuotas">
+      <EntityTypeMapping TypeName="SPModel.ProgramaVtaDetalleCuota">
+        <MappingFragment StoreEntitySet="ProgramaVtaDetalleCuota">
+          <ScalarProperty Name="id_PlazoComercial" ColumnName="id_PlazoComercial" />
+          <ScalarProperty Name="cuota" ColumnName="cuota" />
+          <ScalarProperty Name="Tipo_cuota" ColumnName="Tipo_cuota" />
+          <ScalarProperty Name="id_Periodo" ColumnName="id_Periodo" />
+          <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
+          <ScalarProperty Name="id_clascorp" ColumnName="id_clascorp" />
+          <ScalarProperty Name="id_Gfx" ColumnName="id_Gfx" />
+          <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProgramaVtaDetalleSPAs">
+      <EntityTypeMapping TypeName="SPModel.ProgramaVtaDetalleSPA">
+        <MappingFragment StoreEntitySet="ProgramaVtaDetalleSPA">
+          <ScalarProperty Name="id_PlazoComercial" ColumnName="id_PlazoComercial" />
+          <ScalarProperty Name="SPA_Prog" ColumnName="SPA_Prog" />
+          <ScalarProperty Name="SPA_base" ColumnName="SPA_base" />
+          <ScalarProperty Name="id_serie" ColumnName="id_serie" />
+          <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
+          <ScalarProperty Name="id_clascorp" ColumnName="id_clascorp" />
+          <ScalarProperty Name="id_Gfx" ColumnName="id_Gfx" />
+          <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_Periodos">
+      <EntityTypeMapping TypeName="SPModel.Tipo_Periodos">
+        <MappingFragment StoreEntitySet="Tipo_Periodos">
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="descipcion" ColumnName="descipcion" />
+          <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwProgramaVtas">
+      <EntityTypeMapping TypeName="SPModel.vwProgramaVta">
+        <MappingFragment StoreEntitySet="vwProgramaVta">
+          <ScalarProperty Name="fch_caducidad" ColumnName="fch_caducidad" />
+          <ScalarProperty Name="fch_modif" ColumnName="fch_modif" />
+          <ScalarProperty Name="cd_usuariomodif" ColumnName="cd_usuariomodif" />
+          <ScalarProperty Name="fch_alta" ColumnName="fch_alta" />
+          <ScalarProperty Name="cd_usuarioalta" ColumnName="cd_usuarioalta" />
+          <ScalarProperty Name="fch_publicacion" ColumnName="fch_publicacion" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

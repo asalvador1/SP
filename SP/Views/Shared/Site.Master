@@ -1,0 +1,38 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <%--<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>--%>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <meta http-equiv="pragma" content="no-cache" />
+	    <meta http-equiv="cache-control" content="no-cache"/>
+	    <meta http-equiv="expires" content="0"/>
+        
+        <link rel="stylesheet" href="<%: Url.Content("~/Content/css/style.css") %>" type="text/css" media="screen" />
+         <link rel="stylesheet" type="text/css" href="<%: Url.Content("~/Content/ext/resources/css/ext-all.css") %>" />
+	    <link rel="stylesheet" type="text/css" href="<%: Url.Content("~/Content/ext/resources/css/xtheme-slate.css")%>" />
+         <script type="text/javascript" src="<%: Url.Content("~/Content/ext/adapter/ext/ext-base.js") %>"></script>
+	    <script type="text/javascript" src="<%: Url.Content("~/Content/ext/ext-all-debug.js") %>"></script>
+	    <script type="text/javascript" src="<%: Url.Content("~/Content/ext/locale/ext-lang-es.js") %>"></script>
+         <script type="text/javascript" src="<%: Url.Content("~/Content/ext/ux/ux-all-debug.js") %>"></script>	    
+	    <script type="text/javascript" src="<%: Url.Content("~/Content/js/lib/loader.js") %>"></script>
+        <script type="text/javascript" src="<%: Url.Content("~/Content/js/prototype.js") %>"></script>
+		<script type="text/javascript" src="<%: Url.Content("~/Content/js/scriptaculous.js") %>"></script>
+		<script type="text/javascript" src="<%: Url.Content("~/Content/js/behaviour.js") %>"></script>
+		<script type="text/javascript" src="<%: Url.Content("~/Content/js/formhelper.js") %>"></script>
+        <script type="text/javascript" src="<%: Url.Content("~/Content/js/rowexpander.js") %>"></script>
+		<script type="text/javascript" src="<%: Url.Content("~/Content/js/ColumnNodeUI.js") %>"></script>
+        <script type="text/javascript" src="<%: Url.Content("~/Content/js/ExportGridToExcel.js") %>"></script>
+		<script type="text/javascript" src="<%: Url.Content("~/Content/js/GroupSummary.js") %>"></script>	  
+        
+</head>
+<body>
+    <div>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+</body>
+</html>

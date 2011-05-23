@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="66cb38d7-e721-4c57-8463-03c34394213e" name="yyyz716@NMXPC-000021 2011-05-23 09:56:59" runUser="NAVISTAR\yyyz716" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Default Test Settings" id="44b748f3-83ba-4600-ac09-78f9c05ee4bc">
+    <Deployment runDeploymentRoot="yyyz716_NMXPC-000021 2011-05-23 09_56_59">
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosPrueba\SP\SP.DomainModel\bin\Debug\SP.DomainModel.dll" />
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosPrueba\SP\SP\bin\SP.dll" />
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosDev\Ventas\VentasMvc\VentasMvc.Tests\bin\Debug\MvcContrib.dll" />
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosDev\Ventas\VentasMvc\VentasMvc.Tests\bin\Debug\MvcContrib.TestHelper.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2011-05-23T09:56:59.0296387-05:00" queuing="2011-05-23T09:57:02.0510539-05:00" start="2011-05-23T09:57:02.1551371-05:00" finish="2011-05-23T09:58:30.3486355-05:00" />
+  <ResultSummary outcome="Error">
+    <Counters total="1" executed="1" error="0" failed="0" timeout="0" aborted="1" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="NMXPC-000021" outcome="Warning" timestamp="2011-05-23T09:56:59.2528171-05:00">
+        <Text>Warning: Test Run deployment issue: The assembly or module 'Microsoft.Web.Mvc' directly or indirectly referenced by the test container 'c:\adan.salvador\proyectosprueba\sp\sp.tests\bin\debug\sp.tests.dll' was not found.</Text>
+      </RunInfo>
+      <RunInfo computerName="NMXPC-000021" outcome="Error" timestamp="2011-05-23T09:58:30.3476347-05:00">
+        <Text>Test host process exited unexpectedly.</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="Buscar_Activos" storage="c:\adan.salvador\proyectosprueba\sp\sp.tests\bin\debug\sp.tests.dll" id="77cfc15b-886d-d6dc-310c-b2280cf3d55f">
+      <Execution id="b80c5466-0766-40ba-8251-eb315cb446f3" />
+      <TestMethod codeBase="C:/Adan.Salvador/ProyectosPrueba/SP/SP.Tests/bin/Debug/SP.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SP.Tests.StockingProgramControllerTest, SP.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Buscar_Activos" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="77cfc15b-886d-d6dc-310c-b2280cf3d55f" executionId="b80c5466-0766-40ba-8251-eb315cb446f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="b80c5466-0766-40ba-8251-eb315cb446f3" testId="77cfc15b-886d-d6dc-310c-b2280cf3d55f" testName="Buscar_Activos" computerName="NMXPC-000021" duration="00:01:28.0984224" startTime="2011-05-23T09:57:02.2502131-05:00" endTime="2011-05-23T09:58:30.3486355-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Aborted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b80c5466-0766-40ba-8251-eb315cb446f3">
+    </UnitTestResult>
+  </Results>
+</TestRun>

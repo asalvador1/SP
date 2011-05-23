@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="b1e1803d-2561-44e0-ab72-7d8ca48f3112" name="yyyz716@NMXPC-000021 2011-05-20 11:16:53" runUser="NAVISTAR\yyyz716" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Default Test Settings" id="0783aef3-e6db-4ecd-9618-1ec610137d63">
+    <Deployment runDeploymentRoot="yyyz716_NMXPC-000021 2011-05-20 11_16_53">
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosPrueba\SP\SP.DomainModel\bin\Debug\SP.DomainModel.dll" />
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosPrueba\SP\SP\bin\SP.dll" />
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosDev\Ventas\VentasMvc\VentasMvc.Tests\bin\Debug\MvcContrib.dll" />
+      <DeploymentItem filename="C:\Adan.Salvador\ProyectosDev\Ventas\VentasMvc\VentasMvc.Tests\bin\Debug\MvcContrib.TestHelper.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2011-05-20T11:16:53.9446722-05:00" queuing="2011-05-20T11:16:54.1426722-05:00" start="2011-05-20T11:16:54.1476722-05:00" finish="2011-05-20T11:16:54.7536722-05:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="ConsultarProgramasDeVentas" storage="c:\adan.salvador\proyectosprueba\sp\sp.tests\bin\debug\sp.tests.dll" id="64ea9fd2-3a28-2944-da31-f0e53ea730bc">
+      <Execution id="8732b7fc-4ebc-40d3-8a38-a862907eb956" />
+      <TestMethod codeBase="C:/Adan.Salvador/ProyectosPrueba/SP/SP.Tests/bin/Debug/SP.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SP.Tests.Repositories.EntityProgramaVtaRepositoryTests, SP.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ConsultarProgramasDeVentas" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="64ea9fd2-3a28-2944-da31-f0e53ea730bc" executionId="8732b7fc-4ebc-40d3-8a38-a862907eb956" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="8732b7fc-4ebc-40d3-8a38-a862907eb956" testId="64ea9fd2-3a28-2944-da31-f0e53ea730bc" testName="ConsultarProgramasDeVentas" computerName="NMXPC-000021" duration="00:00:00.3894364" startTime="2011-05-20T11:16:54.1706722-05:00" endTime="2011-05-20T11:16:54.7326722-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8732b7fc-4ebc-40d3-8a38-a862907eb956">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.AreEqual failed. Expected:&lt;1000&gt;. Actual:&lt;0&gt;. Debe ser igual a 1000</Message>
+          <StackTrace>   at SP.Tests.Repositories.EntityProgramaVtaRepositoryTests.ConsultarProgramasDeVentas() in C:\Adan.Salvador\ProyectosPrueba\SP\SP.Tests\Repositories\EntityProgramaVtaRepositoryTests.cs:line 34
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>
