@@ -143,7 +143,7 @@
 //                            ['Buses','10','10','0','completar'],
                             ['Heavy','13','9','4','completar'],
 //                            ['Light','6','6','0','completar'],
-                            ['Medium','9','7','2','completar']
+                            ['Medium','9','7','2','completar'],
 //                            ['Severe Service','4','4','0','completar'],
 
 
@@ -434,6 +434,12 @@
 	    border:false,
 	    stripeRows: true,
 	    viewConfig:{ forceFit:true},
+//        autoHeight: true,
+        height: 500,
+        width:638,
+        //autoWidth:true,
+//        region: 'west',
+        //width: 640,
 	    ds: storedGrid1,
 	    //cm: cm,
 	    frame:true,
@@ -464,16 +470,15 @@
                         header: '#',
                         sortable: true,
                         hidden:true,
-//                        width: 15,
 //                        collapsed:true
                         //width: 5
                     },
                     {
                         xtype: 'gridcolumn',
-                        //align: "center",
+                        align: "center",
                         header: 'Clasificacion Corporativa',
                         sortable: true,
-//                        width: 15,
+                        //width: 15,
                         dataIndex: 'id_classCorp'
 //                        align: 'right'
                     },
@@ -482,7 +487,7 @@
                         align: "right",
                         header: 'Cuota de Programa',
                         sortable: true,
-//                        width: 15,
+                        //width: 15,
                         dataIndex: 'id_cuotaprograma',
                         //renderer: 'usMoney',
                         summaryType: 'totalCuota'
@@ -492,9 +497,9 @@
                     {
                         xtype: 'gridcolumn',
                         align: "right",
-                        header: 'Unidades Pedidas',
+                        header: 'Pedidos Hechos',
                         sortable: true,
-//                        width: 15,
+                        //width: 15,
                          dataIndex: 'id_Unidad',
                          summaryType: 'totalUnidades'
                     }
@@ -588,10 +593,17 @@
 	    border:false,
 	    stripeRows: true,
 	    viewConfig:{ forceFit:true},
+        //anchor:"100% - 98",
+//        region: 'west',
+        height: 500,
+        width:638,
+//        autoHeight:true,
+       // width: 640,
 	    ds: storedGrid2,
 	    //cm: cm,
 	    frame:true,
 	    loadMask:true,
+//        anchor:'50% -40', 
 	    //selModel: sm,
 	    tbar: gridT1bar,
 	    bbar: gridB1bar,
@@ -615,7 +627,7 @@
                         xtype: 'gridcolumn',
                         header: 'Clasificacion Corporativa',
                         sortable: true,
-//                        width: 15,
+                        //width: 15,
                         dataIndex: 'id_classCorp'
 //                        align: 'right'
                     },
@@ -623,24 +635,24 @@
                         xtype: 'gridcolumn',
                         header: 'Cuota de Programa',
                         sortable: true,
-//                        width: 15,
+                        //width: 15,
                         dataIndex: 'id_cuotaprogramaNc',
                         summaryType: 'totalCuota1'
 
                     },
                     {
                         xtype: 'gridcolumn',
-                        header: 'Unidades Pedidas',
+                        header: 'Pedidos Hechos',
                         sortable: true,
-//                        width: 15,
+                       // width: 15,
                         dataIndex: 'id_UniPedH',
                         summaryType: 'totalPedidos1'
                     },
                     {
                         xtype: 'gridcolumn',
-                        header: 'Unidades Faltantes',
+                        header: 'Pedidos Faltantes',
                         sortable: true,
-//                        width: 15,
+                        //width: 15,
                         dataIndex: 'id_UniPedF',
                         summaryType: 'totalPedidosF'
                     },
@@ -648,7 +660,7 @@
                         xtype: 'gridcolumn',
                         header: 'Completar',
                         sortable: true,
-//                        width: 10,
+                        //width: 10,
                         dataIndex: 'id_completar',
                         renderer: CargaPedidorender
                     }
@@ -845,28 +857,61 @@
                             
                           }]
                       },{    
+//                        xtype:"container",
+                        //autoScroll: true,
                         region:"center",
                         layout:"fit",
+//                        autoHeight:true,
+//                        autoWidth:true,
+                            //split:true,
                         items:[//grid,grid1
                                 {
-                                xtype: 'panel', 
+                                xtype: 'container', 
                                 autoScroll: true,
+//                                margins:(5,0,0,5),                   
+                                //region:"west",
                                 border:false,
-                                layout:"column", 
+                                layout:"column",  
+                                //height:500,
+                                //autoheight:true,  
+                                //autoWidth:true,
                                 items:[{
-                                columnWidth: .50,
-                                items:[{layout:"fit",height: 500, 
-                                items:[grid]}]
+                                xtype: 'panel',                    
+                                //region:"east",
+                                border:false,
+                                layout:"fit",  
+                                //anchor:'100% -96', 
+                                //height:500,
+//                                autoHeight:true,  
+                                //autoWidth:true,
+                                items:[grid]
                                 }
                                 ,{
-                                columnWidth: .50,
-                                items:[{layout:"fit",height: 500, 
-                                items:[grid1]}]
-                                }
-                                ],
-                                renderTo: Ext.getBody()
+                                xtype: 'panel',                    
+                                //region:"weast",
+                                border:false,
+                                layout:"fit",  
+                                //anchor:'100% -96', 
+                                //height:500,
+//                                autoHeight:true,  
+                                //autoWidth:true,
+                                items:[grid1]
                                 }
                                 ]
+                                }
+//                                ,{
+//                                xtype: 'panel',                    
+//                                //region:"weast",
+//                                border:false,
+//                                layout:"fit",  
+//                                //anchor:'100% -96', 
+//                                //height:500,
+////                                autoHeight:true,  
+//                                //autoWidth:true,
+//                                items:[grid1]
+//                                }
+                                ]
+                        //items:[grid,grid1] //poner contenedor(panel) en la region center
                       }]
                  });
 

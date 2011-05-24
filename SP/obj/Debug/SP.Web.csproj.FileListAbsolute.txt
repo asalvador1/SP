@@ -12,3 +12,10 @@ C:\Adan.Salvador\ProyectosPer\SP\SP\bin\SP.DomainModel.pdb
 C:\Adan.Salvador\ProyectosPer\SP\SP\obj\Debug\ResolveAssemblyReference.cache
 C:\Adan.Salvador\ProyectosPer\SP\SP\obj\Debug\SP.dll
 C:\Adan.Salvador\ProyectosPer\SP\SP\obj\Debug\SP.pdb
+C:\Pry2011\SP\SP\bin\SP.dll
+C:\Pry2011\SP\SP\bin\SP.pdb
+C:\Pry2011\SP\SP\bin\SP.DomainModel.dll
+C:\Pry2011\SP\SP\bin\SP.DomainModel.pdb
+C:\Pry2011\SP\SP\obj\Debug\ResolveAssemblyReference.cache
+C:\Pry2011\SP\SP\obj\Debug\SP.dll
+C:\Pry2011\SP\SP\obj\Debug\SP.pdb

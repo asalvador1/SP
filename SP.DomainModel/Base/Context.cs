@@ -10,6 +10,14 @@ namespace SP.DomainModel.Base
     {
         public DbSet<ProgramaVta> ProgramaVtas { get; set; }
         public DbSet<vwProgramaVta> vwProgramaVtas { get; set; }
+        public DbSet<Cierre_ProgramaVta_Detalle> Cierre_ProgramaVta_Detalle { get; set; }
+        public DbSet<Cierre_ProVta> Cierre_ProVta { get; set; }
+        public DbSet<Estatus_ProVta> Estatus_ProVta { get; set; }
+        public DbSet<Periodo> Periodos { get; set; }
+        public DbSet<PlazoComercial> PlazoComercials { get; set; }
+        public DbSet<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuotas { get; set; }
+        public DbSet<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPAs { get; set; }
+        public DbSet<Tipo_Periodos> Tipo_Periodos { get; set; }
 
         public virtual void SaveAllChanges()
         {

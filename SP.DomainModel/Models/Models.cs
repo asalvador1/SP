@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace SP.DomainModel
+namespace Generador
 {
     public partial class ProgramaVta: BaseModel
     {
