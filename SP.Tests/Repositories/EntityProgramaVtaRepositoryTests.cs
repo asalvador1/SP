@@ -88,5 +88,20 @@ namespace SP.Tests
 
             Assert.AreEqual(i, count, "Proceso debe eliminar todos los registros");
         }
+
+        [TestMethod]
+        public void EjecutarConsultaAtravesDeStoredProcedure()
+        {
+            var actual = _rep.GetWithSp();
+            Assert.IsNotNull(actual, "No debe ser nulo");
+            Assert.AreNotEqual(0, actual.Count, "Debe traer resultados de la bd");
+        }
+
+        [TestMethod]
+        public void ActualizarMedianteStoredProcedure()
+        {
+            var result = _rep.UpdateWithSP(1);
+            Assert.AreNotEqual(0, result);
+        }
     }
 }

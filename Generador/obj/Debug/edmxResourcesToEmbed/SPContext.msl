@@ -129,5 +129,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetAllWithSP" FunctionName="SPModel.Store.GetAllWithSP">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SPModel.GetAllWithSP_Result">
+          <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="fch_publicacion" ColumnName="fch_publicacion" />
+          <ScalarProperty Name="cd_usuarioalta" ColumnName="cd_usuarioalta" />
+          <ScalarProperty Name="fch_alta" ColumnName="fch_alta" />
+          <ScalarProperty Name="cd_usuariomodif" ColumnName="cd_usuariomodif" />
+          <ScalarProperty Name="fch_modif" ColumnName="fch_modif" />
+          <ScalarProperty Name="fch_caducidad" ColumnName="fch_caducidad" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

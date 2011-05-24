@@ -47,6 +47,10 @@
       <End Role="ProgramaVta" EntitySet="ProgramaVtas" />
       <End Role="ProgramaVtaDetalleSPA" EntitySet="ProgramaVtaDetalleSPAs" />
     </AssociationSet>
+    <FunctionImport Name="GetAllWithSP" ReturnType="Collection(SPModel.GetAllWithSP_Result)" />
+    <FunctionImport Name="SP_UpdateNada" ReturnType="Collection(Int32)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Cierre_ProgramaVta_Detalle">
     <Key>
@@ -299,4 +303,16 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="GetAllWithSP_Result">
+    <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="descripcion" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="estatus" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="fch_publicacion" Nullable="true" Precision="23" />
+    <Property Type="String" Name="cd_usuarioalta" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="fch_alta" Nullable="true" Precision="23" />
+    <Property Type="String" Name="cd_usuariomodif" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="fch_modif" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="fch_caducidad" Nullable="true" Precision="23" />
+  </ComplexType>
 </Schema>

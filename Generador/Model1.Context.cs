@@ -12,6 +12,7 @@ namespace Generador
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Objects;
     
     public partial class SPEntities : DbContext
     {
@@ -35,5 +36,21 @@ namespace Generador
         public DbSet<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPAs { get; set; }
         public DbSet<Tipo_Periodos> Tipo_Periodos { get; set; }
         public DbSet<vwProgramaVta> vwProgramaVtas { get; set; }
+    
+        public virtual ObjectResult<GetAllWithSP_Result> GetAllWithSP()
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(GetAllWithSP_Result).Assembly);
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllWithSP_Result>("GetAllWithSP");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> SP_UpdateNada(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_UpdateNada", idParameter);
+        }
     }
 }

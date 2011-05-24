@@ -297,4 +297,5 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="GetAllWithSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
 </Schema>

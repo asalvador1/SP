@@ -7,7 +7,7 @@ namespace SP.DomainModel.Base
 {
     public interface IUnitOfWork
     {
-        void SaveAllChanges();
+        void SaveAllChanges();        
     }
 
     public class UnitOfWork : IUnitOfWork
@@ -20,7 +20,7 @@ namespace SP.DomainModel.Base
             this.databaseFactory = databaseFactory;
         }
 
-        protected SPContext DataContext
+        public SPContext DataContext
         {
             get { return dataContext ?? (dataContext = databaseFactory.Get()); }
         }

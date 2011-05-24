@@ -21,5 +21,16 @@ namespace SP.DomainModel.Repositories
         {
             throw new NotImplementedException();
         }
-    }
+
+        public IList<GetAllWithSP_Result>  GetWithSp()
+        {
+            return base.DataContext.GetAllWithSP().ToList();
+        }
+
+        public int? UpdateWithSP(int? id)
+        {
+            var execute = base.DataContext.SP_UpdateNada(id);
+            return execute.FirstOrDefault();
+        }
+}
 }

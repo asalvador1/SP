@@ -32,7 +32,9 @@ namespace SP.DomainModel
     #region ProgramaVta
     public interface IProgramaVtaRepository : IGeneralRepository<ProgramaVta>
     {
-        IList<ProgramaVta> GetOtherInfo();        
+        IList<ProgramaVta> GetOtherInfo();
+        IList<GetAllWithSP_Result> GetWithSp();
+        int? UpdateWithSP(int? id);
     }
     #endregion
     
