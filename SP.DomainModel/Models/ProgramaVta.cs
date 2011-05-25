@@ -10,10 +10,11 @@ namespace SP.DomainModel
     {
         public ProgramaVta()
         {
-            this.ProgramaVtaDetalleCuotas = new HashSet<ProgramaVtaDetalleCuota>();
-            this.ProgramaVtaDetalleSPAs = new HashSet<ProgramaVtaDetalleSPA>();
+            this.Cierre_ProVta = new HashSet<Cierre_ProVta>();
+            this.ProgramaVtaDetalleCuota = new HashSet<ProgramaVtaDetalleCuota>();
+            this.ProgramaVtaDetalleSPA = new HashSet<ProgramaVtaDetalleSPA>();
         }
-    
+
         public int idProgramaVta { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
@@ -24,8 +25,9 @@ namespace SP.DomainModel
         public string cd_usuariomodif { get; set; }
         public Nullable<System.DateTime> fch_modif { get; set; }
         public Nullable<System.DateTime> fch_caducidad { get; set; }
-    
-        public virtual ICollection<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuotas { get; set; }
-        public virtual ICollection<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPAs { get; set; }
+
+        public virtual ICollection<Cierre_ProVta> Cierre_ProVta { get; set; }
+        public virtual ICollection<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuota { get; set; }
+        public virtual ICollection<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPA { get; set; }
     }
 }

@@ -12,17 +12,13 @@ namespace Generador
     using System;
     using System.Collections.Generic;
     
-    public partial class Tipo_Periodos
+    public partial class VCDMC_Distribuidor
     {
-        public Tipo_Periodos()
-        {
-            this.Periodos = new HashSet<Periodos>();
-        }
-    
-        public int id_TipoPeriodo { get; set; }
-        public string descipcion { get; set; }
-        public string estatus { get; set; }
-    
-        public virtual ICollection<Periodos> Periodos { get; set; }
+        public int cd_empresa { get; set; }
+        public int cd_marca { get; set; }
+        public int cd_distribuidor { get; set; }
+        public string nb_razonsocial { get; set; }
+        public string nb_alias { get; set; }
+        public string tx_rfc { get; set; }
     }
 }

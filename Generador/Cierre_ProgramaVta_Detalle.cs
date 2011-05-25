@@ -20,6 +20,10 @@ namespace Generador
         public Nullable<int> UnidadesPedidas { get; set; }
         public string NumPedido_comp { get; set; }
         public string userModif { get; set; }
+        public int Cierre_ProVta_id_GFX { get; set; }
+        public int Cierre_ProVta_id_ProgramaVta { get; set; }
+        public int Cierre_ProVta_id_tipoperiodo { get; set; }
+        public int Cierre_ProVta_id_Periodo { get; set; }
     
         public virtual Cierre_ProVta Cierre_ProVta { get; set; }
     }

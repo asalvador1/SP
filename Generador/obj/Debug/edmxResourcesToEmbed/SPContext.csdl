@@ -48,6 +48,10 @@
       <End Role="ProgramaVtaDetalleSPA" EntitySet="ProgramaVtaDetalleSPAs" />
     </AssociationSet>
     <FunctionImport Name="GetAllWithSP" ReturnType="Collection(SPModel.GetAllWithSP_Result)" />
+    <FunctionImport Name="SP_UpdateNada" ReturnType="Collection(Int32)">
+      <Parameter Name="id" Type="Int32" Mode="In" />
+    </FunctionImport>
+    <EntitySet Name="VCDMC_Distribuidor" EntityType="SPModel.VCDMC_Distribuidor" />
   </EntityContainer>
   <EntityType Name="Cierre_ProgramaVta_Detalle">
     <Key>
@@ -312,4 +316,17 @@
     <Property Type="DateTime" Name="fch_modif" Nullable="true" Precision="23" />
     <Property Type="DateTime" Name="fch_caducidad" Nullable="true" Precision="23" />
   </ComplexType>
+  <EntityType Name="VCDMC_Distribuidor">
+    <Key>
+      <PropertyRef Name="cd_empresa" />
+      <PropertyRef Name="cd_marca" />
+      <PropertyRef Name="cd_distribuidor" />
+    </Key>
+    <Property Type="Int32" Name="cd_empresa" Nullable="false" />
+    <Property Type="Int32" Name="cd_marca" Nullable="false" />
+    <Property Type="Int32" Name="cd_distribuidor" Nullable="false" />
+    <Property Type="String" Name="nb_razonsocial" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="nb_alias" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="tx_rfc" MaxLength="60" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

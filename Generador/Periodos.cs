@@ -12,28 +12,23 @@ namespace Generador
     using System;
     using System.Collections.Generic;
     
-    public partial class ProgramaVta
+    public partial class Periodos
     {
-        public ProgramaVta()
+        public Periodos()
         {
             this.Cierre_ProVta = new HashSet<Cierre_ProVta>();
             this.ProgramaVtaDetalleCuota = new HashSet<ProgramaVtaDetalleCuota>();
-            this.ProgramaVtaDetalleSPA = new HashSet<ProgramaVtaDetalleSPA>();
         }
     
-        public int idProgramaVta { get; set; }
-        public string nombre { get; set; }
-        public string descripcion { get; set; }
+        public int id_TipoPeriodo { get; set; }
+        public int id_periodo { get; set; }
+        public string Descripcion { get; set; }
         public string estatus { get; set; }
-        public Nullable<System.DateTime> fch_publicacion { get; set; }
-        public string cd_usuarioalta { get; set; }
-        public Nullable<System.DateTime> fch_alta { get; set; }
-        public string cd_usuariomodif { get; set; }
-        public Nullable<System.DateTime> fch_modif { get; set; }
-        public Nullable<System.DateTime> fch_caducidad { get; set; }
+        public Nullable<System.DateTime> fch_inicio { get; set; }
+        public Nullable<System.DateTime> fch_fin { get; set; }
     
         public virtual ICollection<Cierre_ProVta> Cierre_ProVta { get; set; }
+        public virtual Tipo_Periodos Tipo_Periodos { get; set; }
         public virtual ICollection<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuota { get; set; }
-        public virtual ICollection<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPA { get; set; }
     }
 }

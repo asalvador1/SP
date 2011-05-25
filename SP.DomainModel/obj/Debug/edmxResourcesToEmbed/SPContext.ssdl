@@ -10,19 +10,16 @@
     <EntitySet Name="ProgramaVtaDetalleCuota" EntityType="SPModel.Store.ProgramaVtaDetalleCuota" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProgramaVtaDetalleSPA" EntityType="SPModel.Store.ProgramaVtaDetalleSPA" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Tipo_Periodos" EntityType="SPModel.Store.Tipo_Periodos" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="vwProgramaVta" EntityType="SPModel.Store.vwProgramaVta" store:Type="Views" store:Schema="dbo" store:Name="vwProgramaVta">
+    <EntitySet Name="vwProgramaVta" EntityType="SPModel.Store.vwProgramaVta" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VCDMC_Distribuidor" EntityType="SPModel.Store.VCDMC_Distribuidor" store:Type="Views" store:Schema="dbo" store:Name="VCDMC_Distribuidor">
       <DefiningQuery>SELECT 
-      [vwProgramaVta].[idProgramaVta] AS [idProgramaVta], 
-      [vwProgramaVta].[nombre] AS [nombre], 
-      [vwProgramaVta].[descripcion] AS [descripcion], 
-      [vwProgramaVta].[estatus] AS [estatus], 
-      [vwProgramaVta].[fch_publicacion] AS [fch_publicacion], 
-      [vwProgramaVta].[cd_usuarioalta] AS [cd_usuarioalta], 
-      [vwProgramaVta].[fch_alta] AS [fch_alta], 
-      [vwProgramaVta].[cd_usuariomodif] AS [cd_usuariomodif], 
-      [vwProgramaVta].[fch_modif] AS [fch_modif], 
-      [vwProgramaVta].[fch_caducidad] AS [fch_caducidad]
-      FROM [dbo].[vwProgramaVta] AS [vwProgramaVta]</DefiningQuery>
+      [VCDMC_Distribuidor].[cd_empresa] AS [cd_empresa], 
+      [VCDMC_Distribuidor].[cd_marca] AS [cd_marca], 
+      [VCDMC_Distribuidor].[cd_distribuidor] AS [cd_distribuidor], 
+      [VCDMC_Distribuidor].[nb_razonsocial] AS [nb_razonsocial], 
+      [VCDMC_Distribuidor].[nb_alias] AS [nb_alias], 
+      [VCDMC_Distribuidor].[tx_rfc] AS [tx_rfc]
+      FROM [dbo].[VCDMC_Distribuidor] AS [VCDMC_Distribuidor]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" Association="SPModel.Store.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
       <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
@@ -34,6 +31,10 @@
     </AssociationSet>
     <AssociationSet Name="Cierre_ProVta_Periodos_FK" Association="SPModel.Store.Cierre_ProVta_Periodos_FK">
       <End Role="Periodos" EntitySet="Periodos" />
+      <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
+    </AssociationSet>
+    <AssociationSet Name="Cierre_ProVta_ProgramaVta_FK" Association="SPModel.Store.Cierre_ProVta_ProgramaVta_FK">
+      <End Role="ProgramaVta" EntitySet="ProgramaVta" />
       <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
     </AssociationSet>
     <AssociationSet Name="Periodos_Tipo_Periodos_FK" Association="SPModel.Store.Periodos_Tipo_Periodos_FK">
@@ -64,6 +65,7 @@
   <EntityType Name="Cierre_ProgramaVta_Detalle">
     <Key>
       <PropertyRef Name="id_cierreProVta" />
+      <PropertyRef Name="id_ClasCorp" />
     </Key>
     <Property Name="id_cierreProVta" Type="int" Nullable="false" />
     <Property Name="id_ClasCorp" Type="int" Nullable="false" />
@@ -71,14 +73,22 @@
     <Property Name="UnidadesPedidas" Type="int" />
     <Property Name="NumPedido_comp" Type="varchar" MaxLength="20" />
     <Property Name="userModif" Type="varchar" MaxLength="20" />
+    <Property Name="Cierre_ProVta_id_GFX" Type="int" Nullable="false" />
+    <Property Name="Cierre_ProVta_id_ProgramaVta" Type="int" Nullable="false" />
+    <Property Name="Cierre_ProVta_id_tipoperiodo" Type="int" Nullable="false" />
+    <Property Name="Cierre_ProVta_id_Periodo" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Cierre_ProVta">
     <Key>
       <PropertyRef Name="id_CierrexProVta" />
+      <PropertyRef Name="id_GFX" />
+      <PropertyRef Name="id_ProgramaVta" />
+      <PropertyRef Name="id_tipoperiodo" />
+      <PropertyRef Name="id_Periodo" />
     </Key>
     <Property Name="id_CierrexProVta" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="id_GFX" Type="int" />
-    <Property Name="id_ProgramaVta" Type="int" />
+    <Property Name="id_GFX" Type="int" Nullable="false" />
+    <Property Name="id_ProgramaVta" Type="int" Nullable="false" />
     <Property Name="id_tipoperiodo" Type="int" Nullable="false" />
     <Property Name="id_Periodo" Type="int" Nullable="false" />
     <Property Name="id_Status_ProVta" Type="int" Nullable="false" />
@@ -135,10 +145,13 @@
     <Key>
       <PropertyRef Name="idProgramaVta" />
       <PropertyRef Name="id_Gfx" />
+      <PropertyRef Name="id_clascorp" />
+      <PropertyRef Name="id_TipoPeriodo" />
+      <PropertyRef Name="id_Periodo" />
     </Key>
     <Property Name="idProgramaVta" Type="int" Nullable="false" />
     <Property Name="id_Gfx" Type="int" Nullable="false" />
-    <Property Name="id_clascorp" Type="int" />
+    <Property Name="id_clascorp" Type="int" Nullable="false" />
     <Property Name="id_TipoPeriodo" Type="int" Nullable="false" />
     <Property Name="id_Periodo" Type="int" Nullable="false" />
     <Property Name="Tipo_cuota" Type="varchar" MaxLength="20" />
@@ -149,11 +162,13 @@
     <Key>
       <PropertyRef Name="idProgramaVta" />
       <PropertyRef Name="id_Gfx" />
+      <PropertyRef Name="id_clascorp" />
+      <PropertyRef Name="id_modelo" />
     </Key>
     <Property Name="idProgramaVta" Type="int" Nullable="false" />
     <Property Name="id_Gfx" Type="int" Nullable="false" />
-    <Property Name="id_clascorp" Type="int" />
-    <Property Name="id_modelo" Type="int" />
+    <Property Name="id_clascorp" Type="int" Nullable="false" />
+    <Property Name="id_modelo" Type="int" Nullable="false" />
     <Property Name="id_serie" Type="int" />
     <Property Name="SPA_base" Type="float" />
     <Property Name="SPA_Prog" Type="float" />
@@ -167,9 +182,6 @@
     <Property Name="descipcion" Type="varchar" MaxLength="20" />
     <Property Name="estatus" Type="varchar" MaxLength="20" />
   </EntityType>
-  <!--Errors Found During Generation:
-      warning 6002: The table/view 'SP.dbo.vwProgramaVta' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
   <EntityType Name="vwProgramaVta">
     <Key>
       <PropertyRef Name="idProgramaVta" />
@@ -185,15 +197,39 @@
     <Property Name="fch_modif" Type="datetime" />
     <Property Name="fch_caducidad" Type="datetime" />
   </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'SP.dbo.VCDMC_Distribuidor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="VCDMC_Distribuidor">
+    <Key>
+      <PropertyRef Name="cd_empresa" />
+      <PropertyRef Name="cd_marca" />
+      <PropertyRef Name="cd_distribuidor" />
+    </Key>
+    <Property Name="cd_empresa" Type="int" Nullable="false" />
+    <Property Name="cd_marca" Type="int" Nullable="false" />
+    <Property Name="cd_distribuidor" Type="int" Nullable="false" />
+    <Property Name="nb_razonsocial" Type="varchar" MaxLength="100" />
+    <Property Name="nb_alias" Type="varchar" MaxLength="100" />
+    <Property Name="tx_rfc" Type="varchar" MaxLength="60" />
+  </EntityType>
   <Association Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
     <End Role="Cierre_ProVta" Type="SPModel.Store.Cierre_ProVta" Multiplicity="1" />
-    <End Role="Cierre_ProgramaVta_Detalle" Type="SPModel.Store.Cierre_ProgramaVta_Detalle" Multiplicity="0..1" />
+    <End Role="Cierre_ProgramaVta_Detalle" Type="SPModel.Store.Cierre_ProgramaVta_Detalle" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Cierre_ProVta">
         <PropertyRef Name="id_CierrexProVta" />
+        <PropertyRef Name="id_GFX" />
+        <PropertyRef Name="id_ProgramaVta" />
+        <PropertyRef Name="id_tipoperiodo" />
+        <PropertyRef Name="id_Periodo" />
       </Principal>
       <Dependent Role="Cierre_ProgramaVta_Detalle">
         <PropertyRef Name="id_cierreProVta" />
+        <PropertyRef Name="Cierre_ProVta_id_GFX" />
+        <PropertyRef Name="Cierre_ProVta_id_ProgramaVta" />
+        <PropertyRef Name="Cierre_ProVta_id_tipoperiodo" />
+        <PropertyRef Name="Cierre_ProVta_id_Periodo" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -220,6 +256,18 @@
       <Dependent Role="Cierre_ProVta">
         <PropertyRef Name="id_Periodo" />
         <PropertyRef Name="id_tipoperiodo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Cierre_ProVta_ProgramaVta_FK">
+    <End Role="ProgramaVta" Type="SPModel.Store.ProgramaVta" Multiplicity="1" />
+    <End Role="Cierre_ProVta" Type="SPModel.Store.Cierre_ProVta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProgramaVta">
+        <PropertyRef Name="idProgramaVta" />
+      </Principal>
+      <Dependent Role="Cierre_ProVta">
+        <PropertyRef Name="id_ProgramaVta" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -298,6 +346,9 @@
     </ReferentialConstraint>
   </Association>
   <Function Name="GetAllWithSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_GetProVtaxDealer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idDealer" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_UpdateNada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>

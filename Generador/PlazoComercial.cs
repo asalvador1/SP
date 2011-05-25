@@ -16,8 +16,8 @@ namespace Generador
     {
         public PlazoComercial()
         {
-            this.ProgramaVtaDetalleCuotas = new HashSet<ProgramaVtaDetalleCuota>();
-            this.ProgramaVtaDetalleSPAs = new HashSet<ProgramaVtaDetalleSPA>();
+            this.ProgramaVtaDetalleCuota = new HashSet<ProgramaVtaDetalleCuota>();
+            this.ProgramaVtaDetalleSPA = new HashSet<ProgramaVtaDetalleSPA>();
         }
     
         public int id_PlazoComercial { get; set; }
@@ -26,7 +26,7 @@ namespace Generador
         public Nullable<double> Porcentaje_Sustitucion_USD { get; set; }
         public Nullable<double> Porcentaje_Sustitucion_NMX { get; set; }
     
-        public virtual ICollection<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuotas { get; set; }
-        public virtual ICollection<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPAs { get; set; }
+        public virtual ICollection<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuota { get; set; }
+        public virtual ICollection<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPA { get; set; }
     }
 }

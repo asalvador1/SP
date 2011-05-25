@@ -28,16 +28,14 @@ C:\Adan.Salvador\ProyectosPer\SP\SP.Tests\bin\Debug\MvcContrib.xml
 C:\Adan.Salvador\ProyectosPer\SP\SP.Tests\bin\Debug\MvcContrib.TestHelper.xml
 C:\Adan.Salvador\ProyectosPer\SP\SP.Tests\obj\Debug\SP.Tests.dll
 C:\Adan.Salvador\ProyectosPer\SP\SP.Tests\obj\Debug\SP.Tests.pdb
+C:\Pry2011\SP\SP.Tests\bin\Debug\MvcContrib.TestHelper.xml
 C:\Pry2011\SP\SP.Tests\bin\Debug\SP.Tests.dll.config
 C:\Pry2011\SP\SP.Tests\bin\Debug\SP.Tests.dll
 C:\Pry2011\SP\SP.Tests\bin\Debug\SP.Tests.pdb
 C:\Pry2011\SP\SP.Tests\bin\Debug\SP.dll
 C:\Pry2011\SP\SP.Tests\bin\Debug\SP.DomainModel.dll
-C:\Pry2011\SP\SP.Tests\bin\Debug\Rhino.Mocks.dll
 C:\Pry2011\SP\SP.Tests\bin\Debug\SP.DomainModel.pdb
 C:\Pry2011\SP\SP.Tests\bin\Debug\SP.pdb
-C:\Pry2011\SP\SP.Tests\bin\Debug\MvcContrib.xml
-C:\Pry2011\SP\SP.Tests\bin\Debug\MvcContrib.TestHelper.xml
 C:\Pry2011\SP\SP.Tests\obj\Debug\ResolveAssemblyReference.cache
 C:\Pry2011\SP\SP.Tests\obj\Debug\SP.Tests.dll
 C:\Pry2011\SP\SP.Tests\obj\Debug\SP.Tests.pdb

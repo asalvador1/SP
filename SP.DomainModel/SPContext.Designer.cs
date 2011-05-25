@@ -1,4 +1,4 @@
-﻿// Default code generation is disabled for model 'C:\Adan.Salvador\ProyectosPer\SP\SP.DomainModel\SPContext.edmx'. 
+﻿// Default code generation is disabled for model 'C:\Pry2011\SP\SP.DomainModel\SPContext.edmx'. 
 // To enable default code generation, change the value of the 'Code Generation Strategy' designer
 // property to an alternate value. This property is available in the Properties Window when the model is
 // open in the designer.

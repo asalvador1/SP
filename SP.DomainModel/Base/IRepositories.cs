@@ -37,5 +37,20 @@ namespace SP.DomainModel
         int? UpdateWithSP(int? id);
     }
     #endregion
+
+    #region CierreProgramaVta
+    public interface ICierreProgramaVtaRepository : IGeneralRepository<Cierre_ProVta>
+    {
+        IList<Cierre_ProVta> GetOtherInfo();
+        IList<VCDMC_Distribuidor> GetDealers();
+    }
+    #endregion
+
+    #region VistaDistribuidores
+    public interface IVCDMCDistribuidorRepository : IGeneralRepository<VCDMC_Distribuidor>
+    {
+        IList<VCDMC_Distribuidor> GetOtherInfo();
+    }
+    #endregion
     
 }

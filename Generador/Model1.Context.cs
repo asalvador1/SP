@@ -14,10 +14,10 @@ namespace Generador
     using System.Data.Entity.Infrastructure;
     using System.Data.Objects;
     
-    public partial class SPEntities : DbContext
+    public partial class SPEntities1 : DbContext
     {
-        public SPEntities()
-            : base("name=SPEntities")
+        public SPEntities1()
+            : base("name=SPEntities1")
         {
         }
     
@@ -29,13 +29,14 @@ namespace Generador
         public DbSet<Cierre_ProgramaVta_Detalle> Cierre_ProgramaVta_Detalle { get; set; }
         public DbSet<Cierre_ProVta> Cierre_ProVta { get; set; }
         public DbSet<Estatus_ProVta> Estatus_ProVta { get; set; }
-        public DbSet<Periodo> Periodos { get; set; }
-        public DbSet<PlazoComercial> PlazoComercials { get; set; }
-        public DbSet<ProgramaVta> ProgramaVtas { get; set; }
-        public DbSet<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuotas { get; set; }
-        public DbSet<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPAs { get; set; }
+        public DbSet<Periodos> Periodos { get; set; }
+        public DbSet<PlazoComercial> PlazoComercial { get; set; }
+        public DbSet<ProgramaVta> ProgramaVta { get; set; }
+        public DbSet<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuota { get; set; }
+        public DbSet<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPA { get; set; }
         public DbSet<Tipo_Periodos> Tipo_Periodos { get; set; }
-        public DbSet<vwProgramaVta> vwProgramaVtas { get; set; }
+        public DbSet<vwProgramaVta> vwProgramaVta { get; set; }
+        public DbSet<VCDMC_Distribuidor> VCDMC_Distribuidor { get; set; }
     
         public virtual ObjectResult<GetAllWithSP_Result> GetAllWithSP()
         {
@@ -51,6 +52,17 @@ namespace Generador
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_UpdateNada", idParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetProVtaxDealer_Result> sp_GetProVtaxDealer(Nullable<int> idDealer)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(sp_GetProVtaxDealer_Result).Assembly);
+    
+            var idDealerParameter = idDealer.HasValue ?
+                new ObjectParameter("idDealer", idDealer) :
+                new ObjectParameter("idDealer", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetProVtaxDealer_Result>("sp_GetProVtaxDealer", idDealerParameter);
         }
     }
 }

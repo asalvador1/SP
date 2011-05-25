@@ -9,13 +9,13 @@ namespace SP.DomainModel
     {
         public Tipo_Periodos()
         {
-            this.Periodos = new HashSet<Periodo>();
+            this.Periodos = new HashSet<Periodos>();
         }
-    
+
         public int id_TipoPeriodo { get; set; }
         public string descipcion { get; set; }
         public string estatus { get; set; }
-    
-        public virtual ICollection<Periodo> Periodos { get; set; }
+
+        public virtual ICollection<Periodos> Periodos { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SPModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="SPModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="SPModelStoreContainer">
           <EntitySet Name="Cierre_ProgramaVta_Detalle" EntityType="SPModel.Store.Cierre_ProgramaVta_Detalle" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Cierre_ProVta" EntityType="SPModel.Store.Cierre_ProVta" store:Type="Tables" Schema="dbo" />
@@ -15,19 +15,16 @@
           <EntitySet Name="ProgramaVtaDetalleCuota" EntityType="SPModel.Store.ProgramaVtaDetalleCuota" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ProgramaVtaDetalleSPA" EntityType="SPModel.Store.ProgramaVtaDetalleSPA" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tipo_Periodos" EntityType="SPModel.Store.Tipo_Periodos" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="vwProgramaVta" EntityType="SPModel.Store.vwProgramaVta" store:Type="Views" store:Schema="dbo" store:Name="vwProgramaVta">
+          <EntitySet Name="vwProgramaVta" EntityType="SPModel.Store.vwProgramaVta" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VCDMC_Distribuidor" EntityType="SPModel.Store.VCDMC_Distribuidor" store:Type="Views" store:Schema="dbo" store:Name="VCDMC_Distribuidor">
             <DefiningQuery>SELECT 
-      [vwProgramaVta].[idProgramaVta] AS [idProgramaVta], 
-      [vwProgramaVta].[nombre] AS [nombre], 
-      [vwProgramaVta].[descripcion] AS [descripcion], 
-      [vwProgramaVta].[estatus] AS [estatus], 
-      [vwProgramaVta].[fch_publicacion] AS [fch_publicacion], 
-      [vwProgramaVta].[cd_usuarioalta] AS [cd_usuarioalta], 
-      [vwProgramaVta].[fch_alta] AS [fch_alta], 
-      [vwProgramaVta].[cd_usuariomodif] AS [cd_usuariomodif], 
-      [vwProgramaVta].[fch_modif] AS [fch_modif], 
-      [vwProgramaVta].[fch_caducidad] AS [fch_caducidad]
-      FROM [dbo].[vwProgramaVta] AS [vwProgramaVta]</DefiningQuery>
+      [VCDMC_Distribuidor].[cd_empresa] AS [cd_empresa], 
+      [VCDMC_Distribuidor].[cd_marca] AS [cd_marca], 
+      [VCDMC_Distribuidor].[cd_distribuidor] AS [cd_distribuidor], 
+      [VCDMC_Distribuidor].[nb_razonsocial] AS [nb_razonsocial], 
+      [VCDMC_Distribuidor].[nb_alias] AS [nb_alias], 
+      [VCDMC_Distribuidor].[tx_rfc] AS [tx_rfc]
+      FROM [dbo].[VCDMC_Distribuidor] AS [VCDMC_Distribuidor]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" Association="SPModel.Store.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
             <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
@@ -39,6 +36,10 @@
           </AssociationSet>
           <AssociationSet Name="Cierre_ProVta_Periodos_FK" Association="SPModel.Store.Cierre_ProVta_Periodos_FK">
             <End Role="Periodos" EntitySet="Periodos" />
+            <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
+          </AssociationSet>
+          <AssociationSet Name="Cierre_ProVta_ProgramaVta_FK" Association="SPModel.Store.Cierre_ProVta_ProgramaVta_FK">
+            <End Role="ProgramaVta" EntitySet="ProgramaVta" />
             <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
           </AssociationSet>
           <AssociationSet Name="Periodos_Tipo_Periodos_FK" Association="SPModel.Store.Periodos_Tipo_Periodos_FK">
@@ -69,6 +70,7 @@
         <EntityType Name="Cierre_ProgramaVta_Detalle">
           <Key>
             <PropertyRef Name="id_cierreProVta" />
+            <PropertyRef Name="id_ClasCorp" />
           </Key>
           <Property Name="id_cierreProVta" Type="int" Nullable="false" />
           <Property Name="id_ClasCorp" Type="int" Nullable="false" />
@@ -76,14 +78,22 @@
           <Property Name="UnidadesPedidas" Type="int" />
           <Property Name="NumPedido_comp" Type="varchar" MaxLength="20" />
           <Property Name="userModif" Type="varchar" MaxLength="20" />
+          <Property Name="Cierre_ProVta_id_GFX" Type="int" Nullable="false" />
+          <Property Name="Cierre_ProVta_id_ProgramaVta" Type="int" Nullable="false" />
+          <Property Name="Cierre_ProVta_id_tipoperiodo" Type="int" Nullable="false" />
+          <Property Name="Cierre_ProVta_id_Periodo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Cierre_ProVta">
           <Key>
             <PropertyRef Name="id_CierrexProVta" />
+            <PropertyRef Name="id_GFX" />
+            <PropertyRef Name="id_ProgramaVta" />
+            <PropertyRef Name="id_tipoperiodo" />
+            <PropertyRef Name="id_Periodo" />
           </Key>
           <Property Name="id_CierrexProVta" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="id_GFX" Type="int" />
-          <Property Name="id_ProgramaVta" Type="int" />
+          <Property Name="id_GFX" Type="int" Nullable="false" />
+          <Property Name="id_ProgramaVta" Type="int" Nullable="false" />
           <Property Name="id_tipoperiodo" Type="int" Nullable="false" />
           <Property Name="id_Periodo" Type="int" Nullable="false" />
           <Property Name="id_Status_ProVta" Type="int" Nullable="false" />
@@ -140,10 +150,13 @@
           <Key>
             <PropertyRef Name="idProgramaVta" />
             <PropertyRef Name="id_Gfx" />
+            <PropertyRef Name="id_clascorp" />
+            <PropertyRef Name="id_TipoPeriodo" />
+            <PropertyRef Name="id_Periodo" />
           </Key>
           <Property Name="idProgramaVta" Type="int" Nullable="false" />
           <Property Name="id_Gfx" Type="int" Nullable="false" />
-          <Property Name="id_clascorp" Type="int" />
+          <Property Name="id_clascorp" Type="int" Nullable="false" />
           <Property Name="id_TipoPeriodo" Type="int" Nullable="false" />
           <Property Name="id_Periodo" Type="int" Nullable="false" />
           <Property Name="Tipo_cuota" Type="varchar" MaxLength="20" />
@@ -154,11 +167,13 @@
           <Key>
             <PropertyRef Name="idProgramaVta" />
             <PropertyRef Name="id_Gfx" />
+            <PropertyRef Name="id_clascorp" />
+            <PropertyRef Name="id_modelo" />
           </Key>
           <Property Name="idProgramaVta" Type="int" Nullable="false" />
           <Property Name="id_Gfx" Type="int" Nullable="false" />
-          <Property Name="id_clascorp" Type="int" />
-          <Property Name="id_modelo" Type="int" />
+          <Property Name="id_clascorp" Type="int" Nullable="false" />
+          <Property Name="id_modelo" Type="int" Nullable="false" />
           <Property Name="id_serie" Type="int" />
           <Property Name="SPA_base" Type="float" />
           <Property Name="SPA_Prog" Type="float" />
@@ -172,9 +187,6 @@
           <Property Name="descipcion" Type="varchar" MaxLength="20" />
           <Property Name="estatus" Type="varchar" MaxLength="20" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'SP.dbo.vwProgramaVta' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="vwProgramaVta">
           <Key>
             <PropertyRef Name="idProgramaVta" />
@@ -190,15 +202,39 @@
           <Property Name="fch_modif" Type="datetime" />
           <Property Name="fch_caducidad" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'SP.dbo.VCDMC_Distribuidor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="VCDMC_Distribuidor">
+          <Key>
+            <PropertyRef Name="cd_empresa" />
+            <PropertyRef Name="cd_marca" />
+            <PropertyRef Name="cd_distribuidor" />
+          </Key>
+          <Property Name="cd_empresa" Type="int" Nullable="false" />
+          <Property Name="cd_marca" Type="int" Nullable="false" />
+          <Property Name="cd_distribuidor" Type="int" Nullable="false" />
+          <Property Name="nb_razonsocial" Type="varchar" MaxLength="100" />
+          <Property Name="nb_alias" Type="varchar" MaxLength="100" />
+          <Property Name="tx_rfc" Type="varchar" MaxLength="60" />
+        </EntityType>
         <Association Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
           <End Role="Cierre_ProVta" Type="SPModel.Store.Cierre_ProVta" Multiplicity="1" />
-          <End Role="Cierre_ProgramaVta_Detalle" Type="SPModel.Store.Cierre_ProgramaVta_Detalle" Multiplicity="0..1" />
+          <End Role="Cierre_ProgramaVta_Detalle" Type="SPModel.Store.Cierre_ProgramaVta_Detalle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cierre_ProVta">
               <PropertyRef Name="id_CierrexProVta" />
+              <PropertyRef Name="id_GFX" />
+              <PropertyRef Name="id_ProgramaVta" />
+              <PropertyRef Name="id_tipoperiodo" />
+              <PropertyRef Name="id_Periodo" />
             </Principal>
             <Dependent Role="Cierre_ProgramaVta_Detalle">
               <PropertyRef Name="id_cierreProVta" />
+              <PropertyRef Name="Cierre_ProVta_id_GFX" />
+              <PropertyRef Name="Cierre_ProVta_id_ProgramaVta" />
+              <PropertyRef Name="Cierre_ProVta_id_tipoperiodo" />
+              <PropertyRef Name="Cierre_ProVta_id_Periodo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -225,6 +261,18 @@
             <Dependent Role="Cierre_ProVta">
               <PropertyRef Name="id_Periodo" />
               <PropertyRef Name="id_tipoperiodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cierre_ProVta_ProgramaVta_FK">
+          <End Role="ProgramaVta" Type="SPModel.Store.ProgramaVta" Multiplicity="1" />
+          <End Role="Cierre_ProVta" Type="SPModel.Store.Cierre_ProVta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgramaVta">
+              <PropertyRef Name="idProgramaVta" />
+            </Principal>
+            <Dependent Role="Cierre_ProVta">
+              <PropertyRef Name="id_ProgramaVta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -303,24 +351,29 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="GetAllWithSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetProVtaxDealer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idDealer" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_UpdateNada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SPModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="SPEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SPEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cierre_ProgramaVta_Detalle" EntityType="SPModel.Cierre_ProgramaVta_Detalle" />
           <EntitySet Name="Cierre_ProVta" EntityType="SPModel.Cierre_ProVta" />
           <EntitySet Name="Estatus_ProVta" EntityType="SPModel.Estatus_ProVta" />
-          <EntitySet Name="Periodos" EntityType="SPModel.Periodo" />
-          <EntitySet Name="PlazoComercials" EntityType="SPModel.PlazoComercial" />
-          <EntitySet Name="ProgramaVtas" EntityType="SPModel.ProgramaVta" />
-          <EntitySet Name="ProgramaVtaDetalleCuotas" EntityType="SPModel.ProgramaVtaDetalleCuota" />
-          <EntitySet Name="ProgramaVtaDetalleSPAs" EntityType="SPModel.ProgramaVtaDetalleSPA" />
+          <EntitySet Name="Periodos" EntityType="SPModel.Periodos" />
+          <EntitySet Name="PlazoComercial" EntityType="SPModel.PlazoComercial" />
+          <EntitySet Name="ProgramaVta" EntityType="SPModel.ProgramaVta" />
+          <EntitySet Name="ProgramaVtaDetalleCuota" EntityType="SPModel.ProgramaVtaDetalleCuota" />
+          <EntitySet Name="ProgramaVtaDetalleSPA" EntityType="SPModel.ProgramaVtaDetalleSPA" />
           <EntitySet Name="Tipo_Periodos" EntityType="SPModel.Tipo_Periodos" />
-          <EntitySet Name="vwProgramaVtas" EntityType="SPModel.vwProgramaVta" />
+          <EntitySet Name="vwProgramaVta" EntityType="SPModel.vwProgramaVta" />
+          <EntitySet Name="VCDMC_Distribuidor" EntityType="SPModel.VCDMC_Distribuidor" />
           <AssociationSet Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" Association="SPModel.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
             <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
             <End Role="Cierre_ProgramaVta_Detalle" EntitySet="Cierre_ProgramaVta_Detalle" />
@@ -330,134 +383,155 @@
             <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
           </AssociationSet>
           <AssociationSet Name="Cierre_ProVta_Periodos_FK" Association="SPModel.Cierre_ProVta_Periodos_FK">
-            <End Role="Periodo" EntitySet="Periodos" />
+            <End Role="Periodos" EntitySet="Periodos" />
+            <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
+          </AssociationSet>
+          <AssociationSet Name="Cierre_ProVta_ProgramaVta_FK" Association="SPModel.Cierre_ProVta_ProgramaVta_FK">
+            <End Role="ProgramaVta" EntitySet="ProgramaVta" />
             <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
           </AssociationSet>
           <AssociationSet Name="Periodos_Tipo_Periodos_FK" Association="SPModel.Periodos_Tipo_Periodos_FK">
             <End Role="Tipo_Periodos" EntitySet="Tipo_Periodos" />
-            <End Role="Periodo" EntitySet="Periodos" />
+            <End Role="Periodos" EntitySet="Periodos" />
           </AssociationSet>
           <AssociationSet Name="ProgramaVtaDetalle_Periodos_FK" Association="SPModel.ProgramaVtaDetalle_Periodos_FK">
-            <End Role="Periodo" EntitySet="Periodos" />
-            <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuotas" />
+            <End Role="Periodos" EntitySet="Periodos" />
+            <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuota" />
           </AssociationSet>
           <AssociationSet Name="ProgramaVtaDetalle_PlazoComercial_FK" Association="SPModel.ProgramaVtaDetalle_PlazoComercial_FK">
-            <End Role="PlazoComercial" EntitySet="PlazoComercials" />
-            <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuotas" />
+            <End Role="PlazoComercial" EntitySet="PlazoComercial" />
+            <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuota" />
           </AssociationSet>
           <AssociationSet Name="ProgramaVtaDetallev1_PlazoComercial_FK" Association="SPModel.ProgramaVtaDetallev1_PlazoComercial_FK">
-            <End Role="PlazoComercial" EntitySet="PlazoComercials" />
-            <End Role="ProgramaVtaDetalleSPA" EntitySet="ProgramaVtaDetalleSPAs" />
+            <End Role="PlazoComercial" EntitySet="PlazoComercial" />
+            <End Role="ProgramaVtaDetalleSPA" EntitySet="ProgramaVtaDetalleSPA" />
           </AssociationSet>
           <AssociationSet Name="ProgramaVtaDetalleCuota_ProgramaVta_FK" Association="SPModel.ProgramaVtaDetalleCuota_ProgramaVta_FK">
-            <End Role="ProgramaVta" EntitySet="ProgramaVtas" />
-            <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuotas" />
+            <End Role="ProgramaVta" EntitySet="ProgramaVta" />
+            <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuota" />
           </AssociationSet>
           <AssociationSet Name="ProgramaVtaDetallev1_ProgramaVta_FK" Association="SPModel.ProgramaVtaDetallev1_ProgramaVta_FK">
-            <End Role="ProgramaVta" EntitySet="ProgramaVtas" />
-            <End Role="ProgramaVtaDetalleSPA" EntitySet="ProgramaVtaDetalleSPAs" />
+            <End Role="ProgramaVta" EntitySet="ProgramaVta" />
+            <End Role="ProgramaVtaDetalleSPA" EntitySet="ProgramaVtaDetalleSPA" />
           </AssociationSet>
           <FunctionImport Name="GetAllWithSP" ReturnType="Collection(SPModel.GetAllWithSP_Result)" />
           <FunctionImport Name="SP_UpdateNada" ReturnType="Collection(Int32)">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_GetProVtaxDealer" ReturnType="Collection(SPModel.sp_GetProVtaxDealer_Result)">
+            <Parameter Name="idDealer" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Cierre_ProgramaVta_Detalle">
           <Key>
             <PropertyRef Name="id_cierreProVta" />
+            <PropertyRef Name="id_ClasCorp" />
           </Key>
-          <Property Type="Int32" Name="id_cierreProVta" Nullable="false" />
-          <Property Type="Int32" Name="id_ClasCorp" Nullable="false" />
-          <Property Type="Int32" Name="Cuota_ProVta" />
-          <Property Type="Int32" Name="UnidadesPedidas" />
-          <Property Type="String" Name="NumPedido_comp" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="userModif" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="id_cierreProVta" Type="Int32" Nullable="false" />
+          <Property Name="id_ClasCorp" Type="Int32" Nullable="false" />
+          <Property Name="Cuota_ProVta" Type="Int32" />
+          <Property Name="UnidadesPedidas" Type="Int32" />
+          <Property Name="NumPedido_comp" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="userModif" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Cierre_ProVta_id_GFX" Type="Int32" Nullable="false" />
+          <Property Name="Cierre_ProVta_id_ProgramaVta" Type="Int32" Nullable="false" />
+          <Property Name="Cierre_ProVta_id_tipoperiodo" Type="Int32" Nullable="false" />
+          <Property Name="Cierre_ProVta_id_Periodo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Cierre_ProVta" Relationship="SPModel.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" FromRole="Cierre_ProgramaVta_Detalle" ToRole="Cierre_ProVta" />
         </EntityType>
         <EntityType Name="Cierre_ProVta">
           <Key>
             <PropertyRef Name="id_CierrexProVta" />
+            <PropertyRef Name="id_GFX" />
+            <PropertyRef Name="id_ProgramaVta" />
+            <PropertyRef Name="id_tipoperiodo" />
+            <PropertyRef Name="id_Periodo" />
           </Key>
-          <Property Type="Int32" Name="id_CierrexProVta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="id_GFX" />
-          <Property Type="Int32" Name="id_ProgramaVta" />
-          <Property Type="Int32" Name="id_tipoperiodo" Nullable="false" />
-          <Property Type="Int32" Name="id_Periodo" Nullable="false" />
-          <Property Type="Int32" Name="id_Status_ProVta" Nullable="false" />
-          <Property Type="DateTime" Name="fch_Modif" />
-          <Property Type="DateTime" Name="fch_Cierre" />
+          <Property Name="id_CierrexProVta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_GFX" Type="Int32" Nullable="false" />
+          <Property Name="id_ProgramaVta" Type="Int32" Nullable="false" />
+          <Property Name="id_tipoperiodo" Type="Int32" Nullable="false" />
+          <Property Name="id_Periodo" Type="Int32" Nullable="false" />
+          <Property Name="id_Status_ProVta" Type="Int32" Nullable="false" />
+          <Property Name="fch_Modif" Type="DateTime" />
+          <Property Name="fch_Cierre" Type="DateTime" />
           <NavigationProperty Name="Cierre_ProgramaVta_Detalle" Relationship="SPModel.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" FromRole="Cierre_ProVta" ToRole="Cierre_ProgramaVta_Detalle" />
           <NavigationProperty Name="Estatus_ProVta" Relationship="SPModel.Cierre_ProVta_Estatus_ProVta_FK" FromRole="Cierre_ProVta" ToRole="Estatus_ProVta" />
-          <NavigationProperty Name="Periodo" Relationship="SPModel.Cierre_ProVta_Periodos_FK" FromRole="Cierre_ProVta" ToRole="Periodo" />
+          <NavigationProperty Name="Periodos" Relationship="SPModel.Cierre_ProVta_Periodos_FK" FromRole="Cierre_ProVta" ToRole="Periodos" />
+          <NavigationProperty Name="ProgramaVta" Relationship="SPModel.Cierre_ProVta_ProgramaVta_FK" FromRole="Cierre_ProVta" ToRole="ProgramaVta" />
         </EntityType>
         <EntityType Name="Estatus_ProVta">
           <Key>
             <PropertyRef Name="idStatus" />
           </Key>
-          <Property Type="Int32" Name="idStatus" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Descripcion" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="fhc_modif" />
-          <Property Type="String" Name="usermodif" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="idStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="fhc_modif" Type="DateTime" />
+          <Property Name="usermodif" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Cierre_ProVta" Relationship="SPModel.Cierre_ProVta_Estatus_ProVta_FK" FromRole="Estatus_ProVta" ToRole="Cierre_ProVta" />
         </EntityType>
-        <EntityType Name="Periodo">
+        <EntityType Name="Periodos">
           <Key>
             <PropertyRef Name="id_TipoPeriodo" />
             <PropertyRef Name="id_periodo" />
           </Key>
-          <Property Type="Int32" Name="id_TipoPeriodo" Nullable="false" />
-          <Property Type="Int32" Name="id_periodo" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Descripcion" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="estatus" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="fch_inicio" />
-          <Property Type="DateTime" Name="fch_fin" />
-          <NavigationProperty Name="Cierre_ProVta" Relationship="SPModel.Cierre_ProVta_Periodos_FK" FromRole="Periodo" ToRole="Cierre_ProVta" />
-          <NavigationProperty Name="Tipo_Periodos" Relationship="SPModel.Periodos_Tipo_Periodos_FK" FromRole="Periodo" ToRole="Tipo_Periodos" />
-          <NavigationProperty Name="ProgramaVtaDetalleCuotas" Relationship="SPModel.ProgramaVtaDetalle_Periodos_FK" FromRole="Periodo" ToRole="ProgramaVtaDetalleCuota" />
+          <Property Name="id_TipoPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="id_periodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="estatus" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="fch_inicio" Type="DateTime" />
+          <Property Name="fch_fin" Type="DateTime" />
+          <NavigationProperty Name="Cierre_ProVta" Relationship="SPModel.Cierre_ProVta_Periodos_FK" FromRole="Periodos" ToRole="Cierre_ProVta" />
+          <NavigationProperty Name="Tipo_Periodos" Relationship="SPModel.Periodos_Tipo_Periodos_FK" FromRole="Periodos" ToRole="Tipo_Periodos" />
+          <NavigationProperty Name="ProgramaVtaDetalleCuota" Relationship="SPModel.ProgramaVtaDetalle_Periodos_FK" FromRole="Periodos" ToRole="ProgramaVtaDetalleCuota" />
         </EntityType>
         <EntityType Name="PlazoComercial">
           <Key>
             <PropertyRef Name="id_PlazoComercial" />
           </Key>
-          <Property Type="Int32" Name="id_PlazoComercial" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="descripcion" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="estatus" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="Double" Name="Porcentaje_Sustitucion_USD" />
-          <Property Type="Double" Name="Porcentaje_Sustitucion_NMX" />
-          <NavigationProperty Name="ProgramaVtaDetalleCuotas" Relationship="SPModel.ProgramaVtaDetalle_PlazoComercial_FK" FromRole="PlazoComercial" ToRole="ProgramaVtaDetalleCuota" />
-          <NavigationProperty Name="ProgramaVtaDetalleSPAs" Relationship="SPModel.ProgramaVtaDetallev1_PlazoComercial_FK" FromRole="PlazoComercial" ToRole="ProgramaVtaDetalleSPA" />
+          <Property Name="id_PlazoComercial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="estatus" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Porcentaje_Sustitucion_USD" Type="Double" />
+          <Property Name="Porcentaje_Sustitucion_NMX" Type="Double" />
+          <NavigationProperty Name="ProgramaVtaDetalleCuota" Relationship="SPModel.ProgramaVtaDetalle_PlazoComercial_FK" FromRole="PlazoComercial" ToRole="ProgramaVtaDetalleCuota" />
+          <NavigationProperty Name="ProgramaVtaDetalleSPA" Relationship="SPModel.ProgramaVtaDetallev1_PlazoComercial_FK" FromRole="PlazoComercial" ToRole="ProgramaVtaDetalleSPA" />
         </EntityType>
         <EntityType Name="ProgramaVta">
           <Key>
             <PropertyRef Name="idProgramaVta" />
           </Key>
-          <Property Type="Int32" Name="idProgramaVta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="nombre" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="descripcion" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="estatus" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="fch_publicacion" />
-          <Property Type="String" Name="cd_usuarioalta" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="fch_alta" />
-          <Property Type="String" Name="cd_usuariomodif" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="fch_modif" />
-          <Property Type="DateTime" Name="fch_caducidad" />
-          <NavigationProperty Name="ProgramaVtaDetalleCuotas" Relationship="SPModel.ProgramaVtaDetalleCuota_ProgramaVta_FK" FromRole="ProgramaVta" ToRole="ProgramaVtaDetalleCuota" />
-          <NavigationProperty Name="ProgramaVtaDetalleSPAs" Relationship="SPModel.ProgramaVtaDetallev1_ProgramaVta_FK" FromRole="ProgramaVta" ToRole="ProgramaVtaDetalleSPA" />
+          <Property Name="idProgramaVta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="descripcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="estatus" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="fch_publicacion" Type="DateTime" />
+          <Property Name="cd_usuarioalta" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="fch_alta" Type="DateTime" />
+          <Property Name="cd_usuariomodif" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="fch_modif" Type="DateTime" />
+          <Property Name="fch_caducidad" Type="DateTime" />
+          <NavigationProperty Name="Cierre_ProVta" Relationship="SPModel.Cierre_ProVta_ProgramaVta_FK" FromRole="ProgramaVta" ToRole="Cierre_ProVta" />
+          <NavigationProperty Name="ProgramaVtaDetalleCuota" Relationship="SPModel.ProgramaVtaDetalleCuota_ProgramaVta_FK" FromRole="ProgramaVta" ToRole="ProgramaVtaDetalleCuota" />
+          <NavigationProperty Name="ProgramaVtaDetalleSPA" Relationship="SPModel.ProgramaVtaDetallev1_ProgramaVta_FK" FromRole="ProgramaVta" ToRole="ProgramaVtaDetalleSPA" />
         </EntityType>
         <EntityType Name="ProgramaVtaDetalleCuota">
           <Key>
             <PropertyRef Name="idProgramaVta" />
             <PropertyRef Name="id_Gfx" />
+            <PropertyRef Name="id_clascorp" />
+            <PropertyRef Name="id_TipoPeriodo" />
+            <PropertyRef Name="id_Periodo" />
           </Key>
-          <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
-          <Property Type="Int32" Name="id_Gfx" Nullable="false" />
-          <Property Type="Int32" Name="id_clascorp" />
-          <Property Type="Int32" Name="id_TipoPeriodo" Nullable="false" />
-          <Property Type="Int32" Name="id_Periodo" Nullable="false" />
-          <Property Type="String" Name="Tipo_cuota" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="cuota" />
-          <Property Type="Int32" Name="id_PlazoComercial" Nullable="false" />
-          <NavigationProperty Name="Periodo" Relationship="SPModel.ProgramaVtaDetalle_Periodos_FK" FromRole="ProgramaVtaDetalleCuota" ToRole="Periodo" />
+          <Property Name="idProgramaVta" Type="Int32" Nullable="false" />
+          <Property Name="id_Gfx" Type="Int32" Nullable="false" />
+          <Property Name="id_clascorp" Type="Int32" Nullable="false" />
+          <Property Name="id_TipoPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="id_Periodo" Type="Int32" Nullable="false" />
+          <Property Name="Tipo_cuota" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="cuota" Type="Int32" />
+          <Property Name="id_PlazoComercial" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Periodos" Relationship="SPModel.ProgramaVtaDetalle_Periodos_FK" FromRole="ProgramaVtaDetalleCuota" ToRole="Periodos" />
           <NavigationProperty Name="PlazoComercial" Relationship="SPModel.ProgramaVtaDetalle_PlazoComercial_FK" FromRole="ProgramaVtaDetalleCuota" ToRole="PlazoComercial" />
           <NavigationProperty Name="ProgramaVta" Relationship="SPModel.ProgramaVtaDetalleCuota_ProgramaVta_FK" FromRole="ProgramaVtaDetalleCuota" ToRole="ProgramaVta" />
         </EntityType>
@@ -465,15 +539,17 @@
           <Key>
             <PropertyRef Name="idProgramaVta" />
             <PropertyRef Name="id_Gfx" />
+            <PropertyRef Name="id_clascorp" />
+            <PropertyRef Name="id_modelo" />
           </Key>
-          <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
-          <Property Type="Int32" Name="id_Gfx" Nullable="false" />
-          <Property Type="Int32" Name="id_clascorp" />
-          <Property Type="Int32" Name="id_modelo" />
-          <Property Type="Int32" Name="id_serie" />
-          <Property Type="Double" Name="SPA_base" />
-          <Property Type="Double" Name="SPA_Prog" />
-          <Property Type="Int32" Name="id_PlazoComercial" Nullable="false" />
+          <Property Name="idProgramaVta" Type="Int32" Nullable="false" />
+          <Property Name="id_Gfx" Type="Int32" Nullable="false" />
+          <Property Name="id_clascorp" Type="Int32" Nullable="false" />
+          <Property Name="id_modelo" Type="Int32" Nullable="false" />
+          <Property Name="id_serie" Type="Int32" />
+          <Property Name="SPA_base" Type="Double" />
+          <Property Name="SPA_Prog" Type="Double" />
+          <Property Name="id_PlazoComercial" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PlazoComercial" Relationship="SPModel.ProgramaVtaDetallev1_PlazoComercial_FK" FromRole="ProgramaVtaDetalleSPA" ToRole="PlazoComercial" />
           <NavigationProperty Name="ProgramaVta" Relationship="SPModel.ProgramaVtaDetallev1_ProgramaVta_FK" FromRole="ProgramaVtaDetalleSPA" ToRole="ProgramaVta" />
         </EntityType>
@@ -481,41 +557,62 @@
           <Key>
             <PropertyRef Name="id_TipoPeriodo" />
           </Key>
-          <Property Type="Int32" Name="id_TipoPeriodo" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="descipcion" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="estatus" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Periodos" Relationship="SPModel.Periodos_Tipo_Periodos_FK" FromRole="Tipo_Periodos" ToRole="Periodo" />
+          <Property Name="id_TipoPeriodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descipcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="estatus" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Periodos" Relationship="SPModel.Periodos_Tipo_Periodos_FK" FromRole="Tipo_Periodos" ToRole="Periodos" />
         </EntityType>
         <EntityType Name="vwProgramaVta">
           <Key>
             <PropertyRef Name="idProgramaVta" />
           </Key>
-          <Property Type="Int32" Name="idProgramaVta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="nombre" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="descripcion" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="estatus" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="fch_publicacion" />
-          <Property Type="String" Name="cd_usuarioalta" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="fch_alta" />
-          <Property Type="String" Name="cd_usuariomodif" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="fch_modif" />
-          <Property Type="DateTime" Name="fch_caducidad" />
+          <Property Name="idProgramaVta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="descripcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="estatus" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="fch_publicacion" Type="DateTime" />
+          <Property Name="cd_usuarioalta" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="fch_alta" Type="DateTime" />
+          <Property Name="cd_usuariomodif" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="fch_modif" Type="DateTime" />
+          <Property Name="fch_caducidad" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="VCDMC_Distribuidor">
+          <Key>
+            <PropertyRef Name="cd_empresa" />
+            <PropertyRef Name="cd_marca" />
+            <PropertyRef Name="cd_distribuidor" />
+          </Key>
+          <Property Name="cd_empresa" Type="Int32" Nullable="false" />
+          <Property Name="cd_marca" Type="Int32" Nullable="false" />
+          <Property Name="cd_distribuidor" Type="Int32" Nullable="false" />
+          <Property Name="nb_razonsocial" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="nb_alias" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="tx_rfc" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
         </EntityType>
         <Association Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
-          <End Type="SPModel.Cierre_ProVta" Role="Cierre_ProVta" Multiplicity="1" />
-          <End Type="SPModel.Cierre_ProgramaVta_Detalle" Role="Cierre_ProgramaVta_Detalle" Multiplicity="0..1" />
+          <End Role="Cierre_ProVta" Type="SPModel.Cierre_ProVta" Multiplicity="1" />
+          <End Role="Cierre_ProgramaVta_Detalle" Type="SPModel.Cierre_ProgramaVta_Detalle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cierre_ProVta">
               <PropertyRef Name="id_CierrexProVta" />
+              <PropertyRef Name="id_GFX" />
+              <PropertyRef Name="id_ProgramaVta" />
+              <PropertyRef Name="id_tipoperiodo" />
+              <PropertyRef Name="id_Periodo" />
             </Principal>
             <Dependent Role="Cierre_ProgramaVta_Detalle">
               <PropertyRef Name="id_cierreProVta" />
+              <PropertyRef Name="Cierre_ProVta_id_GFX" />
+              <PropertyRef Name="Cierre_ProVta_id_ProgramaVta" />
+              <PropertyRef Name="Cierre_ProVta_id_tipoperiodo" />
+              <PropertyRef Name="Cierre_ProVta_id_Periodo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="Cierre_ProVta_Estatus_ProVta_FK">
-          <End Type="SPModel.Estatus_ProVta" Role="Estatus_ProVta" Multiplicity="1" />
-          <End Type="SPModel.Cierre_ProVta" Role="Cierre_ProVta" Multiplicity="*" />
+          <End Role="Estatus_ProVta" Type="SPModel.Estatus_ProVta" Multiplicity="1" />
+          <End Role="Cierre_ProVta" Type="SPModel.Cierre_ProVta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estatus_ProVta">
               <PropertyRef Name="idStatus" />
@@ -526,10 +623,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Cierre_ProVta_Periodos_FK">
-          <End Type="SPModel.Periodo" Role="Periodo" Multiplicity="1" />
-          <End Type="SPModel.Cierre_ProVta" Role="Cierre_ProVta" Multiplicity="*" />
+          <End Role="Periodos" Type="SPModel.Periodos" Multiplicity="1" />
+          <End Role="Cierre_ProVta" Type="SPModel.Cierre_ProVta" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Periodo">
+            <Principal Role="Periodos">
               <PropertyRef Name="id_periodo" />
               <PropertyRef Name="id_TipoPeriodo" />
             </Principal>
@@ -539,23 +636,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Cierre_ProVta_ProgramaVta_FK">
+          <End Role="ProgramaVta" Type="SPModel.ProgramaVta" Multiplicity="1" />
+          <End Role="Cierre_ProVta" Type="SPModel.Cierre_ProVta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgramaVta">
+              <PropertyRef Name="idProgramaVta" />
+            </Principal>
+            <Dependent Role="Cierre_ProVta">
+              <PropertyRef Name="id_ProgramaVta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Periodos_Tipo_Periodos_FK">
-          <End Type="SPModel.Tipo_Periodos" Role="Tipo_Periodos" Multiplicity="1" />
-          <End Type="SPModel.Periodo" Role="Periodo" Multiplicity="*" />
+          <End Role="Tipo_Periodos" Type="SPModel.Tipo_Periodos" Multiplicity="1" />
+          <End Role="Periodos" Type="SPModel.Periodos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tipo_Periodos">
               <PropertyRef Name="id_TipoPeriodo" />
             </Principal>
-            <Dependent Role="Periodo">
+            <Dependent Role="Periodos">
               <PropertyRef Name="id_TipoPeriodo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="ProgramaVtaDetalle_Periodos_FK">
-          <End Type="SPModel.Periodo" Role="Periodo" Multiplicity="1" />
-          <End Type="SPModel.ProgramaVtaDetalleCuota" Role="ProgramaVtaDetalleCuota" Multiplicity="*" />
+          <End Role="Periodos" Type="SPModel.Periodos" Multiplicity="1" />
+          <End Role="ProgramaVtaDetalleCuota" Type="SPModel.ProgramaVtaDetalleCuota" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Periodo">
+            <Principal Role="Periodos">
               <PropertyRef Name="id_periodo" />
               <PropertyRef Name="id_TipoPeriodo" />
             </Principal>
@@ -566,8 +675,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ProgramaVtaDetalle_PlazoComercial_FK">
-          <End Type="SPModel.PlazoComercial" Role="PlazoComercial" Multiplicity="1" />
-          <End Type="SPModel.ProgramaVtaDetalleCuota" Role="ProgramaVtaDetalleCuota" Multiplicity="*" />
+          <End Role="PlazoComercial" Type="SPModel.PlazoComercial" Multiplicity="1" />
+          <End Role="ProgramaVtaDetalleCuota" Type="SPModel.ProgramaVtaDetalleCuota" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PlazoComercial">
               <PropertyRef Name="id_PlazoComercial" />
@@ -578,8 +687,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ProgramaVtaDetallev1_PlazoComercial_FK">
-          <End Type="SPModel.PlazoComercial" Role="PlazoComercial" Multiplicity="1" />
-          <End Type="SPModel.ProgramaVtaDetalleSPA" Role="ProgramaVtaDetalleSPA" Multiplicity="*" />
+          <End Role="PlazoComercial" Type="SPModel.PlazoComercial" Multiplicity="1" />
+          <End Role="ProgramaVtaDetalleSPA" Type="SPModel.ProgramaVtaDetalleSPA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PlazoComercial">
               <PropertyRef Name="id_PlazoComercial" />
@@ -590,8 +699,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ProgramaVtaDetalleCuota_ProgramaVta_FK">
-          <End Type="SPModel.ProgramaVta" Role="ProgramaVta" Multiplicity="1" />
-          <End Type="SPModel.ProgramaVtaDetalleCuota" Role="ProgramaVtaDetalleCuota" Multiplicity="*" />
+          <End Role="ProgramaVta" Type="SPModel.ProgramaVta" Multiplicity="1" />
+          <End Role="ProgramaVtaDetalleCuota" Type="SPModel.ProgramaVtaDetalleCuota" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProgramaVta">
               <PropertyRef Name="idProgramaVta" />
@@ -602,8 +711,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ProgramaVtaDetallev1_ProgramaVta_FK">
-          <End Type="SPModel.ProgramaVta" Role="ProgramaVta" Multiplicity="1" />
-          <End Type="SPModel.ProgramaVtaDetalleSPA" Role="ProgramaVtaDetalleSPA" Multiplicity="*" />
+          <End Role="ProgramaVta" Type="SPModel.ProgramaVta" Multiplicity="1" />
+          <End Role="ProgramaVtaDetalleSPA" Type="SPModel.ProgramaVtaDetalleSPA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProgramaVta">
               <PropertyRef Name="idProgramaVta" />
@@ -625,140 +734,116 @@
           <Property Type="DateTime" Name="fch_modif" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="fch_caducidad" Nullable="true" Precision="23" />
         </ComplexType>
+        <ComplexType Name="sp_GetProVtaxDealer_Result">
+          <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="20" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SPModelStoreContainer" CdmEntityContainer="SPEntities">
-          <EntitySetMapping Name="Cierre_ProgramaVta_Detalle">
-            <EntityTypeMapping TypeName="SPModel.Cierre_ProgramaVta_Detalle">
-              <MappingFragment StoreEntitySet="Cierre_ProgramaVta_Detalle">
-                <ScalarProperty Name="userModif" ColumnName="userModif" />
-                <ScalarProperty Name="NumPedido_comp" ColumnName="NumPedido_comp" />
-                <ScalarProperty Name="UnidadesPedidas" ColumnName="UnidadesPedidas" />
-                <ScalarProperty Name="Cuota_ProVta" ColumnName="Cuota_ProVta" />
-                <ScalarProperty Name="id_ClasCorp" ColumnName="id_ClasCorp" />
-                <ScalarProperty Name="id_cierreProVta" ColumnName="id_cierreProVta" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cierre_ProVta">
-            <EntityTypeMapping TypeName="SPModel.Cierre_ProVta">
-              <MappingFragment StoreEntitySet="Cierre_ProVta">
-                <ScalarProperty Name="fch_Cierre" ColumnName="fch_Cierre" />
-                <ScalarProperty Name="fch_Modif" ColumnName="fch_Modif" />
-                <ScalarProperty Name="id_Status_ProVta" ColumnName="id_Status_ProVta" />
-                <ScalarProperty Name="id_Periodo" ColumnName="id_Periodo" />
-                <ScalarProperty Name="id_tipoperiodo" ColumnName="id_tipoperiodo" />
-                <ScalarProperty Name="id_ProgramaVta" ColumnName="id_ProgramaVta" />
-                <ScalarProperty Name="id_GFX" ColumnName="id_GFX" />
-                <ScalarProperty Name="id_CierrexProVta" ColumnName="id_CierrexProVta" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Estatus_ProVta">
-            <EntityTypeMapping TypeName="SPModel.Estatus_ProVta">
-              <MappingFragment StoreEntitySet="Estatus_ProVta">
-                <ScalarProperty Name="usermodif" ColumnName="usermodif" />
-                <ScalarProperty Name="fhc_modif" ColumnName="fhc_modif" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="idStatus" ColumnName="idStatus" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Periodos">
-            <EntityTypeMapping TypeName="SPModel.Periodo">
-              <MappingFragment StoreEntitySet="Periodos">
-                <ScalarProperty Name="fch_fin" ColumnName="fch_fin" />
-                <ScalarProperty Name="fch_inicio" ColumnName="fch_inicio" />
-                <ScalarProperty Name="estatus" ColumnName="estatus" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="id_periodo" ColumnName="id_periodo" />
-                <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PlazoComercials">
-            <EntityTypeMapping TypeName="SPModel.PlazoComercial">
-              <MappingFragment StoreEntitySet="PlazoComercial">
-                <ScalarProperty Name="Porcentaje_Sustitucion_NMX" ColumnName="Porcentaje_Sustitucion_NMX" />
-                <ScalarProperty Name="Porcentaje_Sustitucion_USD" ColumnName="Porcentaje_Sustitucion_USD" />
-                <ScalarProperty Name="estatus" ColumnName="estatus" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="id_PlazoComercial" ColumnName="id_PlazoComercial" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProgramaVtas">
-            <EntityTypeMapping TypeName="SPModel.ProgramaVta">
-              <MappingFragment StoreEntitySet="ProgramaVta">
-                <ScalarProperty Name="fch_caducidad" ColumnName="fch_caducidad" />
-                <ScalarProperty Name="fch_modif" ColumnName="fch_modif" />
-                <ScalarProperty Name="cd_usuariomodif" ColumnName="cd_usuariomodif" />
-                <ScalarProperty Name="fch_alta" ColumnName="fch_alta" />
-                <ScalarProperty Name="cd_usuarioalta" ColumnName="cd_usuarioalta" />
-                <ScalarProperty Name="fch_publicacion" ColumnName="fch_publicacion" />
-                <ScalarProperty Name="estatus" ColumnName="estatus" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProgramaVtaDetalleCuotas">
-            <EntityTypeMapping TypeName="SPModel.ProgramaVtaDetalleCuota">
-              <MappingFragment StoreEntitySet="ProgramaVtaDetalleCuota">
-                <ScalarProperty Name="id_PlazoComercial" ColumnName="id_PlazoComercial" />
-                <ScalarProperty Name="cuota" ColumnName="cuota" />
-                <ScalarProperty Name="Tipo_cuota" ColumnName="Tipo_cuota" />
-                <ScalarProperty Name="id_Periodo" ColumnName="id_Periodo" />
-                <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
-                <ScalarProperty Name="id_clascorp" ColumnName="id_clascorp" />
-                <ScalarProperty Name="id_Gfx" ColumnName="id_Gfx" />
-                <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProgramaVtaDetalleSPAs">
-            <EntityTypeMapping TypeName="SPModel.ProgramaVtaDetalleSPA">
-              <MappingFragment StoreEntitySet="ProgramaVtaDetalleSPA">
-                <ScalarProperty Name="id_PlazoComercial" ColumnName="id_PlazoComercial" />
-                <ScalarProperty Name="SPA_Prog" ColumnName="SPA_Prog" />
-                <ScalarProperty Name="SPA_base" ColumnName="SPA_base" />
-                <ScalarProperty Name="id_serie" ColumnName="id_serie" />
-                <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
-                <ScalarProperty Name="id_clascorp" ColumnName="id_clascorp" />
-                <ScalarProperty Name="id_Gfx" ColumnName="id_Gfx" />
-                <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tipo_Periodos">
-            <EntityTypeMapping TypeName="SPModel.Tipo_Periodos">
-              <MappingFragment StoreEntitySet="Tipo_Periodos">
-                <ScalarProperty Name="estatus" ColumnName="estatus" />
-                <ScalarProperty Name="descipcion" ColumnName="descipcion" />
-                <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwProgramaVtas">
-            <EntityTypeMapping TypeName="SPModel.vwProgramaVta">
-              <MappingFragment StoreEntitySet="vwProgramaVta">
-                <ScalarProperty Name="fch_caducidad" ColumnName="fch_caducidad" />
-                <ScalarProperty Name="fch_modif" ColumnName="fch_modif" />
-                <ScalarProperty Name="cd_usuariomodif" ColumnName="cd_usuariomodif" />
-                <ScalarProperty Name="fch_alta" ColumnName="fch_alta" />
-                <ScalarProperty Name="cd_usuarioalta" ColumnName="cd_usuarioalta" />
-                <ScalarProperty Name="fch_publicacion" ColumnName="fch_publicacion" />
-                <ScalarProperty Name="estatus" ColumnName="estatus" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="SPModelStoreContainer" CdmEntityContainer="SPEntities1">
+          <EntitySetMapping Name="Cierre_ProgramaVta_Detalle"><EntityTypeMapping TypeName="SPModel.Cierre_ProgramaVta_Detalle"><MappingFragment StoreEntitySet="Cierre_ProgramaVta_Detalle">
+            <ScalarProperty Name="id_cierreProVta" ColumnName="id_cierreProVta" />
+            <ScalarProperty Name="id_ClasCorp" ColumnName="id_ClasCorp" />
+            <ScalarProperty Name="Cuota_ProVta" ColumnName="Cuota_ProVta" />
+            <ScalarProperty Name="UnidadesPedidas" ColumnName="UnidadesPedidas" />
+            <ScalarProperty Name="NumPedido_comp" ColumnName="NumPedido_comp" />
+            <ScalarProperty Name="userModif" ColumnName="userModif" />
+            <ScalarProperty Name="Cierre_ProVta_id_GFX" ColumnName="Cierre_ProVta_id_GFX" />
+            <ScalarProperty Name="Cierre_ProVta_id_ProgramaVta" ColumnName="Cierre_ProVta_id_ProgramaVta" />
+            <ScalarProperty Name="Cierre_ProVta_id_tipoperiodo" ColumnName="Cierre_ProVta_id_tipoperiodo" />
+            <ScalarProperty Name="Cierre_ProVta_id_Periodo" ColumnName="Cierre_ProVta_id_Periodo" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Cierre_ProVta"><EntityTypeMapping TypeName="SPModel.Cierre_ProVta"><MappingFragment StoreEntitySet="Cierre_ProVta">
+            <ScalarProperty Name="id_CierrexProVta" ColumnName="id_CierrexProVta" />
+            <ScalarProperty Name="id_GFX" ColumnName="id_GFX" />
+            <ScalarProperty Name="id_ProgramaVta" ColumnName="id_ProgramaVta" />
+            <ScalarProperty Name="id_tipoperiodo" ColumnName="id_tipoperiodo" />
+            <ScalarProperty Name="id_Periodo" ColumnName="id_Periodo" />
+            <ScalarProperty Name="id_Status_ProVta" ColumnName="id_Status_ProVta" />
+            <ScalarProperty Name="fch_Modif" ColumnName="fch_Modif" />
+            <ScalarProperty Name="fch_Cierre" ColumnName="fch_Cierre" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Estatus_ProVta"><EntityTypeMapping TypeName="SPModel.Estatus_ProVta"><MappingFragment StoreEntitySet="Estatus_ProVta">
+            <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+            <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+            <ScalarProperty Name="fhc_modif" ColumnName="fhc_modif" />
+            <ScalarProperty Name="usermodif" ColumnName="usermodif" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Periodos"><EntityTypeMapping TypeName="SPModel.Periodos"><MappingFragment StoreEntitySet="Periodos">
+            <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
+            <ScalarProperty Name="id_periodo" ColumnName="id_periodo" />
+            <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+            <ScalarProperty Name="estatus" ColumnName="estatus" />
+            <ScalarProperty Name="fch_inicio" ColumnName="fch_inicio" />
+            <ScalarProperty Name="fch_fin" ColumnName="fch_fin" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PlazoComercial"><EntityTypeMapping TypeName="SPModel.PlazoComercial"><MappingFragment StoreEntitySet="PlazoComercial">
+            <ScalarProperty Name="id_PlazoComercial" ColumnName="id_PlazoComercial" />
+            <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+            <ScalarProperty Name="estatus" ColumnName="estatus" />
+            <ScalarProperty Name="Porcentaje_Sustitucion_USD" ColumnName="Porcentaje_Sustitucion_USD" />
+            <ScalarProperty Name="Porcentaje_Sustitucion_NMX" ColumnName="Porcentaje_Sustitucion_NMX" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ProgramaVta"><EntityTypeMapping TypeName="SPModel.ProgramaVta"><MappingFragment StoreEntitySet="ProgramaVta">
+            <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+            <ScalarProperty Name="nombre" ColumnName="nombre" />
+            <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+            <ScalarProperty Name="estatus" ColumnName="estatus" />
+            <ScalarProperty Name="fch_publicacion" ColumnName="fch_publicacion" />
+            <ScalarProperty Name="cd_usuarioalta" ColumnName="cd_usuarioalta" />
+            <ScalarProperty Name="fch_alta" ColumnName="fch_alta" />
+            <ScalarProperty Name="cd_usuariomodif" ColumnName="cd_usuariomodif" />
+            <ScalarProperty Name="fch_modif" ColumnName="fch_modif" />
+            <ScalarProperty Name="fch_caducidad" ColumnName="fch_caducidad" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ProgramaVtaDetalleCuota"><EntityTypeMapping TypeName="SPModel.ProgramaVtaDetalleCuota"><MappingFragment StoreEntitySet="ProgramaVtaDetalleCuota">
+            <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+            <ScalarProperty Name="id_Gfx" ColumnName="id_Gfx" />
+            <ScalarProperty Name="id_clascorp" ColumnName="id_clascorp" />
+            <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
+            <ScalarProperty Name="id_Periodo" ColumnName="id_Periodo" />
+            <ScalarProperty Name="Tipo_cuota" ColumnName="Tipo_cuota" />
+            <ScalarProperty Name="cuota" ColumnName="cuota" />
+            <ScalarProperty Name="id_PlazoComercial" ColumnName="id_PlazoComercial" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ProgramaVtaDetalleSPA"><EntityTypeMapping TypeName="SPModel.ProgramaVtaDetalleSPA"><MappingFragment StoreEntitySet="ProgramaVtaDetalleSPA">
+            <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+            <ScalarProperty Name="id_Gfx" ColumnName="id_Gfx" />
+            <ScalarProperty Name="id_clascorp" ColumnName="id_clascorp" />
+            <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
+            <ScalarProperty Name="id_serie" ColumnName="id_serie" />
+            <ScalarProperty Name="SPA_base" ColumnName="SPA_base" />
+            <ScalarProperty Name="SPA_Prog" ColumnName="SPA_Prog" />
+            <ScalarProperty Name="id_PlazoComercial" ColumnName="id_PlazoComercial" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Periodos"><EntityTypeMapping TypeName="SPModel.Tipo_Periodos"><MappingFragment StoreEntitySet="Tipo_Periodos">
+            <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
+            <ScalarProperty Name="descipcion" ColumnName="descipcion" />
+            <ScalarProperty Name="estatus" ColumnName="estatus" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="vwProgramaVta"><EntityTypeMapping TypeName="SPModel.vwProgramaVta"><MappingFragment StoreEntitySet="vwProgramaVta">
+            <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+            <ScalarProperty Name="nombre" ColumnName="nombre" />
+            <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+            <ScalarProperty Name="estatus" ColumnName="estatus" />
+            <ScalarProperty Name="fch_publicacion" ColumnName="fch_publicacion" />
+            <ScalarProperty Name="cd_usuarioalta" ColumnName="cd_usuarioalta" />
+            <ScalarProperty Name="fch_alta" ColumnName="fch_alta" />
+            <ScalarProperty Name="cd_usuariomodif" ColumnName="cd_usuariomodif" />
+            <ScalarProperty Name="fch_modif" ColumnName="fch_modif" />
+            <ScalarProperty Name="fch_caducidad" ColumnName="fch_caducidad" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="VCDMC_Distribuidor"><EntityTypeMapping TypeName="SPModel.VCDMC_Distribuidor"><MappingFragment StoreEntitySet="VCDMC_Distribuidor">
+            <ScalarProperty Name="cd_empresa" ColumnName="cd_empresa" />
+            <ScalarProperty Name="cd_marca" ColumnName="cd_marca" />
+            <ScalarProperty Name="cd_distribuidor" ColumnName="cd_distribuidor" />
+            <ScalarProperty Name="nb_razonsocial" ColumnName="nb_razonsocial" />
+            <ScalarProperty Name="nb_alias" ColumnName="nb_alias" />
+            <ScalarProperty Name="tx_rfc" ColumnName="tx_rfc" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetAllWithSP" FunctionName="SPModel.Store.GetAllWithSP">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SPModel.GetAllWithSP_Result">
@@ -776,6 +861,14 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_UpdateNada" FunctionName="SPModel.Store.SP_UpdateNada" />
+          <FunctionImportMapping FunctionImportName="sp_GetProVtaxDealer" FunctionName="SPModel.Store.sp_GetProVtaxDealer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SPModel.sp_GetProVtaxDealer_Result">
+                <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -790,7 +883,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
@@ -798,85 +891,78 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="SPContext">
-        <EntityTypeShape EntityType="SPModel.Cierre_ProgramaVta_Detalle" Width="1.5" PointX="5.25" PointY="9.375" Height="2.3648893229166656" />
-        <EntityTypeShape EntityType="SPModel.Cierre_ProVta" Width="1.5" PointX="3" PointY="0.75" Height="3.1340950520833335" />
-        <EntityTypeShape EntityType="SPModel.Estatus_ProVta" Width="1.5" PointX="0.75" PointY="17" Height="1.9802864583333317" />
-        <EntityTypeShape EntityType="SPModel.Periodo" Width="1.5" PointX="0.75" PointY="1" Height="2.7494921874999996" />
-        <EntityTypeShape EntityType="SPModel.PlazoComercial" Width="1.5" PointX="0.75" PointY="5.125" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="SPModel.ProgramaVta" Width="1.5" PointX="0.75" PointY="12.5" Height="3.3263964843749996" />
-        <EntityTypeShape EntityType="SPModel.ProgramaVtaDetalleCuota" Width="1.5" PointX="3" PointY="4.75" Height="3.1340950520833317" />
-        <EntityTypeShape EntityType="SPModel.ProgramaVtaDetalleSPA" Width="1.5" PointX="6" PointY="4.875" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="SPModel.Tipo_Periodos" Width="1.5" PointX="1.5" PointY="9.875" Height="1.787985026041671" />
-        <EntityTypeShape EntityType="SPModel.vwProgramaVta" Width="1.5" PointX="7.75" PointY="9.5" Height="2.9417936197916674" />
-        <AssociationConnector Association="SPModel.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" >
-          <ConnectorPoint PointX="4.5" PointY="2.3170475260416667" />
-          <ConnectorPoint PointX="5.59375" PointY="2.3170475260416667" />
-          <ConnectorPoint PointX="5.59375" PointY="9.375" />
+        <EntityTypeShape EntityType="SPModel.Cierre_ProgramaVta_Detalle" Width="1.5" PointX="5.25" PointY="9.25" Height="3.1340950520833353" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPModel.Cierre_ProVta" Width="1.5" PointX="3" PointY="5.125" Height="3.3263964843749987" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPModel.Estatus_ProVta" Width="1.5" PointX="0.75" PointY="11.125" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPModel.Periodos" Width="1.5" PointX="0.75" PointY="13.75" Height="2.7494921874999978" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPModel.PlazoComercial" Width="1.5" PointX="0.75" PointY="1.625" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPModel.ProgramaVta" Width="1.5" PointX="0.75" PointY="5" Height="3.5186979166666656" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPModel.ProgramaVtaDetalleCuota" Width="1.5" PointX="6" PointY="5.25" Height="3.1340950520833326" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPModel.ProgramaVtaDetalleSPA" Width="1.5" PointX="3" PointY="1.375" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPModel.Tipo_Periodos" Width="1.5" PointX="1.5" PointY="18.25" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPModel.vwProgramaVta" Width="1.5" PointX="5.75" PointY="0.75" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPModel.VCDMC_Distribuidor" Width="1.5" PointX="7.75" PointY="0.75" Height="2.1725878906250031" IsExpanded="true" />
+        <AssociationConnector Association="SPModel.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="8.451396484375" />
+          <ConnectorPoint PointX="3.75" PointY="10.817047526041668" />
+          <ConnectorPoint PointX="4.0729191666666669" PointY="10.817047526041668" />
+          <ConnectorPoint PointX="4.2395858333333329" PointY="10.817047526041668" />
+          <ConnectorPoint PointX="5.25" PointY="10.817047526041668" />
         </AssociationConnector>
-        <AssociationConnector Association="SPModel.Cierre_ProVta_Estatus_ProVta_FK" >
-          <ConnectorPoint PointX="2.25" PointY="17.990143229166666" />
-          <ConnectorPoint PointX="3.75" PointY="17.990143229166666" />
-          <ConnectorPoint PointX="3.75" PointY="8.1340950520833317" />
-          <ConnectorPoint PointX="2.75" PointY="8.1340950520833317" />
-          <ConnectorPoint PointX="2.75" PointY="4.2590950520833335" />
-          <ConnectorPoint PointX="3.75" PointY="4.2590950520833335" />
-          <ConnectorPoint PointX="3.75" PointY="3.8840950520833335" />
+        <AssociationConnector Association="SPModel.Cierre_ProVta_Estatus_ProVta_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="12.115143229166666" />
+          <ConnectorPoint PointX="3.3437475" PointY="12.115143229166666" />
+          <ConnectorPoint PointX="3.3437475" PointY="8.451396484375" />
         </AssociationConnector>
-        <AssociationConnector Association="SPModel.Cierre_ProVta_Periodos_FK" >
-          <ConnectorPoint PointX="2.25" PointY="2.37474609375" />
-          <ConnectorPoint PointX="3" PointY="2.37474609375" />
+        <AssociationConnector Association="SPModel.Cierre_ProVta_Periodos_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="15.124746093749998" />
+          <ConnectorPoint PointX="4.1562525" PointY="15.124746093749998" />
+          <ConnectorPoint PointX="4.1562525" PointY="8.451396484375" />
         </AssociationConnector>
-        <AssociationConnector Association="SPModel.Periodos_Tipo_Periodos_FK" >
-          <ConnectorPoint PointX="2.5312525" PointY="9.875" />
-          <ConnectorPoint PointX="2.5312525" PointY="3.0933716406250005" />
-          <ConnectorPoint PointX="2.25" PointY="3.0933716406250005" />
+        <AssociationConnector Association="SPModel.Cierre_ProVta_ProgramaVta_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.7881982421875" />
+          <ConnectorPoint PointX="3" PointY="6.7881982421875" />
         </AssociationConnector>
-        <AssociationConnector Association="SPModel.ProgramaVtaDetalle_Periodos_FK" >
-          <ConnectorPoint PointX="2.25" PointY="3.7494921874999996" />
-          <ConnectorPoint PointX="2.4723269349011212" PointY="3.97181912240112" />
-          <ConnectorPoint PointX="2.590178065098879" PointY="4.0896702525988786" />
-          <ConnectorPoint PointX="2.875" PointY="4.3744921875" />
-          <ConnectorPoint PointX="2.875" PointY="6.3170475260416659" />
-          <ConnectorPoint PointX="3" PointY="6.3170475260416659" />
+        <AssociationConnector Association="SPModel.Periodos_Tipo_Periodos_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.875" PointY="18.25" />
+          <ConnectorPoint PointX="1.875" PointY="16.499492187499996" />
         </AssociationConnector>
-        <AssociationConnector Association="SPModel.ProgramaVtaDetalle_PlazoComercial_FK" >
-          <ConnectorPoint PointX="2.25" PointY="5.6585237630208329" />
-          <ConnectorPoint PointX="2.4479191666666664" PointY="5.658523763020832" />
-          <ConnectorPoint PointX="2.6145858333333334" PointY="5.6585237630208329" />
-          <ConnectorPoint PointX="2.6666666666666665" PointY="5.658523763020832" />
-          <ConnectorPoint PointX="2.9583333333333335" PointY="5.6585237630208329" />
-          <ConnectorPoint PointX="3" PointY="5.6585237630208329" />
+        <AssociationConnector Association="SPModel.ProgramaVtaDetalle_Periodos_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="14.406120546874998" />
+          <ConnectorPoint PointX="4.0729191666666669" PointY="14.406120546874998" />
+          <ConnectorPoint PointX="4.2395858333333329" PointY="14.406120546874998" />
+          <ConnectorPoint PointX="7.15625" PointY="14.406120546874998" />
+          <ConnectorPoint PointX="7.15625" PointY="8.3840950520833317" />
         </AssociationConnector>
-        <AssociationConnector Association="SPModel.ProgramaVtaDetallev1_PlazoComercial_FK" >
-          <ConnectorPoint PointX="2.25" PointY="7.4898893229166674" />
-          <ConnectorPoint PointX="2.4597947561906217" PointY="7.6157661766310394" />
-          <ConnectorPoint PointX="2.6027102438093785" PointY="7.7015154692022945" />
-          <ConnectorPoint PointX="2.6785422561906218" PointY="7.74701467663104" />
-          <ConnectorPoint PointX="2.8214577438093786" PointY="7.8327639692022952" />
-          <ConnectorPoint PointX="2.875" PointY="7.8648893229166674" />
-          <ConnectorPoint PointX="2.875" PointY="8.0667936197916674" />
-          <ConnectorPoint PointX="4.041666666666667" PointY="8.0667936197916674" />
-          <ConnectorPoint PointX="4.208333333333333" PointY="8.0667936197916674" />
-          <ConnectorPoint PointX="5.510416666666667" PointY="8.0667936197916674" />
-          <ConnectorPoint PointX="5.677083333333333" PointY="8.0667936197916674" />
-          <ConnectorPoint PointX="5.75" PointY="8.0667936197916674" />
-          <ConnectorPoint PointX="6" PointY="7.8167936197916674" />
+        <AssociationConnector Association="SPModel.ProgramaVtaDetalle_PlazoComercial_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.8074446614583328" />
+          <ConnectorPoint PointX="2.75" PointY="2.8074446614583328" />
+          <ConnectorPoint PointX="2.75" PointY="4.5667936197916674" />
+          <ConnectorPoint PointX="6.75" PointY="4.5667936197916674" />
+          <ConnectorPoint PointX="6.75" PointY="5.25" />
         </AssociationConnector>
-        <AssociationConnector Association="SPModel.ProgramaVtaDetalleCuota_ProgramaVta_FK" >
-          <ConnectorPoint PointX="2.25" PointY="14.1631982421875" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="14.1631982421875" />
-          <ConnectorPoint PointX="3.8333333333333335" PointY="14.1631982421875" />
-          <ConnectorPoint PointX="4.125" PointY="14.1631982421875" />
-          <ConnectorPoint PointX="4.125" PointY="7.8840950520833317" />
+        <AssociationConnector Association="SPModel.ProgramaVtaDetallev1_PlazoComercial_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.1537223307291664" />
+          <ConnectorPoint PointX="3" PointY="2.1537223307291664" />
         </AssociationConnector>
-        <AssociationConnector Association="SPModel.ProgramaVtaDetallev1_ProgramaVta_FK" >
-          <ConnectorPoint PointX="2.25" PointY="13.300346621093748" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="13.300346621093748" />
-          <ConnectorPoint PointX="3.8333333333333335" PointY="13.300346621093748" />
-          <ConnectorPoint PointX="4.041666666666667" PointY="13.300346621093748" />
-          <ConnectorPoint PointX="4.208333333333333" PointY="13.300346621093748" />
-          <ConnectorPoint PointX="7.15625" PointY="13.300346621093748" />
-          <ConnectorPoint PointX="7.15625" PointY="7.8167936197916674" />
+        <AssociationConnector Association="SPModel.ProgramaVtaDetalleCuota_ProgramaVta_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.2499999999999996" PointY="8.5186979166666656" />
+          <ConnectorPoint PointX="2.625" PointY="8.8936979166666656" />
+          <ConnectorPoint PointX="2.625" PointY="8.7590950520833317" />
+          <ConnectorPoint PointX="3.2604141666666666" PointY="8.7590950520833317" />
+          <ConnectorPoint PointX="3.4270808333333336" PointY="8.7590950520833317" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="8.7590950520833317" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="8.7590950520833317" />
+          <ConnectorPoint PointX="4.0729191666666669" PointY="8.7590950520833317" />
+          <ConnectorPoint PointX="4.2395858333333329" PointY="8.7590950520833317" />
+          <ConnectorPoint PointX="5.6261528461538468" PointY="8.7590950520833317" />
+          <ConnectorPoint PointX="6.001152846153845" PointY="8.3840950520833317" />
+        </AssociationConnector>
+        <AssociationConnector Association="SPModel.ProgramaVtaDetallev1_ProgramaVta_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5" />
+          <ConnectorPoint PointX="2.375" PointY="4.625" />
+          <ConnectorPoint PointX="2.375" PointY="4.9417936197916674" />
+          <ConnectorPoint PointX="3" PointY="4.3167936197916674" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

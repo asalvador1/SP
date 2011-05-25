@@ -10,19 +10,10 @@
 namespace Generador
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Tipo_Periodos
+    public partial class sp_GetProVtaxDealer_Result
     {
-        public Tipo_Periodos()
-        {
-            this.Periodos = new HashSet<Periodos>();
-        }
-    
-        public int id_TipoPeriodo { get; set; }
-        public string descipcion { get; set; }
-        public string estatus { get; set; }
-    
-        public virtual ICollection<Periodos> Periodos { get; set; }
+        public int idProgramaVta { get; set; }
+        public string nombre { get; set; }
     }
 }
