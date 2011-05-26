@@ -25,10 +25,16 @@ namespace SP.DomainModel.Base
             base.SaveChanges();
         }
 
+        public SPContext()
+        {
+            
+            base.Configuration.LazyLoadingEnabled = false;            
+        }
           protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
            modelBuilder.Entity<ProgramaVta>().HasKey(k => k.idProgramaVta);
-              
+           //this.ContextOptions.LazyLoadingEnabled = false;
+          
         }
           public virtual ObjectResult<GetAllWithSP_Result> GetAllWithSP()
           {
