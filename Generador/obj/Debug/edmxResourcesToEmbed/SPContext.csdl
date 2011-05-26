@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="SPModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-  <EntityContainer Name="SPEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="SPEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Cierre_ProgramaVta_Detalle" EntityType="SPModel.Cierre_ProgramaVta_Detalle" />
     <EntitySet Name="Cierre_ProVta" EntityType="SPModel.Cierre_ProVta" />
     <EntitySet Name="Estatus_ProVta" EntityType="SPModel.Estatus_ProVta" />
-    <EntitySet Name="Periodos" EntityType="SPModel.Periodo" />
-    <EntitySet Name="PlazoComercials" EntityType="SPModel.PlazoComercial" />
-    <EntitySet Name="ProgramaVtas" EntityType="SPModel.ProgramaVta" />
-    <EntitySet Name="ProgramaVtaDetalleCuotas" EntityType="SPModel.ProgramaVtaDetalleCuota" />
-    <EntitySet Name="ProgramaVtaDetalleSPAs" EntityType="SPModel.ProgramaVtaDetalleSPA" />
+    <EntitySet Name="Periodos" EntityType="SPModel.Periodos" />
+    <EntitySet Name="PlazoComercial" EntityType="SPModel.PlazoComercial" />
+    <EntitySet Name="ProgramaVta" EntityType="SPModel.ProgramaVta" />
+    <EntitySet Name="ProgramaVtaDetalleCuota" EntityType="SPModel.ProgramaVtaDetalleCuota" />
+    <EntitySet Name="ProgramaVtaDetalleSPA" EntityType="SPModel.ProgramaVtaDetalleSPA" />
     <EntitySet Name="Tipo_Periodos" EntityType="SPModel.Tipo_Periodos" />
-    <EntitySet Name="vwProgramaVtas" EntityType="SPModel.vwProgramaVta" />
+    <EntitySet Name="vwProgramaVta" EntityType="SPModel.vwProgramaVta" />
+    <EntitySet Name="VCDMC_Distribuidor" EntityType="SPModel.VCDMC_Distribuidor" />
     <AssociationSet Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" Association="SPModel.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
       <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
       <End Role="Cierre_ProgramaVta_Detalle" EntitySet="Cierre_ProgramaVta_Detalle" />
@@ -20,135 +21,155 @@
       <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
     </AssociationSet>
     <AssociationSet Name="Cierre_ProVta_Periodos_FK" Association="SPModel.Cierre_ProVta_Periodos_FK">
-      <End Role="Periodo" EntitySet="Periodos" />
+      <End Role="Periodos" EntitySet="Periodos" />
+      <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
+    </AssociationSet>
+    <AssociationSet Name="Cierre_ProVta_ProgramaVta_FK" Association="SPModel.Cierre_ProVta_ProgramaVta_FK">
+      <End Role="ProgramaVta" EntitySet="ProgramaVta" />
       <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
     </AssociationSet>
     <AssociationSet Name="Periodos_Tipo_Periodos_FK" Association="SPModel.Periodos_Tipo_Periodos_FK">
       <End Role="Tipo_Periodos" EntitySet="Tipo_Periodos" />
-      <End Role="Periodo" EntitySet="Periodos" />
+      <End Role="Periodos" EntitySet="Periodos" />
     </AssociationSet>
     <AssociationSet Name="ProgramaVtaDetalle_Periodos_FK" Association="SPModel.ProgramaVtaDetalle_Periodos_FK">
-      <End Role="Periodo" EntitySet="Periodos" />
-      <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuotas" />
+      <End Role="Periodos" EntitySet="Periodos" />
+      <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuota" />
     </AssociationSet>
     <AssociationSet Name="ProgramaVtaDetalle_PlazoComercial_FK" Association="SPModel.ProgramaVtaDetalle_PlazoComercial_FK">
-      <End Role="PlazoComercial" EntitySet="PlazoComercials" />
-      <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuotas" />
+      <End Role="PlazoComercial" EntitySet="PlazoComercial" />
+      <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuota" />
     </AssociationSet>
     <AssociationSet Name="ProgramaVtaDetallev1_PlazoComercial_FK" Association="SPModel.ProgramaVtaDetallev1_PlazoComercial_FK">
-      <End Role="PlazoComercial" EntitySet="PlazoComercials" />
-      <End Role="ProgramaVtaDetalleSPA" EntitySet="ProgramaVtaDetalleSPAs" />
+      <End Role="PlazoComercial" EntitySet="PlazoComercial" />
+      <End Role="ProgramaVtaDetalleSPA" EntitySet="ProgramaVtaDetalleSPA" />
     </AssociationSet>
     <AssociationSet Name="ProgramaVtaDetalleCuota_ProgramaVta_FK" Association="SPModel.ProgramaVtaDetalleCuota_ProgramaVta_FK">
-      <End Role="ProgramaVta" EntitySet="ProgramaVtas" />
-      <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuotas" />
+      <End Role="ProgramaVta" EntitySet="ProgramaVta" />
+      <End Role="ProgramaVtaDetalleCuota" EntitySet="ProgramaVtaDetalleCuota" />
     </AssociationSet>
     <AssociationSet Name="ProgramaVtaDetallev1_ProgramaVta_FK" Association="SPModel.ProgramaVtaDetallev1_ProgramaVta_FK">
-      <End Role="ProgramaVta" EntitySet="ProgramaVtas" />
-      <End Role="ProgramaVtaDetalleSPA" EntitySet="ProgramaVtaDetalleSPAs" />
+      <End Role="ProgramaVta" EntitySet="ProgramaVta" />
+      <End Role="ProgramaVtaDetalleSPA" EntitySet="ProgramaVtaDetalleSPA" />
     </AssociationSet>
     <FunctionImport Name="GetAllWithSP" ReturnType="Collection(SPModel.GetAllWithSP_Result)" />
     <FunctionImport Name="SP_UpdateNada" ReturnType="Collection(Int32)">
-      <Parameter Name="id" Type="Int32" Mode="In" />
+      <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <EntitySet Name="VCDMC_Distribuidor" EntityType="SPModel.VCDMC_Distribuidor" />
+    <FunctionImport Name="sp_GetProVtaxDealer" ReturnType="Collection(SPModel.sp_GetProVtaxDealer_Result)">
+      <Parameter Name="idDealer" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Cierre_ProgramaVta_Detalle">
     <Key>
       <PropertyRef Name="id_cierreProVta" />
+      <PropertyRef Name="id_ClasCorp" />
     </Key>
-    <Property Type="Int32" Name="id_cierreProVta" Nullable="false" />
-    <Property Type="Int32" Name="id_ClasCorp" Nullable="false" />
-    <Property Type="Int32" Name="Cuota_ProVta" />
-    <Property Type="Int32" Name="UnidadesPedidas" />
-    <Property Type="String" Name="NumPedido_comp" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="userModif" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="id_cierreProVta" Type="Int32" Nullable="false" />
+    <Property Name="id_ClasCorp" Type="Int32" Nullable="false" />
+    <Property Name="Cuota_ProVta" Type="Int32" />
+    <Property Name="UnidadesPedidas" Type="Int32" />
+    <Property Name="NumPedido_comp" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="userModif" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Cierre_ProVta_id_GFX" Type="Int32" Nullable="false" />
+    <Property Name="Cierre_ProVta_id_ProgramaVta" Type="Int32" Nullable="false" />
+    <Property Name="Cierre_ProVta_id_tipoperiodo" Type="Int32" Nullable="false" />
+    <Property Name="Cierre_ProVta_id_Periodo" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Cierre_ProVta" Relationship="SPModel.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" FromRole="Cierre_ProgramaVta_Detalle" ToRole="Cierre_ProVta" />
   </EntityType>
   <EntityType Name="Cierre_ProVta">
     <Key>
       <PropertyRef Name="id_CierrexProVta" />
+      <PropertyRef Name="id_GFX" />
+      <PropertyRef Name="id_ProgramaVta" />
+      <PropertyRef Name="id_tipoperiodo" />
+      <PropertyRef Name="id_Periodo" />
     </Key>
-    <Property Type="Int32" Name="id_CierrexProVta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Int32" Name="id_GFX" />
-    <Property Type="Int32" Name="id_ProgramaVta" />
-    <Property Type="Int32" Name="id_tipoperiodo" Nullable="false" />
-    <Property Type="Int32" Name="id_Periodo" Nullable="false" />
-    <Property Type="Int32" Name="id_Status_ProVta" Nullable="false" />
-    <Property Type="DateTime" Name="fch_Modif" />
-    <Property Type="DateTime" Name="fch_Cierre" />
+    <Property Name="id_CierrexProVta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_GFX" Type="Int32" Nullable="false" />
+    <Property Name="id_ProgramaVta" Type="Int32" Nullable="false" />
+    <Property Name="id_tipoperiodo" Type="Int32" Nullable="false" />
+    <Property Name="id_Periodo" Type="Int32" Nullable="false" />
+    <Property Name="id_Status_ProVta" Type="Int32" Nullable="false" />
+    <Property Name="fch_Modif" Type="DateTime" />
+    <Property Name="fch_Cierre" Type="DateTime" />
     <NavigationProperty Name="Cierre_ProgramaVta_Detalle" Relationship="SPModel.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" FromRole="Cierre_ProVta" ToRole="Cierre_ProgramaVta_Detalle" />
     <NavigationProperty Name="Estatus_ProVta" Relationship="SPModel.Cierre_ProVta_Estatus_ProVta_FK" FromRole="Cierre_ProVta" ToRole="Estatus_ProVta" />
-    <NavigationProperty Name="Periodo" Relationship="SPModel.Cierre_ProVta_Periodos_FK" FromRole="Cierre_ProVta" ToRole="Periodo" />
+    <NavigationProperty Name="Periodos" Relationship="SPModel.Cierre_ProVta_Periodos_FK" FromRole="Cierre_ProVta" ToRole="Periodos" />
+    <NavigationProperty Name="ProgramaVta" Relationship="SPModel.Cierre_ProVta_ProgramaVta_FK" FromRole="Cierre_ProVta" ToRole="ProgramaVta" />
   </EntityType>
   <EntityType Name="Estatus_ProVta">
     <Key>
       <PropertyRef Name="idStatus" />
     </Key>
-    <Property Type="Int32" Name="idStatus" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="Descripcion" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="fhc_modif" />
-    <Property Type="String" Name="usermodif" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="idStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="fhc_modif" Type="DateTime" />
+    <Property Name="usermodif" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="Cierre_ProVta" Relationship="SPModel.Cierre_ProVta_Estatus_ProVta_FK" FromRole="Estatus_ProVta" ToRole="Cierre_ProVta" />
   </EntityType>
-  <EntityType Name="Periodo">
+  <EntityType Name="Periodos">
     <Key>
       <PropertyRef Name="id_TipoPeriodo" />
       <PropertyRef Name="id_periodo" />
     </Key>
-    <Property Type="Int32" Name="id_TipoPeriodo" Nullable="false" />
-    <Property Type="Int32" Name="id_periodo" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="Descripcion" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="estatus" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="fch_inicio" />
-    <Property Type="DateTime" Name="fch_fin" />
-    <NavigationProperty Name="Cierre_ProVta" Relationship="SPModel.Cierre_ProVta_Periodos_FK" FromRole="Periodo" ToRole="Cierre_ProVta" />
-    <NavigationProperty Name="Tipo_Periodos" Relationship="SPModel.Periodos_Tipo_Periodos_FK" FromRole="Periodo" ToRole="Tipo_Periodos" />
-    <NavigationProperty Name="ProgramaVtaDetalleCuotas" Relationship="SPModel.ProgramaVtaDetalle_Periodos_FK" FromRole="Periodo" ToRole="ProgramaVtaDetalleCuota" />
+    <Property Name="id_TipoPeriodo" Type="Int32" Nullable="false" />
+    <Property Name="id_periodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="estatus" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="fch_inicio" Type="DateTime" />
+    <Property Name="fch_fin" Type="DateTime" />
+    <NavigationProperty Name="Cierre_ProVta" Relationship="SPModel.Cierre_ProVta_Periodos_FK" FromRole="Periodos" ToRole="Cierre_ProVta" />
+    <NavigationProperty Name="Tipo_Periodos" Relationship="SPModel.Periodos_Tipo_Periodos_FK" FromRole="Periodos" ToRole="Tipo_Periodos" />
+    <NavigationProperty Name="ProgramaVtaDetalleCuota" Relationship="SPModel.ProgramaVtaDetalle_Periodos_FK" FromRole="Periodos" ToRole="ProgramaVtaDetalleCuota" />
   </EntityType>
   <EntityType Name="PlazoComercial">
     <Key>
       <PropertyRef Name="id_PlazoComercial" />
     </Key>
-    <Property Type="Int32" Name="id_PlazoComercial" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="descripcion" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="estatus" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="Double" Name="Porcentaje_Sustitucion_USD" />
-    <Property Type="Double" Name="Porcentaje_Sustitucion_NMX" />
-    <NavigationProperty Name="ProgramaVtaDetalleCuotas" Relationship="SPModel.ProgramaVtaDetalle_PlazoComercial_FK" FromRole="PlazoComercial" ToRole="ProgramaVtaDetalleCuota" />
-    <NavigationProperty Name="ProgramaVtaDetalleSPAs" Relationship="SPModel.ProgramaVtaDetallev1_PlazoComercial_FK" FromRole="PlazoComercial" ToRole="ProgramaVtaDetalleSPA" />
+    <Property Name="id_PlazoComercial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="estatus" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Porcentaje_Sustitucion_USD" Type="Double" />
+    <Property Name="Porcentaje_Sustitucion_NMX" Type="Double" />
+    <NavigationProperty Name="ProgramaVtaDetalleCuota" Relationship="SPModel.ProgramaVtaDetalle_PlazoComercial_FK" FromRole="PlazoComercial" ToRole="ProgramaVtaDetalleCuota" />
+    <NavigationProperty Name="ProgramaVtaDetalleSPA" Relationship="SPModel.ProgramaVtaDetallev1_PlazoComercial_FK" FromRole="PlazoComercial" ToRole="ProgramaVtaDetalleSPA" />
   </EntityType>
   <EntityType Name="ProgramaVta">
     <Key>
       <PropertyRef Name="idProgramaVta" />
     </Key>
-    <Property Type="Int32" Name="idProgramaVta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="nombre" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="descripcion" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="estatus" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="fch_publicacion" />
-    <Property Type="String" Name="cd_usuarioalta" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="fch_alta" />
-    <Property Type="String" Name="cd_usuariomodif" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="fch_modif" />
-    <Property Type="DateTime" Name="fch_caducidad" />
-    <NavigationProperty Name="ProgramaVtaDetalleCuotas" Relationship="SPModel.ProgramaVtaDetalleCuota_ProgramaVta_FK" FromRole="ProgramaVta" ToRole="ProgramaVtaDetalleCuota" />
-    <NavigationProperty Name="ProgramaVtaDetalleSPAs" Relationship="SPModel.ProgramaVtaDetallev1_ProgramaVta_FK" FromRole="ProgramaVta" ToRole="ProgramaVtaDetalleSPA" />
+    <Property Name="idProgramaVta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="descripcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="estatus" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="fch_publicacion" Type="DateTime" />
+    <Property Name="cd_usuarioalta" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="fch_alta" Type="DateTime" />
+    <Property Name="cd_usuariomodif" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="fch_modif" Type="DateTime" />
+    <Property Name="fch_caducidad" Type="DateTime" />
+    <NavigationProperty Name="Cierre_ProVta" Relationship="SPModel.Cierre_ProVta_ProgramaVta_FK" FromRole="ProgramaVta" ToRole="Cierre_ProVta" />
+    <NavigationProperty Name="ProgramaVtaDetalleCuota" Relationship="SPModel.ProgramaVtaDetalleCuota_ProgramaVta_FK" FromRole="ProgramaVta" ToRole="ProgramaVtaDetalleCuota" />
+    <NavigationProperty Name="ProgramaVtaDetalleSPA" Relationship="SPModel.ProgramaVtaDetallev1_ProgramaVta_FK" FromRole="ProgramaVta" ToRole="ProgramaVtaDetalleSPA" />
   </EntityType>
   <EntityType Name="ProgramaVtaDetalleCuota">
     <Key>
       <PropertyRef Name="idProgramaVta" />
       <PropertyRef Name="id_Gfx" />
+      <PropertyRef Name="id_clascorp" />
+      <PropertyRef Name="id_TipoPeriodo" />
+      <PropertyRef Name="id_Periodo" />
     </Key>
-    <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
-    <Property Type="Int32" Name="id_Gfx" Nullable="false" />
-    <Property Type="Int32" Name="id_clascorp" />
-    <Property Type="Int32" Name="id_TipoPeriodo" Nullable="false" />
-    <Property Type="Int32" Name="id_Periodo" Nullable="false" />
-    <Property Type="String" Name="Tipo_cuota" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="Int32" Name="cuota" />
-    <Property Type="Int32" Name="id_PlazoComercial" Nullable="false" />
-    <NavigationProperty Name="Periodo" Relationship="SPModel.ProgramaVtaDetalle_Periodos_FK" FromRole="ProgramaVtaDetalleCuota" ToRole="Periodo" />
+    <Property Name="idProgramaVta" Type="Int32" Nullable="false" />
+    <Property Name="id_Gfx" Type="Int32" Nullable="false" />
+    <Property Name="id_clascorp" Type="Int32" Nullable="false" />
+    <Property Name="id_TipoPeriodo" Type="Int32" Nullable="false" />
+    <Property Name="id_Periodo" Type="Int32" Nullable="false" />
+    <Property Name="Tipo_cuota" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="cuota" Type="Int32" />
+    <Property Name="id_PlazoComercial" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Periodos" Relationship="SPModel.ProgramaVtaDetalle_Periodos_FK" FromRole="ProgramaVtaDetalleCuota" ToRole="Periodos" />
     <NavigationProperty Name="PlazoComercial" Relationship="SPModel.ProgramaVtaDetalle_PlazoComercial_FK" FromRole="ProgramaVtaDetalleCuota" ToRole="PlazoComercial" />
     <NavigationProperty Name="ProgramaVta" Relationship="SPModel.ProgramaVtaDetalleCuota_ProgramaVta_FK" FromRole="ProgramaVtaDetalleCuota" ToRole="ProgramaVta" />
   </EntityType>
@@ -156,15 +177,17 @@
     <Key>
       <PropertyRef Name="idProgramaVta" />
       <PropertyRef Name="id_Gfx" />
+      <PropertyRef Name="id_clascorp" />
+      <PropertyRef Name="id_modelo" />
     </Key>
-    <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
-    <Property Type="Int32" Name="id_Gfx" Nullable="false" />
-    <Property Type="Int32" Name="id_clascorp" />
-    <Property Type="Int32" Name="id_modelo" />
-    <Property Type="Int32" Name="id_serie" />
-    <Property Type="Double" Name="SPA_base" />
-    <Property Type="Double" Name="SPA_Prog" />
-    <Property Type="Int32" Name="id_PlazoComercial" Nullable="false" />
+    <Property Name="idProgramaVta" Type="Int32" Nullable="false" />
+    <Property Name="id_Gfx" Type="Int32" Nullable="false" />
+    <Property Name="id_clascorp" Type="Int32" Nullable="false" />
+    <Property Name="id_modelo" Type="Int32" Nullable="false" />
+    <Property Name="id_serie" Type="Int32" />
+    <Property Name="SPA_base" Type="Double" />
+    <Property Name="SPA_Prog" Type="Double" />
+    <Property Name="id_PlazoComercial" Type="Int32" Nullable="false" />
     <NavigationProperty Name="PlazoComercial" Relationship="SPModel.ProgramaVtaDetallev1_PlazoComercial_FK" FromRole="ProgramaVtaDetalleSPA" ToRole="PlazoComercial" />
     <NavigationProperty Name="ProgramaVta" Relationship="SPModel.ProgramaVtaDetallev1_ProgramaVta_FK" FromRole="ProgramaVtaDetalleSPA" ToRole="ProgramaVta" />
   </EntityType>
@@ -172,41 +195,62 @@
     <Key>
       <PropertyRef Name="id_TipoPeriodo" />
     </Key>
-    <Property Type="Int32" Name="id_TipoPeriodo" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="descipcion" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="estatus" MaxLength="20" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Periodos" Relationship="SPModel.Periodos_Tipo_Periodos_FK" FromRole="Tipo_Periodos" ToRole="Periodo" />
+    <Property Name="id_TipoPeriodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descipcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="estatus" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Periodos" Relationship="SPModel.Periodos_Tipo_Periodos_FK" FromRole="Tipo_Periodos" ToRole="Periodos" />
   </EntityType>
   <EntityType Name="vwProgramaVta">
     <Key>
       <PropertyRef Name="idProgramaVta" />
     </Key>
-    <Property Type="Int32" Name="idProgramaVta" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="nombre" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="descripcion" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="estatus" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="fch_publicacion" />
-    <Property Type="String" Name="cd_usuarioalta" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="fch_alta" />
-    <Property Type="String" Name="cd_usuariomodif" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="fch_modif" />
-    <Property Type="DateTime" Name="fch_caducidad" />
+    <Property Name="idProgramaVta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="descripcion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="estatus" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="fch_publicacion" Type="DateTime" />
+    <Property Name="cd_usuarioalta" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="fch_alta" Type="DateTime" />
+    <Property Name="cd_usuariomodif" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="fch_modif" Type="DateTime" />
+    <Property Name="fch_caducidad" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="VCDMC_Distribuidor">
+    <Key>
+      <PropertyRef Name="cd_empresa" />
+      <PropertyRef Name="cd_marca" />
+      <PropertyRef Name="cd_distribuidor" />
+    </Key>
+    <Property Name="cd_empresa" Type="Int32" Nullable="false" />
+    <Property Name="cd_marca" Type="Int32" Nullable="false" />
+    <Property Name="cd_distribuidor" Type="Int32" Nullable="false" />
+    <Property Name="nb_razonsocial" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="nb_alias" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="tx_rfc" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
   </EntityType>
   <Association Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
-    <End Type="SPModel.Cierre_ProVta" Role="Cierre_ProVta" Multiplicity="1" />
-    <End Type="SPModel.Cierre_ProgramaVta_Detalle" Role="Cierre_ProgramaVta_Detalle" Multiplicity="0..1" />
+    <End Role="Cierre_ProVta" Type="SPModel.Cierre_ProVta" Multiplicity="1" />
+    <End Role="Cierre_ProgramaVta_Detalle" Type="SPModel.Cierre_ProgramaVta_Detalle" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Cierre_ProVta">
         <PropertyRef Name="id_CierrexProVta" />
+        <PropertyRef Name="id_GFX" />
+        <PropertyRef Name="id_ProgramaVta" />
+        <PropertyRef Name="id_tipoperiodo" />
+        <PropertyRef Name="id_Periodo" />
       </Principal>
       <Dependent Role="Cierre_ProgramaVta_Detalle">
         <PropertyRef Name="id_cierreProVta" />
+        <PropertyRef Name="Cierre_ProVta_id_GFX" />
+        <PropertyRef Name="Cierre_ProVta_id_ProgramaVta" />
+        <PropertyRef Name="Cierre_ProVta_id_tipoperiodo" />
+        <PropertyRef Name="Cierre_ProVta_id_Periodo" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="Cierre_ProVta_Estatus_ProVta_FK">
-    <End Type="SPModel.Estatus_ProVta" Role="Estatus_ProVta" Multiplicity="1" />
-    <End Type="SPModel.Cierre_ProVta" Role="Cierre_ProVta" Multiplicity="*" />
+    <End Role="Estatus_ProVta" Type="SPModel.Estatus_ProVta" Multiplicity="1" />
+    <End Role="Cierre_ProVta" Type="SPModel.Cierre_ProVta" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Estatus_ProVta">
         <PropertyRef Name="idStatus" />
@@ -217,10 +261,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="Cierre_ProVta_Periodos_FK">
-    <End Type="SPModel.Periodo" Role="Periodo" Multiplicity="1" />
-    <End Type="SPModel.Cierre_ProVta" Role="Cierre_ProVta" Multiplicity="*" />
+    <End Role="Periodos" Type="SPModel.Periodos" Multiplicity="1" />
+    <End Role="Cierre_ProVta" Type="SPModel.Cierre_ProVta" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Periodo">
+      <Principal Role="Periodos">
         <PropertyRef Name="id_periodo" />
         <PropertyRef Name="id_TipoPeriodo" />
       </Principal>
@@ -230,23 +274,35 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="Cierre_ProVta_ProgramaVta_FK">
+    <End Role="ProgramaVta" Type="SPModel.ProgramaVta" Multiplicity="1" />
+    <End Role="Cierre_ProVta" Type="SPModel.Cierre_ProVta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProgramaVta">
+        <PropertyRef Name="idProgramaVta" />
+      </Principal>
+      <Dependent Role="Cierre_ProVta">
+        <PropertyRef Name="id_ProgramaVta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="Periodos_Tipo_Periodos_FK">
-    <End Type="SPModel.Tipo_Periodos" Role="Tipo_Periodos" Multiplicity="1" />
-    <End Type="SPModel.Periodo" Role="Periodo" Multiplicity="*" />
+    <End Role="Tipo_Periodos" Type="SPModel.Tipo_Periodos" Multiplicity="1" />
+    <End Role="Periodos" Type="SPModel.Periodos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Tipo_Periodos">
         <PropertyRef Name="id_TipoPeriodo" />
       </Principal>
-      <Dependent Role="Periodo">
+      <Dependent Role="Periodos">
         <PropertyRef Name="id_TipoPeriodo" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="ProgramaVtaDetalle_Periodos_FK">
-    <End Type="SPModel.Periodo" Role="Periodo" Multiplicity="1" />
-    <End Type="SPModel.ProgramaVtaDetalleCuota" Role="ProgramaVtaDetalleCuota" Multiplicity="*" />
+    <End Role="Periodos" Type="SPModel.Periodos" Multiplicity="1" />
+    <End Role="ProgramaVtaDetalleCuota" Type="SPModel.ProgramaVtaDetalleCuota" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Periodo">
+      <Principal Role="Periodos">
         <PropertyRef Name="id_periodo" />
         <PropertyRef Name="id_TipoPeriodo" />
       </Principal>
@@ -257,8 +313,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ProgramaVtaDetalle_PlazoComercial_FK">
-    <End Type="SPModel.PlazoComercial" Role="PlazoComercial" Multiplicity="1" />
-    <End Type="SPModel.ProgramaVtaDetalleCuota" Role="ProgramaVtaDetalleCuota" Multiplicity="*" />
+    <End Role="PlazoComercial" Type="SPModel.PlazoComercial" Multiplicity="1" />
+    <End Role="ProgramaVtaDetalleCuota" Type="SPModel.ProgramaVtaDetalleCuota" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PlazoComercial">
         <PropertyRef Name="id_PlazoComercial" />
@@ -269,8 +325,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ProgramaVtaDetallev1_PlazoComercial_FK">
-    <End Type="SPModel.PlazoComercial" Role="PlazoComercial" Multiplicity="1" />
-    <End Type="SPModel.ProgramaVtaDetalleSPA" Role="ProgramaVtaDetalleSPA" Multiplicity="*" />
+    <End Role="PlazoComercial" Type="SPModel.PlazoComercial" Multiplicity="1" />
+    <End Role="ProgramaVtaDetalleSPA" Type="SPModel.ProgramaVtaDetalleSPA" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PlazoComercial">
         <PropertyRef Name="id_PlazoComercial" />
@@ -281,8 +337,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ProgramaVtaDetalleCuota_ProgramaVta_FK">
-    <End Type="SPModel.ProgramaVta" Role="ProgramaVta" Multiplicity="1" />
-    <End Type="SPModel.ProgramaVtaDetalleCuota" Role="ProgramaVtaDetalleCuota" Multiplicity="*" />
+    <End Role="ProgramaVta" Type="SPModel.ProgramaVta" Multiplicity="1" />
+    <End Role="ProgramaVtaDetalleCuota" Type="SPModel.ProgramaVtaDetalleCuota" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ProgramaVta">
         <PropertyRef Name="idProgramaVta" />
@@ -293,8 +349,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ProgramaVtaDetallev1_ProgramaVta_FK">
-    <End Type="SPModel.ProgramaVta" Role="ProgramaVta" Multiplicity="1" />
-    <End Type="SPModel.ProgramaVtaDetalleSPA" Role="ProgramaVtaDetalleSPA" Multiplicity="*" />
+    <End Role="ProgramaVta" Type="SPModel.ProgramaVta" Multiplicity="1" />
+    <End Role="ProgramaVtaDetalleSPA" Type="SPModel.ProgramaVtaDetalleSPA" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ProgramaVta">
         <PropertyRef Name="idProgramaVta" />
@@ -316,17 +372,8 @@
     <Property Type="DateTime" Name="fch_modif" Nullable="true" Precision="23" />
     <Property Type="DateTime" Name="fch_caducidad" Nullable="true" Precision="23" />
   </ComplexType>
-  <EntityType Name="VCDMC_Distribuidor">
-    <Key>
-      <PropertyRef Name="cd_empresa" />
-      <PropertyRef Name="cd_marca" />
-      <PropertyRef Name="cd_distribuidor" />
-    </Key>
-    <Property Type="Int32" Name="cd_empresa" Nullable="false" />
-    <Property Type="Int32" Name="cd_marca" Nullable="false" />
-    <Property Type="Int32" Name="cd_distribuidor" Nullable="false" />
-    <Property Type="String" Name="nb_razonsocial" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="nb_alias" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="tx_rfc" MaxLength="60" FixedLength="false" Unicode="false" />
-  </EntityType>
+  <ComplexType Name="sp_GetProVtaxDealer_Result">
+    <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="true" MaxLength="20" />
+  </ComplexType>
 </Schema>

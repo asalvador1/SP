@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Diagnostics;
 
 namespace SP
 {
@@ -25,6 +26,7 @@ namespace SP
                 "Default", // Route name
                 "{controller}.aspx/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Main", id = UrlParameter.Optional } // Parameter defaults
+                //new { controller = "StockingProgram", action = "panelProgramaVtaHeader" } // 
             );
 
         }
@@ -35,6 +37,19 @@ namespace SP
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+        }
+
+        public void Session_OnStart()
+        {
+            Debug.WriteLine("Session Start");
+            //Cargar información de usuario actual
+            string sNTUser = Request.ServerVariables["HTTP_IV_USER"] + Request.ServerVariables["AUTH_USER"];
+            int pos = sNTUser.IndexOf("\\", 0);
+            int clong = sNTUser.Length;
+            if (pos > -1)
+                sNTUser = sNTUser.Substring(pos + 1, clong - pos - 1);
+
+            Session["id_usuario"] = sNTUser;
         }
     }
 }

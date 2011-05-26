@@ -6,7 +6,7 @@
 	    icon: App.utils.constants.ICONS_PATH + 'add.png',
 	    cls: 'x-btn-text-icon',
 	    handler:function(){
-	        location.href= App.utils.constants.URL_BASE_PATH + 'ListaPrecios.aspx/NuevaPaso1';
+	        location.href= App.utils.constants.URL_BASE_PATH + 'StockingProgram.aspx/panelProgramaVtaHeader';
 	    } // function
 
       });

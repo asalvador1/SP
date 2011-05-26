@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -1188,7 +1189,7 @@
     <Content Include="Content\js\cmi\Home\SolicituSustitucion.htm" />
     <Content Include="Content\js\cmi\Home\SustituirPedido.htm" />
     <Content Include="Content\js\cmi\Home\SustiturPedido.png" />
-    <Content Include="Content\js\cmi\ListaPrecios\NuevaPaso1.js" />
+    <Content Include="Content\js\cmi\StockingProgram\panelProgramaVtaHeader.js" />
     <Content Include="Content\js\cmi\ListaPrecios\NuevaPaso2.js" />
     <Content Include="Content\js\cmi\ListaPrecios\NuevaPaso3.js" />
     <Content Include="Content\js\cmi\ListaPrecios\NuevaPaso4.js" />
@@ -1246,6 +1247,7 @@
     <Content Include="Views\ListaPrecios\NuevaPaso2.aspx" />
     <Content Include="Views\ListaPrecios\NuevaPaso3.aspx" />
     <Content Include="Views\ListaPrecios\NuevaPaso4.aspx" />
+    <Content Include="Views\StockingProgram\panelProgramaVtaHeader.aspx" />
     <Content Include="Views\Venta\CierreProgramaVta.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1358,7 +1360,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>55983</DevelopmentServerPort>
+          <DevelopmentServerPort>53716</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="SPModelStoreContainer" CdmEntityContainer="SPEntities">
+  <EntityContainerMapping StorageEntityContainer="SPModelStoreContainer" CdmEntityContainer="SPEntities1">
     <EntitySetMapping Name="Cierre_ProgramaVta_Detalle">
-      <EntityTypeMapping TypeName="IsTypeOf(SPModel.Cierre_ProgramaVta_Detalle)">
+      <EntityTypeMapping TypeName="SPModel.Cierre_ProgramaVta_Detalle">
         <MappingFragment StoreEntitySet="Cierre_ProgramaVta_Detalle">
           <ScalarProperty Name="id_cierreProVta" ColumnName="id_cierreProVta" />
           <ScalarProperty Name="id_ClasCorp" ColumnName="id_ClasCorp" />
@@ -10,11 +10,15 @@
           <ScalarProperty Name="UnidadesPedidas" ColumnName="UnidadesPedidas" />
           <ScalarProperty Name="NumPedido_comp" ColumnName="NumPedido_comp" />
           <ScalarProperty Name="userModif" ColumnName="userModif" />
+          <ScalarProperty Name="Cierre_ProVta_id_GFX" ColumnName="Cierre_ProVta_id_GFX" />
+          <ScalarProperty Name="Cierre_ProVta_id_ProgramaVta" ColumnName="Cierre_ProVta_id_ProgramaVta" />
+          <ScalarProperty Name="Cierre_ProVta_id_tipoperiodo" ColumnName="Cierre_ProVta_id_tipoperiodo" />
+          <ScalarProperty Name="Cierre_ProVta_id_Periodo" ColumnName="Cierre_ProVta_id_Periodo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Cierre_ProVta">
-      <EntityTypeMapping TypeName="IsTypeOf(SPModel.Cierre_ProVta)">
+      <EntityTypeMapping TypeName="SPModel.Cierre_ProVta">
         <MappingFragment StoreEntitySet="Cierre_ProVta">
           <ScalarProperty Name="id_CierrexProVta" ColumnName="id_CierrexProVta" />
           <ScalarProperty Name="id_GFX" ColumnName="id_GFX" />
@@ -28,7 +32,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Estatus_ProVta">
-      <EntityTypeMapping TypeName="IsTypeOf(SPModel.Estatus_ProVta)">
+      <EntityTypeMapping TypeName="SPModel.Estatus_ProVta">
         <MappingFragment StoreEntitySet="Estatus_ProVta">
           <ScalarProperty Name="idStatus" ColumnName="idStatus" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -38,7 +42,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Periodos">
-      <EntityTypeMapping TypeName="IsTypeOf(SPModel.Periodo)">
+      <EntityTypeMapping TypeName="SPModel.Periodos">
         <MappingFragment StoreEntitySet="Periodos">
           <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
           <ScalarProperty Name="id_periodo" ColumnName="id_periodo" />
@@ -49,9 +53,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PlazoComercials">
-      <EntityTypeMapping TypeName="IsTypeOf(SPModel.PlazoComercial)">
-        <MappingFragment StoreEntitySet="PlazoComercials">
+    <EntitySetMapping Name="PlazoComercial">
+      <EntityTypeMapping TypeName="SPModel.PlazoComercial">
+        <MappingFragment StoreEntitySet="PlazoComercial">
           <ScalarProperty Name="id_PlazoComercial" ColumnName="id_PlazoComercial" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
           <ScalarProperty Name="estatus" ColumnName="estatus" />
@@ -60,9 +64,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ProgramaVtas">
-      <EntityTypeMapping TypeName="IsTypeOf(SPModel.ProgramaVta)">
-        <MappingFragment StoreEntitySet="ProgramaVtas">
+    <EntitySetMapping Name="ProgramaVta">
+      <EntityTypeMapping TypeName="SPModel.ProgramaVta">
+        <MappingFragment StoreEntitySet="ProgramaVta">
           <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
@@ -76,9 +80,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ProgramaVtaDetalleCuotas">
-      <EntityTypeMapping TypeName="IsTypeOf(SPModel.ProgramaVtaDetalleCuota)">
-        <MappingFragment StoreEntitySet="ProgramaVtaDetalleCuotas">
+    <EntitySetMapping Name="ProgramaVtaDetalleCuota">
+      <EntityTypeMapping TypeName="SPModel.ProgramaVtaDetalleCuota">
+        <MappingFragment StoreEntitySet="ProgramaVtaDetalleCuota">
           <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
           <ScalarProperty Name="id_Gfx" ColumnName="id_Gfx" />
           <ScalarProperty Name="id_clascorp" ColumnName="id_clascorp" />
@@ -90,9 +94,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ProgramaVtaDetalleSPAs">
-      <EntityTypeMapping TypeName="IsTypeOf(SPModel.ProgramaVtaDetalleSPA)">
-        <MappingFragment StoreEntitySet="ProgramaVtaDetalleSPAs">
+    <EntitySetMapping Name="ProgramaVtaDetalleSPA">
+      <EntityTypeMapping TypeName="SPModel.ProgramaVtaDetalleSPA">
+        <MappingFragment StoreEntitySet="ProgramaVtaDetalleSPA">
           <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
           <ScalarProperty Name="id_Gfx" ColumnName="id_Gfx" />
           <ScalarProperty Name="id_clascorp" ColumnName="id_clascorp" />
@@ -105,7 +109,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Tipo_Periodos">
-      <EntityTypeMapping TypeName="IsTypeOf(SPModel.Tipo_Periodos)">
+      <EntityTypeMapping TypeName="SPModel.Tipo_Periodos">
         <MappingFragment StoreEntitySet="Tipo_Periodos">
           <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
           <ScalarProperty Name="descipcion" ColumnName="descipcion" />
@@ -113,9 +117,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="vwProgramaVtas">
-      <EntityTypeMapping TypeName="IsTypeOf(SPModel.vwProgramaVta)">
-        <MappingFragment StoreEntitySet="vwProgramaVtas">
+    <EntitySetMapping Name="vwProgramaVta">
+      <EntityTypeMapping TypeName="SPModel.vwProgramaVta">
+        <MappingFragment StoreEntitySet="vwProgramaVta">
           <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
@@ -130,7 +134,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="VCDMC_Distribuidor">
-      <EntityTypeMapping TypeName="IsTypeOf(SPModel.VCDMC_Distribuidor)">
+      <EntityTypeMapping TypeName="SPModel.VCDMC_Distribuidor">
         <MappingFragment StoreEntitySet="VCDMC_Distribuidor">
           <ScalarProperty Name="cd_empresa" ColumnName="cd_empresa" />
           <ScalarProperty Name="cd_marca" ColumnName="cd_marca" />
@@ -141,5 +145,30 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetAllWithSP" FunctionName="SPModel.Store.GetAllWithSP">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SPModel.GetAllWithSP_Result">
+          <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="fch_publicacion" ColumnName="fch_publicacion" />
+          <ScalarProperty Name="cd_usuarioalta" ColumnName="cd_usuarioalta" />
+          <ScalarProperty Name="fch_alta" ColumnName="fch_alta" />
+          <ScalarProperty Name="cd_usuariomodif" ColumnName="cd_usuariomodif" />
+          <ScalarProperty Name="fch_modif" ColumnName="fch_modif" />
+          <ScalarProperty Name="fch_caducidad" ColumnName="fch_caducidad" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UpdateNada" FunctionName="SPModel.Store.SP_UpdateNada" />
+    <FunctionImportMapping FunctionImportName="sp_GetProVtaxDealer" FunctionName="SPModel.Store.sp_GetProVtaxDealer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SPModel.sp_GetProVtaxDealer_Result">
+          <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

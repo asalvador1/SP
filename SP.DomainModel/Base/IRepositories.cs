@@ -52,5 +52,18 @@ namespace SP.DomainModel
         IList<VCDMC_Distribuidor> GetOtherInfo();
     }
     #endregion
-    
+
+    #region ProgramaVtaDetalleCuota
+    public interface IProgramaVtaDetalleCuota : IGeneralRepository<ProgramaVtaDetalleCuota>
+    {
+        
+    }
+    #endregion
+
+    #region Periodo
+    public interface IPeriodoRepository : IGeneralReadOnlyRepository<Periodos>
+    {
+    }
+    #endregion
+
 }

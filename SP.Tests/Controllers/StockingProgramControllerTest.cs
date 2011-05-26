@@ -34,8 +34,23 @@ namespace SP.Tests
           //  string rawResult = result.Data.ToString();
             List<ProgramaVta> actual = serializer.Deserialize<List<ProgramaVta>>(rawResult);
             actual.ShouldNotBeNull("no debe nulo");
-            var expected = 1001;
+            var expected = 1;
             Assert.AreEqual(expected, actual.Count, "Debe haber " + expected.ToString());
+        }
+
+        [TestMethod]
+        public void ListPeriodos()
+        {
+            var result = target.ListPeriodosPrueba();
+            Assert.IsNotNull(result, "Resultado no debe ser nulo, puede ser vacio");
+            string rawResult = serializer.Serialize(((Hashtable)result.Data)["Rows"]);
+            //  string rawResult = result.Data.ToString();
+            List<Periodos> actual = serializer.Deserialize<List<Periodos>>(rawResult);
+            actual.ShouldNotBeNull("no debe nulo");
+            var expected = 1;
+            Assert.AreEqual(expected, actual.Count, "Debe haber " + expected.ToString());
+
+            Assert.AreEqual(1, actual[0].ProgramaVtaDetalleCuota.Count, "no debe haber cuotas");
         }
     
     }

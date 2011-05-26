@@ -65,6 +65,8 @@
     <Compile Include="Models\vwProgramaVta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityCierreProgramaVtaRepository.cs" />
+    <Compile Include="Repositories\EntityPeriodoRepository.cs" />
+    <Compile Include="Repositories\EntityProgramaVtaDetalleCuotaRepository.cs" />
     <Compile Include="Repositories\EntityProgramaVtaRepository.cs" />
     <Compile Include="SPContext.Designer.cs">
       <AutoGen>True</AutoGen>

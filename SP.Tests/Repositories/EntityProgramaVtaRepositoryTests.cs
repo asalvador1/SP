@@ -38,7 +38,7 @@ namespace SP.Tests
         public void SaveProgramaVentas()
         {
             
-            for (int i = 1; i <= 1000; i++)
+            for (int i = 1; i <= 1; i++)
             {
                 ProgramaVta vta = new ProgramaVta
                 {
@@ -102,6 +102,17 @@ namespace SP.Tests
         {
             var result = _rep.UpdateWithSP(1);
             Assert.AreNotEqual(0, result);
+        }
+
+        [TestMethod]
+        public void VerificarRelacionesLazyloading()
+        {
+            var resul = _rep.GetById(1);
+            Assert.IsNotNull(resul, "No debe ser nulo");
+
+            Assert.IsNotNull(resul.ProgramaVtaDetalleCuota, "Debe ser nulo");
+            var actual = 1;
+            Assert.AreEqual(resul.ProgramaVtaDetalleCuota.Count, actual, "Hay " + actual);
         }
     }
 }

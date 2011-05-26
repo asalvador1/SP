@@ -26,8 +26,8 @@ namespace SP.DomainModel
         public Nullable<System.DateTime> fch_modif { get; set; }
         public Nullable<System.DateTime> fch_caducidad { get; set; }
 
-        public virtual ICollection<Cierre_ProVta> Cierre_ProVta { get; set; }
-        public virtual ICollection<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuota { get; set; }
-        public virtual ICollection<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPA { get; set; }
+        public  ICollection<Cierre_ProVta> Cierre_ProVta { get; set; }
+        public  ICollection<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuota { get; set; }
+        public  ICollection<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPA { get; set; }
     }
 }

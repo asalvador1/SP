@@ -8,7 +8,7 @@ using PruebaMvcExt.Models;
 
 namespace PruebaMvcExt.Controllers
 {
-    public class ListaPreciosController : BaseController
+    public class ListaPreciosController : SP.Controllers.BaseController
     {
         //
         // GET: /ListaPrecios/

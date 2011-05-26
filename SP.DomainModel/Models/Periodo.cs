@@ -20,8 +20,8 @@ namespace SP.DomainModel
         public Nullable<System.DateTime> fch_inicio { get; set; }
         public Nullable<System.DateTime> fch_fin { get; set; }
 
-        public virtual ICollection<Cierre_ProVta> Cierre_ProVta { get; set; }
-        public virtual Tipo_Periodos Tipo_Periodos { get; set; }
-        public virtual ICollection<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuota { get; set; }
+        public   ICollection<Cierre_ProVta> Cierre_ProVta { get; set; }
+        public   Tipo_Periodos Tipo_Periodos { get; set; }
+        public   ICollection<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuota { get; set; }
     }
 }

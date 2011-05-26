@@ -63,7 +63,7 @@ namespace SP.DomainModel
         }
         public virtual IEnumerable<T> GetAll()
         {
-            return dbset.ToList();
+           return dbset.ToList();
         }
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
         {
