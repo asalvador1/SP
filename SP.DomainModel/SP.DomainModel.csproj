@@ -63,11 +63,14 @@
     <Compile Include="Models\Tipo_Periodos.cs" />
     <Compile Include="Models\VCDMC_Distribuidor.cs" />
     <Compile Include="Models\vwProgramaVta.cs" />
+    <Compile Include="Models\vw_ProVtaDealer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityCierreProgramaVtaRepository.cs" />
     <Compile Include="Repositories\EntityPeriodoRepository.cs" />
     <Compile Include="Repositories\EntityProgramaVtaDetalleCuotaRepository.cs" />
     <Compile Include="Repositories\EntityProgramaVtaRepository.cs" />
+    <Compile Include="Repositories\EntityTipoPeriodoRepository.cs" />
+    <Compile Include="Repositories\EntityvwProgramaVentaDealerRepository.cs" />
     <Compile Include="SPContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

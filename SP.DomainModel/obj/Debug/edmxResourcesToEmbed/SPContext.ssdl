@@ -21,6 +21,13 @@
       [VCDMC_Distribuidor].[tx_rfc] AS [tx_rfc]
       FROM [dbo].[VCDMC_Distribuidor] AS [VCDMC_Distribuidor]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="vw_ProVtaDealer" EntityType="SPModel.Store.vw_ProVtaDealer" store:Type="Views" store:Schema="dbo" store:Name="vw_ProVtaDealer">
+      <DefiningQuery>SELECT 
+      [vw_ProVtaDealer].[idProgramaVta] AS [idProgramaVta], 
+      [vw_ProVtaDealer].[nombre] AS [nombre], 
+      [vw_ProVtaDealer].[id_Gfx] AS [id_Gfx]
+      FROM [dbo].[vw_ProVtaDealer] AS [vw_ProVtaDealer]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" Association="SPModel.Store.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
       <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
       <End Role="Cierre_ProgramaVta_Detalle" EntitySet="Cierre_ProgramaVta_Detalle" />
@@ -212,6 +219,18 @@
     <Property Name="nb_razonsocial" Type="varchar" MaxLength="100" />
     <Property Name="nb_alias" Type="varchar" MaxLength="100" />
     <Property Name="tx_rfc" Type="varchar" MaxLength="60" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'SP.dbo.vw_ProVtaDealer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vw_ProVtaDealer">
+    <Key>
+      <PropertyRef Name="idProgramaVta" />
+      <PropertyRef Name="id_Gfx" />
+    </Key>
+    <Property Name="idProgramaVta" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="20" />
+    <Property Name="id_Gfx" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
     <End Role="Cierre_ProVta" Type="SPModel.Store.Cierre_ProVta" Multiplicity="1" />

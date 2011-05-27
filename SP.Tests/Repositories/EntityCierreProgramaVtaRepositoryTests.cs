@@ -14,7 +14,11 @@ namespace SP.Tests
     [TestClass]
     public class EntityCierreProgramaVtaRepositoryTests
     {
-        ICierreProgramaVtaRepository _rep;
+        ICierreProgramaVtaRepository _repcierre;
+        Ivw_ProVtaDealerRepository _repPrVtaxDeal;
+        IProgramaVtaDetalleCuota _repPrVtaDetxDeal;
+        IPeriodoRepository _repPeriodos;
+        ITipoPeriodosRepository _repTipoPeriodos;
         IUnitOfWork _db;
         [TestInitialize()]
         public void Inicializar()
@@ -22,98 +26,117 @@ namespace SP.Tests
             //Probar con SQL
             DataBaseFactory dbf = new DataBaseFactory();
             _db= new UnitOfWork(dbf);
-            _rep = new EntityCierreProgramaVtaRepository(dbf);
+            _repcierre = new EntityCierreProgramaVtaRepository(dbf);
+            _repPrVtaxDeal = new Entityvw_ProVtaDealerRepository(dbf);
+            _repPrVtaDetxDeal = new EntityProgramaVtaDetalleCuotaRepository(dbf);
+            _repPeriodos = new EntityPeriodoRepository(dbf);
+            _repTipoPeriodos = new EntityTipoPeriodoRepository(dbf);
         }
 
         [TestMethod]
         public void ObtenerDistribuidores()
         {
-            var actual = _rep.GetDealers().ToList();
+            var actual = _repcierre.GetDealers().ToList();
             int expected = 21;
             Assert.IsNotNull(actual);
             Assert.AreEqual(expected, actual.Count, "Debe ser igual a " + expected.ToString());
         }
 
+        [TestMethod]
+        public void ObtenerProgramasdeventaxDistribuidor()
+        {
+            var actual = _repPrVtaxDeal.GetMany(f => f.id_Gfx == 000900);
+            int expected = 0;
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected, actual.Count(), "Debe ser igual a " + expected.ToString());
+        }
+
+         [TestMethod]
+        public void ObtenerPeriodosxProgramasdeventaxDistribuidor()
+        {
+             int idProVta = 1;
+             int idgfx = 9000001;
+             
+             var TipoPeriodo = _repPrVtaDetxDeal.Get(f => f.idProgramaVta == idProVta && f.id_Gfx == idgfx);
+             var Periodos = _repPeriodos.GetMany(f => f.id_TipoPeriodo == TipoPeriodo.id_TipoPeriodo);
+            int expected = 5;
+            Assert.IsNotNull(Periodos);
+            Assert.AreEqual(expected, Periodos.Count(), "Debe ser igual a " + expected.ToString());
+        }
         
-        //[TestMethod]
-        //public void ConsultarProgramasDeVentas()
-        //{
-        //    var actual = _rep.GetAll().ToList();
-        //    int expected = 1000;
-        //    Assert.IsNotNull(actual);
-        //    Assert.AreEqual(expected, actual.Count, "Debe ser igual a " + expected.ToString());            
-        //}
+        [TestMethod]
+        public void LlenarTiposdePeriodo()
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                Tipo_Periodos Tper = new Tipo_Periodos
+                {
+                    //idProgramaVta = 1,
+                    descipcion = "Tipo " + i.ToString(),
+                    estatus = "Activo"
+                };
+                _repTipoPeriodos.Add(Tper);
+            }
+            var succes = false;
+            try
+            {
+                _db.SaveAllChanges();
+                succes = true;
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        //Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
 
-        //[TestMethod]
-        //public void SaveProgramaVentas()
-        //{
-            
-        //    for (int i = 1; i <= 1000; i++)
-        //    {
-        //        ProgramaVta vta = new ProgramaVta
-        //        {
-        //            //idProgramaVta = 1,
-        //            nombre = "Programa " + i.ToString(),
-        //            descripcion  = "programa " + i.ToString(),
-        //           fch_alta = DateTime.Now,
-        //           fch_caducidad = DateTime.Now.AddDays(30)
-        //        };
-        //        _rep.Add(vta);            
-        //    }
-        //    var succes = false;
-        //    try
-        //    {
-        //        _db.SaveAllChanges();
-        //        succes = true;
-        //    }
-        //    catch (DbEntityValidationException dbEx)
-        //    {
-        //        foreach (var validationErrors in dbEx.EntityValidationErrors)
-        //        {
-        //            foreach (var validationError in validationErrors.ValidationErrors)
-        //            {
-        //                //Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-        //            }
-        //        }
+            }
 
-        //    }
+            Assert.AreEqual(true, succes, "Proceso debe guardar informacion");
+        }
 
-        //    Assert.AreEqual(true, succes, "Proceso debe guardar informacion");
-            
-        //}
+        [TestMethod]
+        public void LlenarPeriodos()
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                Periodos per = new Periodos
+                {
+                    //idProgramaVta = 1,
+                    id_TipoPeriodo=1,
+                    Descripcion = "Periodo " + i.ToString(),
+                    estatus = "Activo",
+                    fch_inicio = DateTime.Now,
+                    fch_fin = DateTime.Now.AddMonths(3)
+                };
+                _repPeriodos.Add(per);
+            }
+            var succes = false;
+            try
+            {
+                _db.SaveAllChanges();
+                succes = true;
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        //Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
 
-        //[TestMethod]
-        //public void DeleteProgramaVentas()
-        //{
-        //    var actual = _rep.GetAll().ToList();
-        //    bool result = false;
-        //    int count = actual.Count;
-        //    int i = 0;
-        //    foreach (var s in actual)
-        //    {
-        //        _rep.Delete(s);
-        //        i++;
-        //    }
-        //    _db.SaveAllChanges();
+            }
 
-        //    Assert.AreEqual(i, count, "Proceso debe eliminar todos los registros");
-        //}
-
-        //[TestMethod]
-        //public void EjecutarConsultaAtravesDeStoredProcedure()
-        //{
-        //    var actual = _rep.GetWithSp();
-        //    Assert.IsNotNull(actual, "No debe ser nulo");
-        //    Assert.AreNotEqual(0, actual.Count, "Debe traer resultados de la bd");
-        //}
-
-        //[TestMethod]
-        //public void ActualizarMedianteStoredProcedure()
-        //{
-        //    var result = _rep.UpdateWithSP(1);
-        //    Assert.AreNotEqual(0, result);
-        //}
-
+            Assert.AreEqual(true, succes, "Proceso debe guardar informacion");
+        }
+        
+        
+       
 
     }
 }

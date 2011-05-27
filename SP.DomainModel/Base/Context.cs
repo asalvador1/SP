@@ -19,6 +19,7 @@ namespace SP.DomainModel.Base
         public DbSet<Tipo_Periodos> Tipo_Periodos { get; set; }
         public DbSet<vwProgramaVta> vwProgramaVta { get; set; }
         public DbSet<VCDMC_Distribuidor> VCDMC_Distribuidor { get; set; }
+        public DbSet<vw_ProVtaDealer> vw_ProVtaDealer { get; set; }
 
         public virtual void SaveAllChanges()
         {

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SPModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="SPModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="SPModelStoreContainer">
           <EntitySet Name="Cierre_ProgramaVta_Detalle" EntityType="SPModel.Store.Cierre_ProgramaVta_Detalle" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Cierre_ProVta" EntityType="SPModel.Store.Cierre_ProVta" store:Type="Tables" Schema="dbo" />
@@ -25,6 +25,13 @@
       [VCDMC_Distribuidor].[nb_alias] AS [nb_alias], 
       [VCDMC_Distribuidor].[tx_rfc] AS [tx_rfc]
       FROM [dbo].[VCDMC_Distribuidor] AS [VCDMC_Distribuidor]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_ProVtaDealer" EntityType="SPModel.Store.vw_ProVtaDealer" store:Type="Views" store:Schema="dbo" store:Name="vw_ProVtaDealer">
+            <DefiningQuery>SELECT 
+      [vw_ProVtaDealer].[idProgramaVta] AS [idProgramaVta], 
+      [vw_ProVtaDealer].[nombre] AS [nombre], 
+      [vw_ProVtaDealer].[id_Gfx] AS [id_Gfx]
+      FROM [dbo].[vw_ProVtaDealer] AS [vw_ProVtaDealer]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" Association="SPModel.Store.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
             <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
@@ -218,6 +225,18 @@
           <Property Name="nb_alias" Type="varchar" MaxLength="100" />
           <Property Name="tx_rfc" Type="varchar" MaxLength="60" />
         </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'SP.dbo.vw_ProVtaDealer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vw_ProVtaDealer">
+          <Key>
+            <PropertyRef Name="idProgramaVta" />
+            <PropertyRef Name="id_Gfx" />
+          </Key>
+          <Property Name="idProgramaVta" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" />
+          <Property Name="id_Gfx" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
           <End Role="Cierre_ProVta" Type="SPModel.Store.Cierre_ProVta" Multiplicity="1" />
           <End Role="Cierre_ProgramaVta_Detalle" Type="SPModel.Store.Cierre_ProgramaVta_Detalle" Multiplicity="*" />
@@ -357,8 +376,7 @@
         <Function Name="SP_UpdateNada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SPModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -416,11 +434,12 @@
           </AssociationSet>
           <FunctionImport Name="GetAllWithSP" ReturnType="Collection(SPModel.GetAllWithSP_Result)" />
           <FunctionImport Name="SP_UpdateNada" ReturnType="Collection(Int32)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetProVtaxDealer" ReturnType="Collection(SPModel.sp_GetProVtaxDealer_Result)">
-            <Parameter Name="idDealer" Mode="In" Type="Int32" />
+          <Parameter Name="idDealer" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="vw_ProVtaDealer" EntityType="SPModel.vw_ProVtaDealer" />
         </EntityContainer>
         <EntityType Name="Cierre_ProgramaVta_Detalle">
           <Key>
@@ -738,6 +757,15 @@
           <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
           <Property Type="String" Name="nombre" Nullable="true" MaxLength="20" />
         </ComplexType>
+        <EntityType Name="vw_ProVtaDealer">
+          <Key>
+            <PropertyRef Name="idProgramaVta" />
+            <PropertyRef Name="id_Gfx" />
+          </Key>
+          <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
+          <Property Type="String" Name="nombre" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="id_Gfx" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -869,6 +897,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="vw_ProVtaDealer">
+            <EntityTypeMapping TypeName="SPModel.vw_ProVtaDealer">
+              <MappingFragment StoreEntitySet="vw_ProVtaDealer">
+                <ScalarProperty Name="id_Gfx" ColumnName="id_Gfx" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -964,6 +1001,7 @@
           <ConnectorPoint PointX="2.375" PointY="4.9417936197916674" />
           <ConnectorPoint PointX="3" PointY="4.3167936197916674" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="SPModel.vw_ProVtaDealer" Width="1.5" PointX="8.375" PointY="3.75" Height="1.5956835937500031" />
       </Diagram>
     </Diagrams>
   </Designer>

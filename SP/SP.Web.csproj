@@ -61,8 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CierreProVtaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListaPreciosController.cs" />
+    <Compile Include="Controllers\PeriodosController.cs" />
     <Compile Include="Controllers\StockingProgramController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Default.aspx.cs">
@@ -1178,6 +1180,7 @@
     <Content Include="Content\js\behaviour.js" />
     <Content Include="Content\js\cmi\Acceso\Main.js" />
     <Content Include="Content\js\cmi\Acceso\Manto.js" />
+    <Content Include="Content\js\cmi\Catalogos\Periodos.js" />
     <Content Include="Content\js\cmi\Home\Boton sustituir.png" />
     <Content Include="Content\js\cmi\Home\CapturaJustificacion.htm" />
     <Content Include="Content\js\cmi\Home\Capturajustificacion.png" />
@@ -1247,6 +1250,7 @@
     <Content Include="Views\ListaPrecios\NuevaPaso2.aspx" />
     <Content Include="Views\ListaPrecios\NuevaPaso3.aspx" />
     <Content Include="Views\ListaPrecios\NuevaPaso4.aspx" />
+    <Content Include="Views\Periodos\Index.aspx" />
     <Content Include="Views\StockingProgram\panelProgramaVtaHeader.aspx" />
     <Content Include="Views\Venta\CierreProgramaVta.aspx" />
     <Content Include="Web.config" />

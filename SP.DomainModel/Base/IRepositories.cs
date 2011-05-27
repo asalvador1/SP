@@ -47,7 +47,7 @@ namespace SP.DomainModel
     #endregion
 
     #region VistaDistribuidores
-    public interface IVCDMCDistribuidorRepository : IGeneralRepository<VCDMC_Distribuidor>
+    public interface IVCDMCDistribuidorRepository : IGeneralReadOnlyRepository<VCDMC_Distribuidor>
     {
         IList<VCDMC_Distribuidor> GetOtherInfo();
     }
@@ -61,7 +61,19 @@ namespace SP.DomainModel
     #endregion
 
     #region Periodo
-    public interface IPeriodoRepository : IGeneralReadOnlyRepository<Periodos>
+    public interface IPeriodoRepository : IGeneralRepository<Periodos>
+    {
+    }
+    #endregion
+
+    #region VistaProgramadeventaxDealer
+    public interface Ivw_ProVtaDealerRepository : IGeneralReadOnlyRepository<vw_ProVtaDealer>
+    {
+    }
+    #endregion
+
+    #region TipoPeriodos
+    public interface ITipoPeriodosRepository : IGeneralRepository<Tipo_Periodos>
     {
     }
     #endregion

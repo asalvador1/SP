@@ -170,5 +170,14 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="vw_ProVtaDealer">
+      <EntityTypeMapping TypeName="SPModel.vw_ProVtaDealer">
+        <MappingFragment StoreEntitySet="vw_ProVtaDealer">
+          <ScalarProperty Name="id_Gfx" ColumnName="id_Gfx" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -59,6 +59,7 @@
     <FunctionImport Name="sp_GetProVtaxDealer" ReturnType="Collection(SPModel.sp_GetProVtaxDealer_Result)">
       <Parameter Name="idDealer" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="vw_ProVtaDealer" EntityType="SPModel.vw_ProVtaDealer" />
   </EntityContainer>
   <EntityType Name="Cierre_ProgramaVta_Detalle">
     <Key>
@@ -376,4 +377,13 @@
     <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
     <Property Type="String" Name="nombre" Nullable="true" MaxLength="20" />
   </ComplexType>
+  <EntityType Name="vw_ProVtaDealer">
+    <Key>
+      <PropertyRef Name="idProgramaVta" />
+      <PropertyRef Name="id_Gfx" />
+    </Key>
+    <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
+    <Property Type="String" Name="nombre" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="id_Gfx" Nullable="false" />
+  </EntityType>
 </Schema>
