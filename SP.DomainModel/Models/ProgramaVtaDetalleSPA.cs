@@ -17,7 +17,7 @@ namespace SP.DomainModel
         public Nullable<double> SPA_Prog { get; set; }
         public int id_PlazoComercial { get; set; }
 
-        public virtual PlazoComercial PlazoComercial { get; set; }
-        public virtual ProgramaVta ProgramaVta { get; set; }
+        public  PlazoComercial PlazoComercial { get; set; }
+        public  ProgramaVta ProgramaVta { get; set; }
     }
 }

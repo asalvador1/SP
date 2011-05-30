@@ -20,7 +20,7 @@ namespace SP.DomainModel
         public Nullable<double> Porcentaje_Sustitucion_USD { get; set; }
         public Nullable<double> Porcentaje_Sustitucion_NMX { get; set; }
 
-        public virtual ICollection<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuota { get; set; }
-        public virtual ICollection<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPA { get; set; }
+        public  ICollection<ProgramaVtaDetalleCuota> ProgramaVtaDetalleCuota { get; set; }
+        public  ICollection<ProgramaVtaDetalleSPA> ProgramaVtaDetalleSPA { get; set; }
     }
 }

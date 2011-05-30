@@ -12,5 +12,10 @@ namespace SP.DomainModel.Repositories
             : base(databaseFactory)
         {
         }
+
+        public EntityTipoPeriodoRepository()
+            :base(new DataBaseFactory())
+        {
+        }
     }
 }

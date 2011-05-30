@@ -17,9 +17,9 @@ namespace SP.DomainModel
         public Nullable<System.DateTime> fch_Modif { get; set; }
         public Nullable<System.DateTime> fch_Cierre { get; set; }
 
-        public virtual ICollection<Cierre_ProgramaVta_Detalle> Cierre_ProgramaVta_Detalle { get; set; }
-        public virtual Estatus_ProVta Estatus_ProVta { get; set; }
-        public virtual Periodos Periodos { get; set; }
-        public virtual ProgramaVta ProgramaVta { get; set; }
+        public  ICollection<Cierre_ProgramaVta_Detalle> Cierre_ProgramaVta_Detalle { get; set; }
+        public  Estatus_ProVta Estatus_ProVta { get; set; }
+        public  Periodos Periodos { get; set; }
+        public  ProgramaVta ProgramaVta { get; set; }
     }
 }

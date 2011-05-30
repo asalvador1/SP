@@ -17,7 +17,9 @@ namespace SP.DomainModel
         T GetById(string Id);
         T Get(Expression<Func<T, bool>> where);
         IEnumerable<T> GetAll();
-        IEnumerable<T> GetMany(Expression<Func<T, bool>> where);    
+        IEnumerable<T> GetMany(Expression<Func<T, bool>> where);
+        IQueryable<T> GetMany2(Expression<Func<T, bool>> where);
+        void SaveAllChanges();
     }
     public interface IGeneralReadOnlyRepository<T>
     {

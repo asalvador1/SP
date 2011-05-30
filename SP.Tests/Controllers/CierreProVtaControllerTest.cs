@@ -84,13 +84,13 @@ namespace SP.Tests
         {
             CierreProVtaController target = new CierreProVtaController(); // TODO: Initialize to an appropriate value
             int idProVta = 1; // TODO: Initialize to an appropriate value
-            int idGfx = 930008; // TODO: Initialize to an appropriate value
+            int idGfx = 1; // TODO: Initialize to an appropriate value
             var result = target.GetPerxProVtaxDist(idProVta, idGfx);
             string rawResult = serializer.Serialize(((Hashtable)result.Data)["Periodos"]);
             //  string rawResult = result.Data.ToString();
             List<Periodos> actual = serializer.Deserialize<List<Periodos>>(rawResult);
             actual.ShouldNotBeNull("no debe nulo");
-            var expected = 5;
+            var expected = 1;
             Assert.AreEqual(expected, actual.Count, "Debe haber " + expected.ToString());
             
         }

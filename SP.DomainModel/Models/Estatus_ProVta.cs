@@ -17,6 +17,6 @@ namespace SP.DomainModel
         public Nullable<System.DateTime> fhc_modif { get; set; }
         public string usermodif { get; set; }
     
-        public virtual ICollection<Cierre_ProVta> Cierre_ProVta { get; set; }
+        public  ICollection<Cierre_ProVta> Cierre_ProVta { get; set; }
     }
 }

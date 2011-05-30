@@ -16,6 +16,6 @@ namespace SP.DomainModel
         public string descipcion { get; set; }
         public string estatus { get; set; }
 
-        public virtual ICollection<Periodos> Periodos { get; set; }
+        public ICollection<Periodos> Periodos { get; set; }
     }
 }

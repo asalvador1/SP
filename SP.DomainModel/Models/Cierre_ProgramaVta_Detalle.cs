@@ -19,6 +19,6 @@ namespace SP.DomainModel
         public int Cierre_ProVta_id_tipoperiodo { get; set; }
         public int Cierre_ProVta_id_Periodo { get; set; }
 
-        public virtual Cierre_ProVta Cierre_ProVta { get; set; }
+        public  Cierre_ProVta Cierre_ProVta { get; set; }
     }
 }

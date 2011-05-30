@@ -23,7 +23,7 @@ namespace SP.Tests
             builder = new TestControllerBuilder();
             target = new StockingProgramController();
             builder.InitializeController(target);
-            
+
         }
         [TestMethod]
         public void Buscar_Activos()
@@ -31,7 +31,7 @@ namespace SP.Tests
             var result = target.ListVigentes();
             Assert.IsNotNull(result, "Resultado no debe ser nulo, puede ser vacio");
             string rawResult = serializer.Serialize(((Hashtable)result.Data)["Rows"]);
-          //  string rawResult = result.Data.ToString();
+            //  string rawResult = result.Data.ToString();
             List<ProgramaVta> actual = serializer.Deserialize<List<ProgramaVta>>(rawResult);
             actual.ShouldNotBeNull("no debe nulo");
             var expected = 1;
@@ -39,19 +39,36 @@ namespace SP.Tests
         }
 
         [TestMethod]
-        public void ListPeriodos()
+        public void ProbarGuardarMasterDEtails()
         {
-            var result = target.ListPeriodosPrueba();
-            Assert.IsNotNull(result, "Resultado no debe ser nulo, puede ser vacio");
-            string rawResult = serializer.Serialize(((Hashtable)result.Data)["Rows"]);
-            //  string rawResult = result.Data.ToString();
-            List<Periodos> actual = serializer.Deserialize<List<Periodos>>(rawResult);
-            actual.ShouldNotBeNull("no debe nulo");
+            var actual = this.target.Guardar();
             var expected = 1;
-            Assert.AreEqual(expected, actual.Count, "Debe haber " + expected.ToString());
-
-            Assert.AreEqual(1, actual[0].ProgramaVtaDetalleCuota.Count, "no debe haber cuotas");
+            Assert.AreEqual(expected, actual, "Debe guardar");
         }
-    
+
+        [TestMethod]
+        public void Guardar_StockingProgDetalleCuota()
+        {
+            //itmes
+            List<ProgramaVtaDetalleCuota> Cuotas = new List<ProgramaVtaDetalleCuota>();
+            for (int i = 1; i <= 10; i++)
+            {
+                ProgramaVtaDetalleCuota details = new ProgramaVtaDetalleCuota();
+                details.id_Gfx = 1;
+                details.id_clascorp = 1;
+                details.id_TipoPeriodo = 1;
+                details.id_Periodo = i;
+                details.Tipo_cuota = "tipo";
+                details.cuota = 110;
+                details.id_PlazoComercial = 1;
+                Cuotas.Add(details);
+            }
+
+            var actual = this.target.SaveStockingProgramDetalleCuota(Cuotas.ToArray(), 1);
+            string rawResult = serializer.Serialize(actual.Data);
+            var expected = "true";
+            Assert.AreEqual(expected, rawResult, "Debe guardar");
+        }
+
     }
 }

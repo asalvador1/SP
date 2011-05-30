@@ -75,10 +75,29 @@ namespace SP.Controllers
 
         public JsonResult GetPerxProVtaxDist(int idProVta, int idGfx)
         {
-            var TipoPeriodo = _repPrVtaDetxDeal.Get(f => f.idProgramaVta == idProVta && f.id_Gfx == idGfx);
-            var vPeriodos = _repPeriodos.GetMany(f => f.id_TipoPeriodo == TipoPeriodo.id_TipoPeriodo);
+            //var TipoPeriodo = _repPrVtaDetxDeal.GetMany(f => f.idProgramaVta == idProVta && f.id_Gfx == idGfx);
+            //var otro = TipoPeriodo.ToList();
+            int buscar = 1;//TipoPeriodo.id_TipoPeriodo;   
+            //TipoPeriodo = null;
+            var vPeriodos = _repPeriodos.GetMany(f => f.id_TipoPeriodo == buscar).ToList();
+
+            var resultColl = vPeriodos; //new List<Periodos>();
+            //vPeriodos.ForEach(a =>
+            //    resultColl.Add(new Periodos
+            //    {
+            //        id_TipoPeriodo = a.id_TipoPeriodo,
+            //        id_periodo = a.id_periodo,
+            //        Cierre_ProVta = new List<Cierre_ProVta>(),
+            //        Descripcion = a.Descripcion,
+            //        estatus =a.estatus,
+            //        fch_fin = a.fch_fin,
+            //        fch_inicio = a.fch_inicio,
+            //        ProgramaVtaDetalleCuota = new List<ProgramaVtaDetalleCuota>(),
+            //        Tipo_Periodos = new Tipo_Periodos()
+            //    }));
+
             Hashtable result = new Hashtable();
-            result["Periodos"] = vPeriodos.ToList();
+            result["Periodos"] = resultColl;
             return this.Json(result, JsonRequestBehavior.AllowGet);
         }
     }

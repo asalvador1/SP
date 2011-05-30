@@ -29,7 +29,7 @@ namespace SP.DomainModel.Base
         public SPContext()
         {
             
-            base.Configuration.LazyLoadingEnabled = false;            
+            base.Configuration.LazyLoadingEnabled = false;                        
         }
           protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
