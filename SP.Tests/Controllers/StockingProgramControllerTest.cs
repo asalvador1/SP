@@ -70,5 +70,56 @@ namespace SP.Tests
             Assert.AreEqual(expected, rawResult, "Debe guardar");
         }
 
+        [TestMethod]
+        public void Buscar_con_filtros()
+        {
+            
+            int id =0;
+            string nombre = "";
+            DateTime? fechaInicio = null;
+            DateTime? fechaFin = null;
+
+            var result = target.SearchByFilters(id, nombre, fechaInicio, fechaFin);
+            Assert.IsNotNull(result, "Resultado no debe ser nulo, puede ser vacio");
+            string rawResult = serializer.Serialize(((Hashtable)result.Data)["Rows"]);            
+            List<ProgramaVta> actual = serializer.Deserialize<List<ProgramaVta>>(rawResult);
+
+            var expected = 2;
+            Assert.AreEqual(expected, actual.Count, "Busqueda sin filtros debe traer todos");
+
+            id = 1;
+            result = target.SearchByFilters(id, nombre, fechaInicio, fechaFin);
+            rawResult = serializer.Serialize(((Hashtable)result.Data)["Rows"]);
+            actual = serializer.Deserialize<List<ProgramaVta>>(rawResult);
+            expected = 1;
+            Assert.AreEqual(expected, actual.Count, "solo debe ser un elemento");
+
+            nombre =  "Uno";
+             id = 2;
+            result = target.SearchByFilters(id, nombre, fechaInicio, fechaFin);
+            rawResult = serializer.Serialize(((Hashtable)result.Data)["Rows"]);
+            actual = serializer.Deserialize<List<ProgramaVta>>(rawResult);
+            expected = 1;
+            Assert.AreEqual(expected, actual.Count, "solo debe ser un elemento");
+
+            fechaInicio = new DateTime(2011, 05, 25); //MAYOR A ESTE DIA
+            nombre = "";
+            id = 0;
+            result = target.SearchByFilters(id, nombre, fechaInicio, fechaFin);
+            rawResult = serializer.Serialize(((Hashtable)result.Data)["Rows"]);
+            actual = serializer.Deserialize<List<ProgramaVta>>(rawResult);
+            expected = 2;
+            Assert.AreEqual(expected, actual.Count, "solo debe ser DOS elementoS");
+
+
+            fechaInicio = new DateTime(2011, 05, 25); //MAYOR A ESTE DIA
+            fechaFin = new DateTime(2011, 05, 26); // a este dia           
+            result = target.SearchByFilters(id, nombre, fechaInicio, fechaFin);
+            rawResult = serializer.Serialize(((Hashtable)result.Data)["Rows"]);
+            actual = serializer.Deserialize<List<ProgramaVta>>(rawResult);
+            expected = 1;
+            Assert.AreEqual(expected, actual.Count, "solo debe ser DOS elementoS");
+        }
+
     }
 }
