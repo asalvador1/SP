@@ -6,3 +6,9 @@ Icon?
 Thumbs.db
 .dll
 Generador/bin
+Generador/obj/
+SP.DomainModel/bin
+SP.DomainModel/obj
+SP.Tests/bin
+SP.Tests/obj
+SP/obj
