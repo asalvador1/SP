@@ -8,6 +8,7 @@ using SP.DomainModel.Base;
 using SP.DomainModel.Repositories;
 using System.Collections;
 using System.Transactions;
+using System.Linq.Expressions;
 
 namespace SP.Controllers
 {
@@ -164,7 +165,7 @@ namespace SP.Controllers
 
 
 
-
+#region Pruebas
         public int Guardar()
         {
             //header
@@ -196,5 +197,41 @@ namespace SP.Controllers
                 return 0;
             }
         }
+
+        /// <summary>
+        /// realiza busqueda de programa de ventas utilizando filtros dinamicamente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="nombre"></param>
+        /// <param name="fh_alta_inicio"></param>
+        /// <param name="fh_alta_fin"></param>
+        /// <returns></returns>
+        public JsonResult SearchByFilters(int id, string nombre, DateTime? fh_alta_inicio, DateTime? fh_alta_fin)
+        {
+            DateTime dPivot = new DateTime(1900, 1, 1);
+            DateTime dPivotEnd = new DateTime(2050, 1, 1);
+
+            if (fh_alta_inicio.HasValue)
+            {
+                fh_alta_inicio = fh_alta_inicio.Value.Date; // a las cero horas
+            }
+
+            if (fh_alta_fin.HasValue)
+            {
+                fh_alta_fin = fh_alta_fin.Value.Date.Add(new TimeSpan(23, 59, 59));
+            }
+            var query = this._repProgVta.GetMany( sp =>
+                    sp.idProgramaVta == (id > 0? id: sp.idProgramaVta) &&
+                    sp.nombre == (!String.IsNullOrEmpty(nombre) ? nombre: sp.nombre) &&
+                    sp.fch_alta >= (fh_alta_inicio.HasValue ? fh_alta_inicio : dPivot) &&
+                    sp.fch_alta <= (fh_alta_fin.HasValue ? fh_alta_fin:  dPivotEnd)
+                );
+            Hashtable result = new Hashtable();
+            result["Rows"] = query.ToList();
+            return this.Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        
+#endregion
     }
 }

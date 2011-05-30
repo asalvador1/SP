@@ -38,5 +38,7 @@ namespace SP.DomainModel.Repositories
             var execute = base.DataContext.SP_UpdateNada(id);
             return execute.FirstOrDefault();
         }
+
+        
 }
 }
