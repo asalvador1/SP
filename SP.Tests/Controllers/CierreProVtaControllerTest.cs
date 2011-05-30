@@ -83,16 +83,49 @@ namespace SP.Tests
         public void GetPerxProVtaxDistTest()
         {
             CierreProVtaController target = new CierreProVtaController(); // TODO: Initialize to an appropriate value
-            int idProVta = 1; // TODO: Initialize to an appropriate value
-            int idGfx = 930008; // TODO: Initialize to an appropriate value
-            var result = target.GetPerxProVtaxDist(idProVta, idGfx);
+            //int idProVta = 1; // TODO: Initialize to an appropriate value
+            //int idGfx = 936153; // TODO: Initialize to an appropriate value
+            int idTipoPeriodo = 1;
+            var result = target.GetPerxProVtaxDist(idTipoPeriodo);
             string rawResult = serializer.Serialize(((Hashtable)result.Data)["Periodos"]);
             //  string rawResult = result.Data.ToString();
             List<Periodos> actual = serializer.Deserialize<List<Periodos>>(rawResult);
             actual.ShouldNotBeNull("no debe nulo");
-            var expected = 5;
+            var expected = 1;
             Assert.AreEqual(expected, actual.Count, "Debe haber " + expected.ToString());
             
+        }
+
+        [TestMethod()]
+        public void GetCuotasCumplidas()
+        {
+            CierreProVtaController target = new CierreProVtaController(); // TODO: Initialize to an appropriate value
+            int idProVta = 1; // TODO: Initialize to an appropriate value
+            int idGfx = 936153; // TODO: Initialize to an appropriate value
+            var result = target.GetCuotasCumplidas(idGfx, idProVta, 1, 1);
+            string rawResult = serializer.Serialize(((Hashtable)result.Data)["CuotaCumplida"]);
+            //  string rawResult = result.Data.ToString();
+            List<Vw_PedidosCierreProVta> actual = serializer.Deserialize<List<Vw_PedidosCierreProVta>>(rawResult);
+            actual.ShouldNotBeNull("no debe nulo");
+            var expected = 1;
+            Assert.AreEqual(expected, actual.Count, "Debe haber " + expected.ToString());
+
+        }
+
+        [TestMethod()]
+        public void GetCuotasNOCumplidas()
+        {
+            CierreProVtaController target = new CierreProVtaController(); // TODO: Initialize to an appropriate value
+            int idProVta = 1; // TODO: Initialize to an appropriate value
+            int idGfx = 936153; // TODO: Initialize to an appropriate value
+            var result = target.GetCuotasNOCumplidas(idGfx, idProVta, 1, 1);
+            string rawResult = serializer.Serialize(((Hashtable)result.Data)["CuotaNOCumplida"]);
+            //  string rawResult = result.Data.ToString();
+            List<Vw_PedidosCierreProVta> actual = serializer.Deserialize<List<Vw_PedidosCierreProVta>>(rawResult);
+            actual.ShouldNotBeNull("no debe nulo");
+            var expected = 4;
+            Assert.AreEqual(expected, actual.Count, "Debe haber " + expected.ToString());
+
         }
     }
 }

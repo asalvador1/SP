@@ -26,11 +26,11 @@ namespace SP.Tests
             //Probar con SQL
             DataBaseFactory dbf = new DataBaseFactory();
             _db= new UnitOfWork(dbf);
-            _repcierre = new EntityCierreProgramaVtaRepository(dbf);
-            _repPrVtaxDeal = new Entityvw_ProVtaDealerRepository(dbf);
-            _repPrVtaDetxDeal = new EntityProgramaVtaDetalleCuotaRepository(dbf);
-            _repPeriodos = new EntityPeriodoRepository(dbf);
-            _repTipoPeriodos = new EntityTipoPeriodoRepository(dbf);
+            _repcierre = new EntityCierreProgramaVtaRepository();
+            _repPrVtaxDeal = new Entityvw_ProVtaDealerRepository();
+            _repPrVtaDetxDeal = new EntityProgramaVtaDetalleCuotaRepository();
+            _repPeriodos = new EntityPeriodoRepository();
+            _repTipoPeriodos = new EntityTipoPeriodoRepository();
         }
 
         [TestMethod]

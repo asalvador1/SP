@@ -12,5 +12,10 @@ namespace SP.DomainModel.Repositories
             : base(databaseFactory)
         {
         }
+
+        public Entityvw_ProVtaDealerRepository()
+            :base(new DataBaseFactory())
+        {
+        }
     }
 }

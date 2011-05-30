@@ -12,6 +12,12 @@ namespace SP.DomainModel.Repositories
             : base(databaseFactory)
         {
         }
+        
+        public EntityProgramaVtaRepository()
+            : base(new DataBaseFactory())
+        {
+        }
+
 
         /// <summary>
         /// Obtiene otra informacion

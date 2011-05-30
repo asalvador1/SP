@@ -17,8 +17,8 @@ namespace SP.DomainModel
         public Nullable<int> cuota { get; set; }
         public int id_PlazoComercial { get; set; }
 
-        public virtual Periodos Periodos { get; set; }
-        public virtual PlazoComercial PlazoComercial { get; set; }
-        public virtual ProgramaVta ProgramaVta { get; set; }
+        public  Periodos Periodos { get; set; }
+        public  PlazoComercial PlazoComercial { get; set; }
+        public  ProgramaVta ProgramaVta { get; set; }
     }
 }

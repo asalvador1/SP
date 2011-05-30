@@ -13,6 +13,11 @@ namespace SP.DomainModel.Repositories
         {
         }
 
+        public EntityCierreProgramaVtaRepository()
+            :base (new DataBaseFactory())
+        {
+        }
+
         /// <summary>
         /// Obtiene otra informacion
         /// </summary>

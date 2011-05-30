@@ -20,6 +20,7 @@ namespace SP.DomainModel.Base
         public DbSet<vwProgramaVta> vwProgramaVta { get; set; }
         public DbSet<VCDMC_Distribuidor> VCDMC_Distribuidor { get; set; }
         public DbSet<vw_ProVtaDealer> vw_ProVtaDealer { get; set; }
+        public DbSet<Vw_PedidosCierreProVta> Vw_PedidosCierreProVta { get; set; }
 
         public virtual void SaveAllChanges()
         {
@@ -29,7 +30,7 @@ namespace SP.DomainModel.Base
         public SPContext()
         {
             
-            base.Configuration.LazyLoadingEnabled = false;            
+            base.Configuration.LazyLoadingEnabled = false;                        
         }
           protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

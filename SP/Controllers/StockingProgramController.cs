@@ -17,7 +17,7 @@ namespace SP.Controllers
         IProgramaVtaRepository _repProgVta;
         IProgramaVtaDetalleCuota _repDetCouta;
         IUnitOfWork _db;
-        #endregion 
+        #endregion
         #region Constructors
         /// <summary>
         /// Definicion por default : ADO.NET EF 4.1 sin ioc
@@ -26,7 +26,8 @@ namespace SP.Controllers
         {
             DataBaseFactory dbf = new DataBaseFactory();
             _db = new UnitOfWork(dbf);
-            _repProgVta = new EntityProgramaVtaRepository(dbf);
+            _repProgVta = new EntityProgramaVtaRepository();
+            _repDetCouta = new EntityProgramaVtaDetalleCuotaRepository();
         }
         public StockingProgramController(IProgramaVtaRepository rep1, IUnitOfWork db)
         {
@@ -38,7 +39,7 @@ namespace SP.Controllers
         public ViewResult Index()
         {
             return View();
-        
+
         }
 
         /// <summary>
@@ -48,10 +49,10 @@ namespace SP.Controllers
         public JsonResult ListVigentes()
         {
             //consultar programas vigentes
-            var current = DateTime.Now.Date.Add(new TimeSpan(23,59,59));
+            var current = DateTime.Now.Date.Add(new TimeSpan(23, 59, 59));
             var query = /*this._repProgVta.GetMany(f => f.estatus == "1" &&
                 current <= f.fch_caducidad);*/ this._repProgVta.GetAll();
-            
+
             Hashtable result = new Hashtable();
             result["Rows"] = query.ToList();
             return this.Json(result, JsonRequestBehavior.AllowGet);
@@ -71,7 +72,7 @@ namespace SP.Controllers
             //1.- Validar
             if (String.IsNullOrEmpty(info.nombre))
             {
-                return 
+                return
                     this.Json("{success:false,error:'Incluir nombre'}", JsonRequestBehavior.AllowGet);
             }
 
@@ -110,8 +111,8 @@ namespace SP.Controllers
         public ViewResult panelProgramaVtaHeader(int id_ProgramaVta = 0)
         {
             ProgramaVta vta;
-            if (id_ProgramaVta > 0)            
-                vta = _repProgVta.GetById(id_ProgramaVta);            
+            if (id_ProgramaVta > 0)
+                vta = _repProgVta.GetById(id_ProgramaVta);
             else
                 vta = new ProgramaVta();
             //ViewData["model"] = vta;
@@ -130,7 +131,7 @@ namespace SP.Controllers
         public JsonResult SaveStockingProgramDetalleCuota(ProgramaVtaDetalleCuota[] items, int id_progVta)
         {
             //Validar...
-            
+
             try
             {
                 using (TransactionScope scope = new TransactionScope())
@@ -148,7 +149,7 @@ namespace SP.Controllers
                         item.idProgramaVta = id_progVta;
                         _repDetCouta.Add(item);
                     }
-                    this._db.SaveAllChanges();
+                    this._repDetCouta.SaveAllChanges();
                     scope.Complete();
                 }
                 return this.Json("{success:true}");
@@ -162,14 +163,38 @@ namespace SP.Controllers
 
 
 
-        public JsonResult ListPeriodosPrueba()
+
+
+        public int Guardar()
         {
-            DataBaseFactory dbf = new DataBaseFactory();
-            EntityPeriodoRepository per = new EntityPeriodoRepository(dbf);
-            var query = per.GetAll();
-            Hashtable result = new Hashtable();
-            result["Rows"] = query.ToList();
-            return this.Json(result, JsonRequestBehavior.AllowGet);
+            //header
+            ProgramaVta header = new ProgramaVta();
+            header.nombre = "Uno";
+            header.descripcion = "desc";
+            header.fch_alta = DateTime.Now;
+            header.fch_caducidad = DateTime.Now.AddDays(2);
+
+            ProgramaVtaDetalleCuota details = new ProgramaVtaDetalleCuota();
+            details.id_Gfx = 1;
+            details.id_clascorp = 1;
+            details.id_TipoPeriodo = 1;
+            details.id_Periodo = 2;
+            details.Tipo_cuota = "tipo";
+            details.cuota = 110;
+            details.id_PlazoComercial = 1;
+
+            header.ProgramaVtaDetalleCuota.Add(details);
+            this._repProgVta.Add(header);
+            try
+            {
+                this._repProgVta.SaveAllChanges();
+
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace SP.DomainModel
         public BaseRepository(IDatabaseFactory databaseFactory)
         {
             DatabaseFactory = databaseFactory;
-            dbset = DataContext.Set<T>();
+            dbset = DataContext.Set<T>();           
         }
         protected IDatabaseFactory DatabaseFactory
         {
@@ -34,45 +34,57 @@ namespace SP.DomainModel
         #endregion
 
         #region funcionalidad compartida
-        public virtual void Add(T entity)
+        public  void Add(T entity)
         {
             dbset.Add(entity);
         }
-        public virtual void Update(T entity)
+        public  void Update(T entity)
         {
             dbset.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
         }
-        public virtual void Delete(T entity)
+        public  void Delete(T entity)
         {
             dbset.Remove(entity);
         }
-        public virtual void Delete(Expression<Func<T, bool>> where)
+        public  void Delete(Expression<Func<T, bool>> where)
         {
             IEnumerable<T> objects = dbset.Where<T>(where).AsEnumerable();
             foreach (T obj in objects)
                 dbset.Remove(obj);
         }
-        public virtual T GetById(long id)
+        public  T GetById(long id)
         {
             return dbset.Find(id);
         }
-        public virtual T GetById(string id)
+        public  T GetById(string id)
         {
             return dbset.Find(id);
         }
-        public virtual IEnumerable<T> GetAll()
+        public  IEnumerable<T> GetAll()
         {
            return dbset.ToList();
         }
-        public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
+        public IQueryable<T> GetMany2(Expression<Func<T, bool>> where)
+        {
+            return dbset.Where(where);
+        }
+        public  IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
         {
             return dbset.Where(where).ToList();
         }
         public T Get(Expression<Func<T, bool>> where)
         {
             return dbset.Where(where).FirstOrDefault<T>();
-        } 
+        }
+
+        /// <summary>
+        /// Persistir en BD
+        /// </summary>
+        public void SaveAllChanges()
+        {
+            this._context.SaveAllChanges();
+        }
         #endregion
     }
 

@@ -19,6 +19,7 @@ namespace Generador
         public SPEntities1()
             : base("name=SPEntities1")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -37,6 +38,8 @@ namespace Generador
         public DbSet<Tipo_Periodos> Tipo_Periodos { get; set; }
         public DbSet<vwProgramaVta> vwProgramaVta { get; set; }
         public DbSet<VCDMC_Distribuidor> VCDMC_Distribuidor { get; set; }
+        public DbSet<vw_ProVtaDealer> vw_ProVtaDealer { get; set; }
+        public DbSet<Vw_PedidosCierreProVta> Vw_PedidosCierreProVta { get; set; }
     
         public virtual ObjectResult<GetAllWithSP_Result> GetAllWithSP()
         {

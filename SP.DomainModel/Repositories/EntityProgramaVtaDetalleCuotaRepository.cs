@@ -12,5 +12,9 @@ namespace SP.DomainModel.Repositories
             : base(databaseFactory)
         {
         }
+        public EntityProgramaVtaDetalleCuotaRepository()
+            :base(new DataBaseFactory())
+        {
+        }
     }
 }

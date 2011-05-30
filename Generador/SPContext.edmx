@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SPModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="SPModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="SPModelStoreContainer">
           <EntitySet Name="Cierre_ProgramaVta_Detalle" EntityType="SPModel.Store.Cierre_ProgramaVta_Detalle" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Cierre_ProVta" EntityType="SPModel.Store.Cierre_ProVta" store:Type="Tables" Schema="dbo" />
@@ -25,6 +25,27 @@
       [VCDMC_Distribuidor].[nb_alias] AS [nb_alias], 
       [VCDMC_Distribuidor].[tx_rfc] AS [tx_rfc]
       FROM [dbo].[VCDMC_Distribuidor] AS [VCDMC_Distribuidor]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_PedidosCierreProVta" EntityType="SPModel.Store.Vw_PedidosCierreProVta" store:Type="Views" store:Schema="dbo" store:Name="Vw_PedidosCierreProVta">
+            <DefiningQuery>SELECT 
+      [Vw_PedidosCierreProVta].[CD_DISTRIBUIDOR] AS [CD_DISTRIBUIDOR], 
+      [Vw_PedidosCierreProVta].[idProgramaVta] AS [idProgramaVta], 
+      [Vw_PedidosCierreProVta].[id_TipoPeriodo] AS [id_TipoPeriodo], 
+      [Vw_PedidosCierreProVta].[id_Periodo] AS [id_Periodo], 
+      [Vw_PedidosCierreProVta].[idClasCorp] AS [idClasCorp], 
+      [Vw_PedidosCierreProVta].[cveClasCorp] AS [cveClasCorp], 
+      [Vw_PedidosCierreProVta].[UnidadesPedidas] AS [UnidadesPedidas], 
+      [Vw_PedidosCierreProVta].[cuota] AS [cuota], 
+      [Vw_PedidosCierreProVta].[UnidadesFaltantes] AS [UnidadesFaltantes], 
+      [Vw_PedidosCierreProVta].[Tipo_cuota] AS [Tipo_cuota]
+      FROM [dbo].[Vw_PedidosCierreProVta] AS [Vw_PedidosCierreProVta]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_ProVtaDealer" EntityType="SPModel.Store.vw_ProVtaDealer" store:Type="Views" store:Schema="dbo" store:Name="vw_ProVtaDealer">
+            <DefiningQuery>SELECT 
+      [vw_ProVtaDealer].[idProgramaVta] AS [idProgramaVta], 
+      [vw_ProVtaDealer].[nombre] AS [nombre], 
+      [vw_ProVtaDealer].[id_Gfx] AS [id_Gfx]
+      FROM [dbo].[vw_ProVtaDealer] AS [vw_ProVtaDealer]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK" Association="SPModel.Store.Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
             <End Role="Cierre_ProVta" EntitySet="Cierre_ProVta" />
@@ -218,6 +239,41 @@
           <Property Name="nb_alias" Type="varchar" MaxLength="100" />
           <Property Name="tx_rfc" Type="varchar" MaxLength="60" />
         </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'SP.dbo.Vw_PedidosCierreProVta' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Vw_PedidosCierreProVta">
+          <Key>
+            <PropertyRef Name="CD_DISTRIBUIDOR" />
+            <PropertyRef Name="idProgramaVta" />
+            <PropertyRef Name="id_TipoPeriodo" />
+            <PropertyRef Name="id_Periodo" />
+            <PropertyRef Name="idClasCorp" />
+            <PropertyRef Name="cveClasCorp" />
+          </Key>
+          <Property Name="CD_DISTRIBUIDOR" Type="int" Nullable="false" />
+          <Property Name="idProgramaVta" Type="int" Nullable="false" />
+          <Property Name="id_TipoPeriodo" Type="int" Nullable="false" />
+          <Property Name="id_Periodo" Type="int" Nullable="false" />
+          <Property Name="idClasCorp" Type="int" Nullable="false" />
+          <Property Name="cveClasCorp" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="UnidadesPedidas" Type="decimal" Precision="38" />
+          <Property Name="cuota" Type="int" />
+          <Property Name="UnidadesFaltantes" Type="decimal" Precision="38" />
+          <Property Name="Tipo_cuota" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'SP.dbo.vw_ProVtaDealer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vw_ProVtaDealer">
+          <Key>
+            <PropertyRef Name="idProgramaVta" />
+            <PropertyRef Name="id_Gfx" />
+          </Key>
+          <Property Name="idProgramaVta" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" />
+          <Property Name="id_Gfx" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="Cierre_ProgramaVta_Detalle_Cierre_ProVta_FK">
           <End Role="Cierre_ProVta" Type="SPModel.Store.Cierre_ProVta" Multiplicity="1" />
           <End Role="Cierre_ProgramaVta_Detalle" Type="SPModel.Store.Cierre_ProgramaVta_Detalle" Multiplicity="*" />
@@ -357,12 +413,11 @@
         <Function Name="SP_UpdateNada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SPModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="SPEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SPEntities1" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="Cierre_ProgramaVta_Detalle" EntityType="SPModel.Cierre_ProgramaVta_Detalle" />
           <EntitySet Name="Cierre_ProVta" EntityType="SPModel.Cierre_ProVta" />
           <EntitySet Name="Estatus_ProVta" EntityType="SPModel.Estatus_ProVta" />
@@ -416,11 +471,13 @@
           </AssociationSet>
           <FunctionImport Name="GetAllWithSP" ReturnType="Collection(SPModel.GetAllWithSP_Result)" />
           <FunctionImport Name="SP_UpdateNada" ReturnType="Collection(Int32)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetProVtaxDealer" ReturnType="Collection(SPModel.sp_GetProVtaxDealer_Result)">
-            <Parameter Name="idDealer" Mode="In" Type="Int32" />
+          <Parameter Name="idDealer" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="vw_ProVtaDealer" EntityType="SPModel.vw_ProVtaDealer" />
+          <EntitySet Name="Vw_PedidosCierreProVta" EntityType="SPModel.Vw_PedidosCierreProVta" />
         </EntityContainer>
         <EntityType Name="Cierre_ProgramaVta_Detalle">
           <Key>
@@ -738,6 +795,35 @@
           <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
           <Property Type="String" Name="nombre" Nullable="true" MaxLength="20" />
         </ComplexType>
+        <EntityType Name="vw_ProVtaDealer">
+          <Key>
+            <PropertyRef Name="idProgramaVta" />
+            <PropertyRef Name="id_Gfx" />
+          </Key>
+          <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
+          <Property Type="String" Name="nombre" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="id_Gfx" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vw_PedidosCierreProVta">
+          <Key>
+            <PropertyRef Name="CD_DISTRIBUIDOR" />
+            <PropertyRef Name="idProgramaVta" />
+            <PropertyRef Name="id_TipoPeriodo" />
+            <PropertyRef Name="id_Periodo" />
+            <PropertyRef Name="idClasCorp" />
+            <PropertyRef Name="cveClasCorp" />
+          </Key>
+          <Property Type="Int32" Name="CD_DISTRIBUIDOR" Nullable="false" />
+          <Property Type="Int32" Name="idProgramaVta" Nullable="false" />
+          <Property Type="Int32" Name="id_TipoPeriodo" Nullable="false" />
+          <Property Type="Int32" Name="id_Periodo" Nullable="false" />
+          <Property Type="Int32" Name="idClasCorp" Nullable="false" />
+          <Property Type="String" Name="cveClasCorp" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="UnidadesPedidas" Precision="38" Scale="0" />
+          <Property Type="Int32" Name="cuota" />
+          <Property Type="Decimal" Name="UnidadesFaltantes" Precision="38" Scale="0" />
+          <Property Type="String" Name="Tipo_cuota" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -869,6 +955,31 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="vw_ProVtaDealer">
+            <EntityTypeMapping TypeName="SPModel.vw_ProVtaDealer">
+              <MappingFragment StoreEntitySet="vw_ProVtaDealer">
+                <ScalarProperty Name="id_Gfx" ColumnName="id_Gfx" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_PedidosCierreProVta">
+            <EntityTypeMapping TypeName="SPModel.Vw_PedidosCierreProVta">
+              <MappingFragment StoreEntitySet="Vw_PedidosCierreProVta">
+                <ScalarProperty Name="Tipo_cuota" ColumnName="Tipo_cuota" />
+                <ScalarProperty Name="UnidadesFaltantes" ColumnName="UnidadesFaltantes" />
+                <ScalarProperty Name="cuota" ColumnName="cuota" />
+                <ScalarProperty Name="UnidadesPedidas" ColumnName="UnidadesPedidas" />
+                <ScalarProperty Name="cveClasCorp" ColumnName="cveClasCorp" />
+                <ScalarProperty Name="idClasCorp" ColumnName="idClasCorp" />
+                <ScalarProperty Name="id_Periodo" ColumnName="id_Periodo" />
+                <ScalarProperty Name="id_TipoPeriodo" ColumnName="id_TipoPeriodo" />
+                <ScalarProperty Name="idProgramaVta" ColumnName="idProgramaVta" />
+                <ScalarProperty Name="CD_DISTRIBUIDOR" ColumnName="CD_DISTRIBUIDOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -964,6 +1075,8 @@
           <ConnectorPoint PointX="2.375" PointY="4.9417936197916674" />
           <ConnectorPoint PointX="3" PointY="4.3167936197916674" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="SPModel.vw_ProVtaDealer" Width="1.5" PointX="8.375" PointY="3.75" Height="1.5956835937500031" />
+        <EntityTypeShape EntityType="SPModel.Vw_PedidosCierreProVta" Width="1.5" PointX="8.375" PointY="6.75" Height="2.9417936197916674" />
       </Diagram>
     </Diagrams>
   </Designer>

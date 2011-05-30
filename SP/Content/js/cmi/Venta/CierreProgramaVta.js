@@ -1,6 +1,6 @@
 var storedGfx = new Ext.data.Store({
     proxy: new Ext.data.HttpProxy({
-        url: App.utils.constants.URL_BASE_PATH + 'CierreProVta.aspx/ObtenerDistribuidores',
+        url: App.utils.constants.URL_BASE_PATH + 'CierreProVta.aspx/GetDistribuidores',
         method: 'GET'
     }),
     reader: new Ext.data.JsonReader({
@@ -16,7 +16,7 @@ var storedGfx = new Ext.data.Store({
 
 var storedProgramaVta = new Ext.data.Store({
     proxy: new Ext.data.HttpProxy({
-        url: App.utils.constants.URL_BASE_PATH + 'CierreProVta.aspx/ObtenerProgramasdeventaxDistribuidor',
+        url: App.utils.constants.URL_BASE_PATH + 'CierreProVta.aspx/GetProgramasdeventaxDistribuidor',
         method: 'GET'
     }),
     reader: new Ext.data.JsonReader({
@@ -36,6 +36,35 @@ storedProgramaVta.on('beforeload',
 		var p = Ext.apply(ds.baseParams || {},
 	            {
 	                idgfx: cid_dealers.getValue()
+	            });
+		ds.baseParams = p;
+	}
+
+);
+
+var storedTipoPer = new Ext.data.Store({
+    proxy: new Ext.data.HttpProxy({
+        url: App.utils.constants.URL_BASE_PATH + 'CierreProVta.aspx/GetTipoPerxProvtaxDist',
+        method: 'GET'
+    }),
+    reader: new Ext.data.JsonReader({
+        root: 'TipoPer',
+        fields: [
+            {name: 'id_TipoPeriodo', mapping: 'id_TipoPeriodo'},
+            {name: 'descipcion', mapping: 'descipcion'}
+        ]
+    }),                    
+    remoteSort: false,
+    sortInfo: {field: "id_TipoPeriodo", direction: "ASC"}
+});
+
+
+storedTipoPer.on('beforeload',
+	function (ds, options) {
+		var p = Ext.apply(ds.baseParams || {},
+	            {
+	                idGfx: cid_dealers.getValue(),
+                    idProVta: cid_provta.getValue()
 	            });
 		ds.baseParams = p;
 	}
@@ -63,13 +92,47 @@ storedPeriodos.on('beforeload',
 	function (ds, options) {
 		var p = Ext.apply(ds.baseParams || {},
 	            {
-	                idGfx: cid_dealers.getValue(),
-                    idProVta: cid_provta.getValue()
+	                idTipoPeriodo: cid_TipoPeriodos.getValue(),
 	            });
 		ds.baseParams = p;
 	}
 
 );
+
+var storedGrid1 = new Ext.data.Store({
+    proxy: new Ext.data.HttpProxy({
+        url: App.utils.constants.URL_BASE_PATH + 'CierreProVta.aspx/GetCuotasCumplidas',
+        method: 'GET'
+    }),
+    reader: new Ext.data.JsonReader({
+        root: 'CuotaCumplida',
+        fields: [
+            {name: 'cveClasCorp', mapping: 'cveClasCorp'},
+            {name: 'cuota', mapping: 'cuota'},
+            {name: 'UnidadesPedidas', mapping: 'UnidadesPedidas'},
+            {name: 'Tipo_cuota', mapping: 'Tipo_cuota'}
+        ]
+    }),                    
+    remoteSort: false,
+    sortInfo: {field: "cveClasCorp", direction: "ASC"}
+});
+
+
+storedGrid1.on('beforeload',
+	function (ds, options) {
+		var p = Ext.apply(ds.baseParams || {},
+	            {
+                    idgfx:cid_dealers.getValue(),
+                    idProVta:cid_provta.getValue(),
+                    tipoPeriodo:  cid_TipoPeriodos.getValue(),
+                    Periodo:cid_periodos.getValue()
+	            });
+		ds.baseParams = p;
+	}
+
+);
+
+
 //var storedPeriodos = new Ext.data.SimpleStore({
 //fields: ['claPeriodo','descPeriodo'],
 //data  : [
@@ -80,16 +143,16 @@ storedPeriodos.on('beforeload',
 //]
 //});
 
-var storedGrid1 = new Ext.data.SimpleStore({
-    fields: ['id_classCorp','id_cuotaprograma','id_Unidad'],
-    data  : [
-            ['Buses','10','10'],
-    //                            ['Heavy','13','9'],
-            ['Light','6','6'],
-    //                            ['Medium','9','7'],
-            ['Severe Service','4','4']
-    ]
-});
+//var storedGrid1 = new Ext.data.SimpleStore({
+//    fields: ['id_classCorp','id_cuotaprograma','id_Unidad'],
+//    data  : [
+//            ['Buses','10','10'],
+//    //                            ['Heavy','13','9'],
+//            ['Light','6','6'],
+//    //                            ['Medium','9','7'],
+//            ['Severe Service','4','4']
+//    ]
+//});
 
 
 var storedGrid2 = new Ext.data.SimpleStore({
@@ -202,6 +265,39 @@ var cid_provta=new Ext.form.ComboBox({
             select: function (combo, record, index) {
                 //id_trasladista.setValue(cid_trasladista.getValue());
                 var selected = this.getValue()
+                cid_TipoPeriodos.setValue('');
+                if (selected != "") //
+                {
+                    cid_TipoPeriodos.setDisabled(false);
+                    storedTipoPer.load();
+                }
+                
+                
+            }
+        }
+    	
+	});
+
+var cid_TipoPeriodos=new Ext.form.ComboBox({
+    fieldLabel: 'Tipo de Periodo',
+    labelStyle:"text-align:right",
+    name: 'cmbTipoPer',
+    id:"cmbTipoPer",
+    disabled: true,
+    //width:200,
+    store: storedTipoPer,
+    mode:'remote',
+    forceSelection: true,
+    displayField:'descipcion',
+    valueField:'id_TipoPeriodo',
+    triggerAction:'all',
+    emptyText:'Seleccione...',
+    resizable: true,
+    editable:false,
+    listeners: {
+            select: function (combo, record, index) {
+                //id_trasladista.setValue(cid_trasladista.getValue());
+                var selected = this.getValue()
                 cid_periodos.setValue('');
                 if (selected != "") //
                 {
@@ -214,6 +310,7 @@ var cid_provta=new Ext.form.ComboBox({
         }
     	
 	});
+
 
 var cid_periodos=new Ext.form.ComboBox({
     fieldLabel: 'Periodo',
@@ -283,12 +380,12 @@ var cid_periodos=new Ext.form.ComboBox({
                 //autoWidth:true,
                 layout:"form",
                 border:false,
-                items:[cid_dealers, cid_periodos, tPedidos]
+                items:[cid_dealers, cid_TipoPeriodos, tPedidos]
             },{
                 //autoWidth:true,
                 layout:"form",
                 border:false,
-                items:[cid_provta]
+                items:[cid_provta, cid_periodos]
             },{
                 //autoWidth:true,
                 layout:"fit",
@@ -317,11 +414,11 @@ var cid_periodos=new Ext.form.ComboBox({
         var btnShowComp = new Ext.Button({
         text: 'Mostrar Informacion',
         id: 'btnShowComp',
-        icon: App.utils.constants.ICONS_PATH + 'tras_cancelado.png',
+        icon: App.utils.constants.ICONS_PATH + 'add.png',
         cls: 'x-btn-text-icon',
         handler: function () {
             //limpiar busqueda
-//            storedGrid1.load();
+            storedGrid1.load();
 //            storedGrid2.load();
             } // function
         });
@@ -355,7 +452,7 @@ var cid_periodos=new Ext.form.ComboBox({
         store: storedGrid1,
         displayInfo: true,
         displayMsg: 'Mostrando {0} - {1} de ',//+ addCommas('{2}')	,
-        emptyMsg: "No hay Modelos por mostrar",
+        emptyMsg: "No hay nada por mostrar",
         onClick: function(which){
         	switch(which){
         		case "first":
@@ -398,11 +495,11 @@ var cid_periodos=new Ext.form.ComboBox({
 	   //grids
 
        Ext.ux.grid.GroupSummary.Calculations['totalCuota'] = function(v, record, field){
-        return parseInt(v) + parseInt(record.data.id_cuotaprograma1);
+        return parseInt(v) + parseInt(record.data.cuota);
         };
 
          Ext.ux.grid.GroupSummary.Calculations['totalUnidades'] = function(v, record, field){
-        return parseInt(v) + parseInt(record.data.id_Unidad);
+        return parseInt(v) + parseInt(record.data.UnidadesPedidas);
         };
         // utilize custom extension for Group Summary
         var summary = new Ext.ux.grid.GroupSummary();
@@ -440,21 +537,11 @@ var cid_periodos=new Ext.form.ComboBox({
 	    columns: [
                     {
                         xtype: 'gridcolumn',
-                        dataIndex: 'number',
-                        header: '#',
-                        sortable: true,
-                        hidden:true,
-//                        width: 15,
-//                        collapsed:true
-                        //width: 5
-                    },
-                    {
-                        xtype: 'gridcolumn',
                         //align: "center",
                         header: 'Clasificacion Corporativa',
                         sortable: true,
 //                        width: 15,
-                        dataIndex: 'id_classCorp'
+                        dataIndex: 'cveClasCorp'
 //                        align: 'right'
                     },
                     {
@@ -463,7 +550,7 @@ var cid_periodos=new Ext.form.ComboBox({
                         header: 'Cuota de Programa',
                         sortable: true,
 //                        width: 15,
-                        dataIndex: 'id_cuotaprograma',
+                        dataIndex: 'cuota',
                         //renderer: 'usMoney',
                         summaryType: 'totalCuota'
                         //,                        summaryRenderer: Ext.util.Format.usMoney
@@ -475,8 +562,17 @@ var cid_periodos=new Ext.form.ComboBox({
                         header: 'Unidades Pedidas',
                         sortable: true,
 //                        width: 15,
-                         dataIndex: 'id_Unidad',
+                         dataIndex: 'UnidadesPedidas',
                          summaryType: 'totalUnidades'
+                    },
+                    {
+                        xtype: 'gridcolumn',
+                        align: "right",
+                        header: 'Tipo de Cuota',
+                        sortable: true,
+//                        width: 15,
+                         dataIndex: 'Tipo_cuota',
+                         //summaryType: 'totalUnidades'
                     }
                 ]              
 	    });
