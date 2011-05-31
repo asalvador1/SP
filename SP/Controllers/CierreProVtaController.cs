@@ -86,8 +86,8 @@ namespace SP.Controllers
                 arr[i] = item.id_TipoPeriodo;
                 i = i + 1;
             }
-            
-            var Tps = _repTipoPeriodos.GetMany(tps => arr.Contains(tps.id_TipoPeriodo));
+
+            var Tps = _repTipoPeriodos.GetMany(tps => arr.Contains(tps.id_TipoPeriodo) && tps.estatus == "Activo");
             Hashtable result = new Hashtable();
             result["TipoPer"] = Tps.ToList();
             return this.Json(result, JsonRequestBehavior.AllowGet);

@@ -154,20 +154,53 @@ storedGrid1.on('beforeload',
 //    ]
 //});
 
-
-var storedGrid2 = new Ext.data.SimpleStore({
-fields: ['id_classCorp','id_cuotaprogramaNc','id_UniPedH', 'id_UniPedF', 'id_completar'],
-    data  : [
-    //                            ['Buses','10','10','0','completar'],
-    ['Heavy','13','9','4','completar'],
-    //                            ['Light','6','6','0','completar'],
-    ['Medium','9','7','2','completar']
-    //                            ['Severe Service','4','4','0','completar'],
-
-
-
-    ]
+var storedGrid2 = new Ext.data.Store({
+    proxy: new Ext.data.HttpProxy({
+        url: App.utils.constants.URL_BASE_PATH + 'CierreProVta.aspx/GetCuotasNOCumplidas',
+        method: 'GET'
+    }),
+    reader: new Ext.data.JsonReader({
+        root: 'CuotaNOCumplida',
+        fields: [
+            {name: 'cveClasCorp', mapping: 'cveClasCorp'},
+            {name: 'cuota', mapping: 'cuota'},
+            {name: 'UnidadesPedidas', mapping: 'UnidadesPedidas'},
+            {name: 'UnidadesFaltantes', mapping: 'UnidadesFaltantes'},
+            {name: 'Tipo_cuota', mapping: 'Tipo_cuota'}
+        ]
+    }),                    
+    remoteSort: false,
+    sortInfo: {field: "cveClasCorp", direction: "ASC"}
 });
+
+
+storedGrid2.on('beforeload',
+	function (ds, options) {
+		var p = Ext.apply(ds.baseParams || {},
+	            {
+                    idgfx:cid_dealers.getValue(),
+                    idProVta:cid_provta.getValue(),
+                    tipoPeriodo:  cid_TipoPeriodos.getValue(),
+                    Periodo:cid_periodos.getValue()
+	            });
+		ds.baseParams = p;
+	}
+
+);
+
+//var storedGrid2 = new Ext.data.SimpleStore({
+//fields: ['id_classCorp','id_cuotaprogramaNc','id_UniPedH', 'id_UniPedF', 'id_completar'],
+//    data  : [
+//    //                            ['Buses','10','10','0','completar'],
+//    ['Heavy','13','9','4','completar'],
+//    //                            ['Light','6','6','0','completar'],
+//    ['Medium','9','7','2','completar']
+//    //                            ['Severe Service','4','4','0','completar'],
+
+
+
+//    ]
+//});
 
 var storePrograma = new Ext.data.SimpleStore({
     fields: ['id_modelo','id_cuotaprograma','id_Porcentaje'],
@@ -378,17 +411,20 @@ var cid_periodos=new Ext.form.ComboBox({
             border:false,
             items:[{
                 //autoWidth:true,
+                columnWidth: .30,
                 layout:"form",
                 border:false,
-                items:[cid_dealers, cid_TipoPeriodos, tPedidos]
+                items:[cid_dealers, cid_TipoPeriodos]
             },{
                 //autoWidth:true,
+                columnWidth: .25,
                 layout:"form",
                 border:false,
                 items:[cid_provta, cid_periodos]
             },{
                 //autoWidth:true,
-                layout:"fit",
+                columnWidth: .30,
+                layout:"form",
                 border:false,
                 items:[btnShowPro]
             }]
@@ -419,7 +455,7 @@ var cid_periodos=new Ext.form.ComboBox({
         handler: function () {
             //limpiar busqueda
             storedGrid1.load();
-//            storedGrid2.load();
+            storedGrid2.load();
             } // function
         });
 	   
@@ -645,17 +681,17 @@ var cid_periodos=new Ext.form.ComboBox({
     });
 
     //grid2
-        Ext.ux.grid.GroupSummary.Calculations['totalCuota1'] = function(v, record, field){
-        return parseInt(v) + parseInt(record.data.id_cuotaprograma);
-        };
+//        Ext.ux.grid.GroupSummary.Calculations['totalCuota1'] = function(v, record, field){
+//        return parseInt(v) + parseInt(record.data.id_cuotaprograma);
+//        };
 
-         Ext.ux.grid.GroupSummary.Calculations['totalPedidos1'] = function(v, record, field){
-        return parseInt(v) + parseInt(record.data.id_PedidosH);
-        };
+//         Ext.ux.grid.GroupSummary.Calculations['totalPedidos1'] = function(v, record, field){
+//        return parseInt(v) + parseInt(record.data.id_PedidosH);
+//        };
 
-         Ext.ux.grid.GroupSummary.Calculations['totalPedidosF'] = function(v, record, field){
-        return parseInt(v) + parseInt(record.data.id_PedidosF);
-        };
+//         Ext.ux.grid.GroupSummary.Calculations['totalPedidosF'] = function(v, record, field){
+//        return parseInt(v) + parseInt(record.data.id_PedidosF);
+//        };
 
         
 
@@ -680,7 +716,7 @@ var cid_periodos=new Ext.form.ComboBox({
         plugins: summary2,
 	    listeners: {
 	        cellclick: function (grid, xri, xci, e) {			                        
-	            if (xci == "4") {
+	            if (xci == "5") {
                     wdCargaPedido.show();
                     //return;
                 }
@@ -692,7 +728,7 @@ var cid_periodos=new Ext.form.ComboBox({
                         header: 'Clasificacion Corporativa',
                         sortable: true,
 //                        width: 15,
-                        dataIndex: 'id_classCorp'
+                        dataIndex: 'cveClasCorp'
 //                        align: 'right'
                     },
                     {
@@ -700,8 +736,8 @@ var cid_periodos=new Ext.form.ComboBox({
                         header: 'Cuota de Programa',
                         sortable: true,
 //                        width: 15,
-                        dataIndex: 'id_cuotaprogramaNc',
-                        summaryType: 'totalCuota1'
+                        dataIndex: 'cuota'
+//                        summaryType: 'totalCuota1'
 
                     },
                     {
@@ -709,16 +745,24 @@ var cid_periodos=new Ext.form.ComboBox({
                         header: 'Unidades Pedidas',
                         sortable: true,
 //                        width: 15,
-                        dataIndex: 'id_UniPedH',
-                        summaryType: 'totalPedidos1'
+                        dataIndex: 'UnidadesPedidas'
+//                        summaryType: 'totalPedidos1'
                     },
                     {
                         xtype: 'gridcolumn',
                         header: 'Unidades Faltantes',
                         sortable: true,
 //                        width: 15,
-                        dataIndex: 'id_UniPedF',
-                        summaryType: 'totalPedidosF'
+                        dataIndex: 'UnidadesFaltantes'
+//                        summaryType: 'totalPedidosF'
+                    },
+                    {
+                        xtype: 'gridcolumn',
+                        header: 'Tipo de Cuota',
+                        sortable: true,
+//                        width: 15,
+                        dataIndex: 'Tipo_cuota'
+//                        summaryType: 'totalPedidosF'
                     },
                     {
                         xtype: 'gridcolumn',
