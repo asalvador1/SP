@@ -85,4 +85,11 @@ namespace SP.DomainModel
     {
     }
     #endregion
+
+    #region CierreProgramaVtaDetalle
+    public interface ICierreProgramaVtaDetalleRepository : IGeneralRepository<Cierre_ProgramaVta_Detalle>
+    {
+    }
+    #endregion
+    
 }

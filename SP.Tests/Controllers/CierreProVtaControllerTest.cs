@@ -127,5 +127,23 @@ namespace SP.Tests
             Assert.AreEqual(expected, actual.Count, "Debe haber " + expected.ToString());
 
         }
+
+        [TestMethod()]
+        public void Guardar_CierreVta()
+        {
+            CierreProVtaController target = new CierreProVtaController();
+            Cierre_ProVta cpv = new Cierre_ProVta();
+            cpv.id_CierrexProVta = 4;
+            cpv.id_GFX = 936153;
+            cpv.id_ProgramaVta= 1;
+            cpv.id_tipoperiodo= 1;
+            cpv.id_Periodo= 1;
+            var actual = target.SaveCierreProVta(cpv);
+            string rawResult = serializer.Serialize(actual.Data);
+            var expected = "true";
+            Assert.AreEqual(expected, rawResult, "Debe guardar");
+
+
+        }
     }
 }

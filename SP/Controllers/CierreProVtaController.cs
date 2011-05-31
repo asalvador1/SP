@@ -7,10 +7,12 @@ using SP.DomainModel;
 using SP.DomainModel.Base;
 using SP.DomainModel.Repositories;
 using System.Collections;
+using System.Transactions;
+using System.Linq.Expressions;
 
 namespace SP.Controllers
 {
-    public class CierreProVtaController : Controller
+    public class CierreProVtaController : BaseController
     {
         #region fields
         ICierreProgramaVtaRepository _repCierre;
@@ -19,6 +21,7 @@ namespace SP.Controllers
         IPeriodoRepository _repPeriodos;
         ITipoPeriodosRepository _repTipoPeriodos;
         IVwPedidosCierreProVtaRepository _repPedidosProVta;
+        ICierreProgramaVtaDetalleRepository _repCierreProVtaDEt;
         
         IUnitOfWork _db;
         #endregion
@@ -37,8 +40,9 @@ namespace SP.Controllers
             _repPeriodos = new EntityPeriodoRepository();
             _repTipoPeriodos = new EntityTipoPeriodoRepository();
             _repPedidosProVta = new EntityVwPedidosCierreProVtaRepository();
+            _repCierreProVtaDEt = new EntityCierreProgramaVtaDetalleRepository();
         }
-        public CierreProVtaController(ICierreProgramaVtaRepository rep1, Ivw_ProVtaDealerRepository rep2, IProgramaVtaDetalleCuota rep3, IPeriodoRepository rep4,ITipoPeriodosRepository rep5, IVwPedidosCierreProVtaRepository rep6,IUnitOfWork db)
+        public CierreProVtaController(ICierreProgramaVtaRepository rep1, Ivw_ProVtaDealerRepository rep2, IProgramaVtaDetalleCuota rep3, IPeriodoRepository rep4, ITipoPeriodosRepository rep5, IVwPedidosCierreProVtaRepository rep6, ICierreProgramaVtaDetalleRepository rep7,IUnitOfWork db)
         {
             this._db = db;
             this._repCierre = rep1;
@@ -47,6 +51,7 @@ namespace SP.Controllers
             this._repPeriodos = rep4;
             this._repTipoPeriodos = rep5;
             this._repPedidosProVta = rep6;
+            this._repCierreProVtaDEt = rep7;
         }
         #endregion
 
@@ -118,7 +123,135 @@ namespace SP.Controllers
             result["CuotaNOCumplida"] = Cuotascumplidas.ToList();
             return this.Json(result, JsonRequestBehavior.AllowGet);
         }
+              
+        public JsonResult SaveCierreProVta(Cierre_ProVta info)
+        {
+            //1.- Validar
+            if (info.id_GFX ==null)
+            {
+                return
+                    this.Json("{success:false,error:'Incluir GFX'}", JsonRequestBehavior.AllowGet);
+            }
 
+            if (info.id_ProgramaVta == null)
+            {
+                return
+                   this.Json("{success:false,error:'Debe seleccionar un Programa de Venta'}", JsonRequestBehavior.AllowGet);
+            }
 
+            if (info.id_tipoperiodo == null)
+            {
+                return
+                   this.Json("{success:false,error:'Debe seleccionar un Tipo de Periodo'}", JsonRequestBehavior.AllowGet);
+            }
+
+            if (info.id_Periodo== null)
+            {
+                return
+                   this.Json("{success:false,error:'Debe seleccionar un Periodo'}", JsonRequestBehavior.AllowGet);
+            }
+
+            int status = 3; //realizar la funcionalidad para sacar el status, dependiendo si va a estar pendiente o cerrado
+            //en este caso para esta funcion de cierre deberia de ser el id del estatus de cerrado
+            
+            try//SOLO PARA PRUEBAS en caso de que exista un usuario en tabla principal
+            {
+                string usuarioActual = this.CurrentUser;
+            }
+            catch
+            {
+                string usuarioActual = "yyyy368";
+            }
+            bool EsNuevo = false;
+            if (info.id_CierrexProVta == 0)
+            {
+                //insert
+                info.id_Status_ProVta = status; //rEVISAR QUE ESTATUS SERIA AL GRABAR UN CIERRE
+                //info.USERmODIF = usuarioActual;//REVISAR SI SE VA A AGREGAR UN USUARIO DE MODIFICACION A LA TABLA PRINCIPAL
+                info.fch_Modif = DateTime.Now;
+                if (status==3)//se esta suponiendo que el estatus de cerrado es el 3
+                    info.fch_Cierre = DateTime.Now;
+                this._repCierre.Add(info);
+                EsNuevo = true;
+            }
+            else
+            {
+                //update
+                //info.cd_usuariomodif = usuarioActual;
+                info.id_Status_ProVta = status;
+                info.fch_Modif = DateTime.Now;
+                if (status == 3)
+                    info.fch_Cierre = DateTime.Now;
+                this._repCierre.Update(info);
+                EsNuevo = false;
+            }
+            try//revisar desde donde empieza el try
+            {
+                this._repCierre.SaveAllChanges();
+                if (SaveCierreProVtaDetalle(EsNuevo,info.id_CierrexProVta,info.id_GFX, info.id_ProgramaVta, info.id_tipoperiodo, info.id_Periodo) == true)
+                {
+                    return this.Json("{success:true,id:" + info.id_CierrexProVta.ToString() + "}", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return
+                  this.Json("{success:false,error:'Error al guardar la información de Detalle'}", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return
+                  this.Json("{success:false,error:'Error al guardar la información'}", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public bool SaveCierreProVtaDetalle(bool esNuevo,int id_CierrexProVta,int idgfx, int idProVta, int tipoPeriodo, int Periodo)
+        {
+            try
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    var Cuotas = _repPedidosProVta.GetMany(f => f.CD_DISTRIBUIDOR == idgfx && f.idProgramaVta == idProVta && f.id_TipoPeriodo == tipoPeriodo && f.id_Periodo == Periodo);
+                    string usuarioActual = "";
+                    try//solo para pruebas
+                    {
+                        usuarioActual = this.CurrentUser;
+                    }
+                    catch
+                    {
+                        usuarioActual = "yyyy368";
+                    }
+                    
+                    int i = 0;
+                    Cierre_ProgramaVta_Detalle cpvd;
+                    foreach (var item in Cuotas)
+                    {
+                        cpvd = new Cierre_ProgramaVta_Detalle();
+                        cpvd.id_cierreProVta = id_CierrexProVta;
+                        cpvd.Cierre_ProVta_id_GFX= item.CD_DISTRIBUIDOR;
+                        cpvd.Cierre_ProVta_id_ProgramaVta = item.idProgramaVta;
+                        cpvd.Cierre_ProVta_id_tipoperiodo= item.id_TipoPeriodo;
+                        cpvd.Cierre_ProVta_id_Periodo = item.id_Periodo;
+                        cpvd.id_ClasCorp = item.idClasCorp;
+                        cpvd.Cuota_ProVta = item.cuota;
+                        cpvd.UnidadesPedidas = int.Parse(item.UnidadesPedidas.ToString());
+                        //cpvd.NumPedido_comp = numPedido;//REVISAR PARA ELININAR CAMPO
+                        cpvd.userModif = usuarioActual;
+                        if (esNuevo == true)
+                            _repCierreProVtaDEt.Add(cpvd);
+                        else
+                            _repCierreProVtaDEt.Update(cpvd);
+                    }
+                    this._repCierreProVtaDEt.SaveAllChanges();
+                    scope.Complete();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
     }
 }
