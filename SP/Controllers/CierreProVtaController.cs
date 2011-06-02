@@ -123,9 +123,17 @@ namespace SP.Controllers
             result["CuotaNOCumplida"] = Cuotascumplidas.ToList();
             return this.Json(result, JsonRequestBehavior.AllowGet);
         }
-              
+
         public JsonResult SaveCierreProVta(Cierre_ProVta info)
         {
+            //validaciones
+            var val = _repCierre.Get(Cierre => Cierre.id_GFX == info.id_GFX && Cierre.id_ProgramaVta == info.id_ProgramaVta && Cierre.id_tipoperiodo == info.id_tipoperiodo && Cierre.id_Periodo == info.id_Periodo);
+            
+            if (val.id_Status_ProVta == 3)//suponiendo que es el tipo Cerrado
+            {
+                return
+                   this.Json("{success:false,error:'Este Periodo ya esta cerrado para este Distribuidor.'}", JsonRequestBehavior.AllowGet);
+            }
             //1.- Validar
             if (info.id_GFX ==null)
             {
@@ -252,6 +260,19 @@ namespace SP.Controllers
                 return false;
             }
 
+        }
+
+        //faltan
+        public JsonResult SaveCierreCuotaNOCumplida(int idgfx, int idProVta, int tipoPeriodo, int Periodo)
+        {
+            //falta hacer esta funcion, en donde regrese los pedidos a SPA original en donde no cumplio la cuota
+            return this.Json("{success:true}", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SavePedidotoClassCorp(int idgfx, int idProVta, int tipoPeriodo, int Periodo)
+        {
+            //falta hacer esta funcion, en donde guarde la indformacion o valide que el pedido para aplicar en el programa sea correcto
+            return this.Json("{success:true}", JsonRequestBehavior.AllowGet);
         }
     }
 }
